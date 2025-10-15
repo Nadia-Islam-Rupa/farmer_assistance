@@ -116,12 +116,6 @@ class Homepage extends StatelessWidget {
             Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(16),
-                // image: const DecorationImage(
-                //   image: NetworkImage(
-                //     //'https://images.unsplash.com/photo-1563206767-5f8c3a9a6e4c',
-                //   ),
-                //   fit: BoxFit.cover,
-                // ),
               ),
               child: Container(
                 padding: const EdgeInsets.all(16),
