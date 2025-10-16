@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../widgets/weather_info.dart';
+
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
@@ -67,7 +69,7 @@ class HomePage extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Row(
+                    Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
@@ -102,10 +104,10 @@ class HomePage extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        _weatherInfo("Humidity", "68%"),
-                        _weatherInfo("Wind", "12 km/h"),
-                        _weatherInfo("Rain", "20%"),
-                        _weatherInfo("UV Index", "6"),
+                        WeatherInfo(label: "Humidity", value: '68%'),
+                        WeatherInfo(label: "Wind", value: "12 km/h"),
+                        WeatherInfo(label: "Rain", value: "20%"),
+                        WeatherInfo(label: "UV Index", value: "6"),
                       ],
                     ),
                   ],
@@ -160,25 +162,6 @@ class HomePage extends StatelessWidget {
           ),
         ),
       ),
-    );
-  }
-
-  Widget _weatherInfo(String label, String value) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          value,
-          style: const TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        Text(
-          label,
-          style: const TextStyle(color: Colors.white70, fontSize: 12),
-        ),
-      ],
     );
   }
 
