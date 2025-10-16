@@ -1,14 +1,79 @@
 import 'package:flutter/material.dart';
-
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import '../widgets/action_card.dart';
 import '../widgets/weather_info.dart';
+import '../providers/page_provider.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});
+
+  @override
+  ConsumerState<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends ConsumerState<HomePage> {
+  final PageController _pageController = PageController(viewportFraction: 0.9);
+
+  final List<List<Map<String, dynamic>>> featurePages = [
+    [
+      {
+        'color': const Color(0xFFE6F7F4),
+        'icon': Icons.document_scanner_rounded,
+        'title': 'Disease Scan',
+        'subtitle': 'Check plant health',
+      },
+      {
+        'color': const Color(0xFFE8F0FE),
+        'icon': Icons.bar_chart_rounded,
+        'title': 'Yield Prediction',
+        'subtitle': 'Forecast harvest',
+      },
+      {
+        'color': const Color(0xFFE8F8E8),
+        'icon': Icons.eco_rounded,
+        'title': 'Fertilizer Guide',
+        'subtitle': 'Nutrient recommendations',
+      },
+      {
+        'color': const Color(0xFFF3E8FF),
+        'icon': Icons.water_drop_rounded,
+        'title': 'Water Schedule',
+        'subtitle': 'Irrigation planning',
+      },
+    ],
+    [
+      {
+        'color': const Color(0xFFFFE9E3),
+        'icon': Icons.chat_bubble_outline_rounded,
+        'title': 'AI Chatbot',
+        'subtitle': 'Ask farming queries',
+      },
+      {
+        'color': const Color(0xFFEAF7FF),
+        'icon': Icons.thermostat_auto_rounded,
+        'title': 'Soil Monitor',
+        'subtitle': 'Track soil data',
+      },
+      {
+        'color': const Color(0xFFE8F5E9),
+        'icon': Icons.spa_rounded,
+        'title': 'Crop Suggestion',
+        'subtitle': 'Best crop for soil',
+      },
+      {
+        'color': const Color(0xFFFBE9E7),
+        'icon': Icons.cloud_queue_rounded,
+        'title': 'Weather Alerts',
+        'subtitle': 'Rain & heat warnings',
+      },
+    ],
+  ];
 
   @override
   Widget build(BuildContext context) {
     final Color tealColor = Colors.teal;
+    // final currentPage = ref.watch(pageProvider);
 
     return Scaffold(
       backgroundColor: Colors.grey[50],
@@ -69,7 +134,7 @@ class HomePage extends StatelessWidget {
                 ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
+                  children: const [
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -88,8 +153,8 @@ class HomePage extends StatelessWidget {
                         ),
                       ],
                     ),
-                    const SizedBox(height: 12),
-                    const Text(
+                    SizedBox(height: 12),
+                    Text(
                       "24°C",
                       style: TextStyle(
                         fontSize: 36,
@@ -97,11 +162,11 @@ class HomePage extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    const Text(
+                    Text(
                       "Partly Cloudy",
                       style: TextStyle(color: Colors.white70, fontSize: 16),
                     ),
-                    const SizedBox(height: 12),
+                    SizedBox(height: 12),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -121,40 +186,60 @@ class HomePage extends StatelessWidget {
                 "Quick Actions",
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
-
               const SizedBox(height: 15),
 
-              // Quick Action Grid
+              // ✅ Horizontal scroll + indicator
               Expanded(
-                child: GridView.count(
-                  crossAxisCount: 2,
-                  crossAxisSpacing: 15,
-                  mainAxisSpacing: 15,
-                  childAspectRatio: 1.1,
+                child: Column(
                   children: [
-                    ActionCard(
-                      color: const Color(0xFFE6F7F4),
-                      icon: Icons.document_scanner_rounded,
-                      title: "Disease Scan",
-                      subtitle: "Check plant health",
+                    Expanded(
+                      child: PageView.builder(
+                        controller: _pageController,
+                        onPageChanged: (index) {
+                          ref.read(pageProvider.notifier).setPage(index);
+                        },
+                        itemCount: featurePages.length,
+                        itemBuilder: (context, pageIndex) {
+                          final items = featurePages[pageIndex];
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 4.0,
+                            ),
+                            child: GridView.count(
+                              shrinkWrap: true,
+                              padding: const EdgeInsets.all(8),
+                              physics: const NeverScrollableScrollPhysics(),
+                              crossAxisCount: 2,
+                              crossAxisSpacing: 15,
+                              mainAxisSpacing: 15,
+                              childAspectRatio: 1.05,
+                              children: items
+                                  .map(
+                                    (f) => ActionCard(
+                                      color: f['color'],
+                                      icon: f['icon'],
+                                      title: f['title'],
+                                      subtitle: f['subtitle'],
+                                    ),
+                                  )
+                                  .toList(),
+                            ),
+                          );
+                        },
+                      ),
                     ),
-                    ActionCard(
-                      color: const Color(0xFFE8F0FE),
-                      icon: Icons.bar_chart_rounded,
-                      title: "Yield Prediction",
-                      subtitle: "Forecast harvest",
-                    ),
-                    ActionCard(
-                      color: const Color(0xFFE8F8E8),
-                      icon: Icons.eco_rounded,
-                      title: "Fertilizer Guide",
-                      subtitle: "Nutrient recommendations",
-                    ),
-                    ActionCard(
-                      color: const Color(0xFFF3E8FF),
-                      icon: Icons.water_drop_rounded,
-                      title: "Water Schedule",
-                      subtitle: "Irrigation planning",
+                    const SizedBox(height: 10),
+                    SmoothPageIndicator(
+                      controller: _pageController,
+                      count: featurePages.length,
+                      effect: ExpandingDotsEffect(
+                        dotHeight: 8,
+                        dotWidth: 8,
+                        spacing: 6,
+                        expansionFactor: 4,
+                        activeDotColor: tealColor,
+                        dotColor: Colors.grey.shade400,
+                      ),
                     ),
                   ],
                 ),

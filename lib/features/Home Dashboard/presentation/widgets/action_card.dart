@@ -16,7 +16,7 @@ class ActionCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(6),
       decoration: BoxDecoration(
         color: color,
         borderRadius: BorderRadius.circular(20),
