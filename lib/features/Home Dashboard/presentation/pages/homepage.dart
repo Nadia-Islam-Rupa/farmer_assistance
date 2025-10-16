@@ -5,7 +5,7 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: Padding(
         padding: EdgeInsets.all(8.0),
         child: Column(
@@ -13,8 +13,28 @@ class HomePage extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Column(children: [Text("Good Morning"), Text("john's farm")]),
-                Icon(Icons.person_rounded),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Good Morning",
+                      style: TextStyle(
+                        fontSize: 25,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Text("john's farm", style: TextStyle(fontSize: 18)),
+                  ],
+                ),
+                CircleAvatar(
+                  radius: 20,
+                  backgroundColor: Colors.teal[300],
+                  child: Icon(
+                    Icons.person_rounded,
+                    size: 30,
+                    color: Colors.white,
+                  ),
+                ),
               ],
             ),
           ],
