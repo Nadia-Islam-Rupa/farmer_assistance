@@ -1,4 +1,5 @@
-import 'package:farmer_assistance/home.dart';
+import 'package:farmer_assistance/features/Home%20Dashboard/presentation/pages/homepage.dart';
+
 import 'package:flutter/material.dart';
 
 void main() {
@@ -10,6 +11,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(debugShowCheckedModeBanner: false, home: Homepage());
+    return MaterialApp(debugShowCheckedModeBanner: false, home: HomePage());
   }
 }
