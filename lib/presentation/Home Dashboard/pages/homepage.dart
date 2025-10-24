@@ -39,7 +39,7 @@ class HomePage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const WeatherCard(),
-              const SizedBox(height: 14),
+
               const QuoteCard(),
               const SizedBox(height: 20),
 
