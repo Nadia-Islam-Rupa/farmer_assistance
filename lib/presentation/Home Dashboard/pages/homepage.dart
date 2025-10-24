@@ -38,10 +38,19 @@ class HomePage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const WeatherCard(),
-
-              const QuoteCard(),
-              const SizedBox(height: 20),
+              Stack(
+                clipBehavior: Clip.none,
+                children: [
+                  const WeatherCard(),
+                  const Positioned(
+                    bottom: -125,
+                    left: 20,
+                    right: 20,
+                    child: QuoteCard(),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 150),
 
               // Grid of features
               GridView.count(
