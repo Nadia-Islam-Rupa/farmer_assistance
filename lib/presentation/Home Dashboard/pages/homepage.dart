@@ -1,8 +1,8 @@
-import 'package:farmer_assistance/presentation/Home%20Dashboard/widgets/weather_card.dart';
 import 'package:flutter/material.dart';
 
 import '../widgets/feature_card.dart';
 import '../widgets/quote_card.dart';
+import '../widgets/weather_card.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
