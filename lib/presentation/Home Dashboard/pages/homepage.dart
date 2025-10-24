@@ -34,7 +34,7 @@ class HomePage extends StatelessWidget {
       ),
       body: SafeArea(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+          // padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -43,61 +43,67 @@ class HomePage extends StatelessWidget {
                 children: [
                   const WeatherCard(),
                   const Positioned(
-                    bottom: -125,
+                    bottom: -97,
                     left: 20,
                     right: 20,
                     child: QuoteCard(),
                   ),
                 ],
               ),
-              const SizedBox(height: 140),
+              const SizedBox(height: 100),
 
               // Grid of features
-              GridView.count(
-                crossAxisCount: 2,
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                mainAxisSpacing: 14,
-                crossAxisSpacing: 14,
-                childAspectRatio: 1.1,
-                children: const [
-                  FeatureCard(
-                    icon: Icons.local_florist,
-                    title: "Disease Prediction",
-                    subtitle: "Detect crop diseases",
-                    color: Colors.greenAccent,
-                  ),
-                  FeatureCard(
-                    icon: Icons.event_note,
-                    title: "Smart Scheduling",
-                    subtitle: "Plan your farming",
-                    color: Colors.tealAccent,
-                  ),
-                  FeatureCard(
-                    icon: Icons.grass,
-                    title: "Fertilizer Rec.",
-                    subtitle: "Best fertilizer advice",
-                    color: Colors.amberAccent,
-                  ),
-                  FeatureCard(
-                    icon: Icons.trending_up,
-                    title: "Market Forecast",
-                    subtitle: "Price predictions",
-                    color: Colors.purpleAccent,
-                  ),
-                  FeatureCard(
-                    icon: Icons.cloud,
-                    title: "Climate Impact",
-                    subtitle: "Weather insights",
-                    color: Colors.lightBlueAccent,
-                  ),
-                  FeatureCard(
-                    icon: Icons.smart_toy_outlined,
-                    title: "AI Chatbot",
-                    subtitle: "Ask farming questions",
-                    color: Colors.pinkAccent,
-                  ),
-                ],
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 12,
+                ),
+                child: GridView.count(
+                  crossAxisCount: 2,
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  mainAxisSpacing: 14,
+                  crossAxisSpacing: 14,
+                  childAspectRatio: 1.1,
+                  children: const [
+                    FeatureCard(
+                      icon: Icons.local_florist,
+                      title: "Disease Prediction",
+                      subtitle: "Detect crop diseases",
+                      color: Colors.greenAccent,
+                    ),
+                    FeatureCard(
+                      icon: Icons.event_note,
+                      title: "Smart Scheduling",
+                      subtitle: "Plan your farming",
+                      color: Colors.tealAccent,
+                    ),
+                    FeatureCard(
+                      icon: Icons.grass,
+                      title: "Fertilizer Rec.",
+                      subtitle: "Best fertilizer advice",
+                      color: Colors.amberAccent,
+                    ),
+                    FeatureCard(
+                      icon: Icons.trending_up,
+                      title: "Market Forecast",
+                      subtitle: "Price predictions",
+                      color: Colors.purpleAccent,
+                    ),
+                    FeatureCard(
+                      icon: Icons.cloud,
+                      title: "Climate Impact",
+                      subtitle: "Weather insights",
+                      color: Colors.lightBlueAccent,
+                    ),
+                    FeatureCard(
+                      icon: Icons.smart_toy_outlined,
+                      title: "AI Chatbot",
+                      subtitle: "Ask farming questions",
+                      color: Colors.pinkAccent,
+                    ),
+                  ],
+                ),
               ),
             ],
           ),

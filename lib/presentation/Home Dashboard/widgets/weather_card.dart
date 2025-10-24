@@ -6,6 +6,7 @@ class WeatherCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
         gradient: const LinearGradient(
           colors: [Color(0xFF009688), Color(0xFF26A69A)],
@@ -13,7 +14,7 @@ class WeatherCard extends StatelessWidget {
           end: Alignment.bottomRight,
         ),
       ),
-      padding: const EdgeInsets.all(20),
+
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -82,6 +83,7 @@ class WeatherCard extends StatelessWidget {
               ),
             ],
           ),
+          SizedBox(height: 12),
         ],
       ),
     );
