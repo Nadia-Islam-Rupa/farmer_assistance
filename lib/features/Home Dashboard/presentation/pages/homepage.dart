@@ -124,7 +124,10 @@ class WeatherCard extends StatelessWidget {
           const SizedBox(height: 4),
           Text(
             "October 22, 2024",
-            style: TextStyle(color: Colors.white.withOpacity(0.9)),
+            style: TextStyle(
+              color: Colors.white,
+              //color: Colors.teal.shade100,
+            ),
           ),
           const SizedBox(height: 18),
 
@@ -136,7 +139,7 @@ class WeatherCard extends StatelessWidget {
               Expanded(
                 child: Container(
                   decoration: BoxDecoration(
-                    color: Colors.white.withOpacity(0.2),
+                    color: Colors.teal.shade200,
                     borderRadius: BorderRadius.circular(14),
                   ),
                   padding: const EdgeInsets.all(10),
@@ -161,7 +164,7 @@ class WeatherCard extends StatelessWidget {
               Expanded(
                 child: Container(
                   decoration: BoxDecoration(
-                    color: Colors.white.withOpacity(0.2),
+                    color: Colors.teal.shade200,
                     borderRadius: BorderRadius.circular(14),
                   ),
                   padding: const EdgeInsets.all(10),
@@ -269,10 +272,7 @@ class FeatureCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          CircleAvatar(
-            backgroundColor: color.withOpacity(0.3),
-            child: Icon(icon, color: Colors.black54),
-          ),
+          CircleAvatar(child: Icon(icon, color: Colors.black54)),
           const SizedBox(height: 12),
           Text(
             title,
