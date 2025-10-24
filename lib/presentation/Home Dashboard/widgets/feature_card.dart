@@ -32,7 +32,11 @@ class FeatureCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          CircleAvatar(child: Icon(icon, color: Colors.black54)),
+          CircleAvatar(
+            backgroundColor: color,
+            radius: 28,
+            child: Icon(icon, color: Colors.black, size: 28),
+          ),
           const SizedBox(height: 12),
           Text(
             title,
