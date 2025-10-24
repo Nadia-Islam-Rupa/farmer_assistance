@@ -50,7 +50,7 @@ class HomePage extends StatelessWidget {
                   ),
                 ],
               ),
-              const SizedBox(height: 150),
+              const SizedBox(height: 140),
 
               // Grid of features
               GridView.count(
