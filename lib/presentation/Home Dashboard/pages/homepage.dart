@@ -1,6 +1,9 @@
 import 'package:farmer_assistance/presentation/Home%20Dashboard/widgets/weather_card.dart';
 import 'package:flutter/material.dart';
 
+import '../widgets/feature_card.dart';
+import '../widgets/quote_card.dart';
+
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
@@ -97,106 +100,7 @@ class HomePage extends StatelessWidget {
 
 //////////////////////
 
-class QuoteCard extends StatelessWidget {
-  const QuoteCard({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.shade300,
-            blurRadius: 4,
-            offset: const Offset(0, 2),
-          ),
-        ],
-      ),
-      padding: const EdgeInsets.all(16),
-      child: const Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              Icon(Icons.format_quote_rounded, color: Colors.teal, size: 20),
-              SizedBox(width: 4),
-              Expanded(
-                child: Text(
-                  "The farmer is the only man in our economy who buys everything at retail, "
-                  "sells everything at wholesale, and pays the freight both ways.",
-                  style: TextStyle(
-                    fontSize: 14,
-                    color: Colors.black87,
-                    height: 1.4,
-                  ),
-                ),
-              ),
-            ],
-          ),
-          SizedBox(height: 8),
-          Align(
-            alignment: Alignment.bottomRight,
-            child: Text(
-              "- John F. Kennedy",
-              style: TextStyle(fontSize: 13, color: Colors.grey),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
 
 ///////////////////
 ///
 
-class FeatureCard extends StatelessWidget {
-  final IconData icon;
-  final String title;
-  final String subtitle;
-  final Color color;
-
-  const FeatureCard({
-    super.key,
-    required this.icon,
-    required this.title,
-    required this.subtitle,
-    required this.color,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.shade300,
-            blurRadius: 4,
-            offset: const Offset(0, 2),
-          ),
-        ],
-      ),
-      padding: const EdgeInsets.all(16),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          CircleAvatar(child: Icon(icon, color: Colors.black54)),
-          const SizedBox(height: 12),
-          Text(
-            title,
-            style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 15),
-          ),
-          const SizedBox(height: 4),
-          Text(
-            subtitle,
-            style: const TextStyle(fontSize: 13, color: Colors.grey),
-          ),
-        ],
-      ),
-    );
-  }
-}
