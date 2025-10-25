@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../crop_disease_detection/pages/disease_upload.dart';
 import '../widgets/feature_card.dart';
 import '../widgets/quote_card.dart';
 import '../widgets/weather_card.dart';
@@ -64,12 +65,22 @@ class HomePage extends StatelessWidget {
                   mainAxisSpacing: 14,
                   crossAxisSpacing: 14,
                   childAspectRatio: 1.1,
-                  children: const [
-                    FeatureCard(
-                      icon: Icons.local_florist,
-                      title: "Disease Prediction",
-                      subtitle: "Detect crop diseases",
-                      color: Colors.greenAccent,
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => UploadLeafScreen(),
+                          ),
+                        );
+                      },
+                      child: FeatureCard(
+                        icon: Icons.local_florist,
+                        title: "Disease Prediction",
+                        subtitle: "Detect crop diseases",
+                        color: Colors.greenAccent,
+                      ),
                     ),
                     FeatureCard(
                       icon: Icons.event_note,
