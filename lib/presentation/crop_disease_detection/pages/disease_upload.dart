@@ -12,7 +12,7 @@ class UploadLeafScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.grey[50],
         title: const Text(
-          'CropGuard AI',
+          'Disease Detection',
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
         centerTitle: true,
@@ -38,23 +38,6 @@ class UploadLeafScreen extends StatelessWidget {
                 ),
                 child: Column(
                   children: [
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 10,
-                        vertical: 6,
-                      ),
-                      decoration: BoxDecoration(
-                        color: const Color(0xFFE6F9F2),
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      child: const Text(
-                        '🩺 Disease Detection',
-                        style: TextStyle(
-                          color: Color(0xFF00B894),
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ),
                     const SizedBox(height: 15),
                     const Text(
                       'Upload Leaf Image',
@@ -74,7 +57,7 @@ class UploadLeafScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              const SizedBox(height: 30),
+              const SizedBox(height: 20),
               const TipsSection(),
             ],
           ),
