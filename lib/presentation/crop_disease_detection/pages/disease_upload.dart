@@ -34,7 +34,7 @@ class UploadLeafScreen extends StatelessWidget {
                 ),
                 child: Column(
                   children: [
-                    const SizedBox(height: 15),
+                    const SizedBox(height: 5),
                     const Text(
                       'Upload Leaf Image',
                       style: TextStyle(
