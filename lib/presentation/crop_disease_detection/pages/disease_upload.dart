@@ -26,15 +26,11 @@ class UploadLeafScreen extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  gradient: LinearGradient(
+                    colors: [Colors.green.shade200, Colors.green.shade100],
+                  ),
+
                   borderRadius: BorderRadius.circular(16),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.shade300,
-                      blurRadius: 10,
-                      offset: const Offset(0, 0),
-                    ),
-                  ],
                 ),
                 child: Column(
                   children: [
