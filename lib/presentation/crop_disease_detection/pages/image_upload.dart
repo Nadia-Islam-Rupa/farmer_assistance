@@ -51,7 +51,8 @@ class ImageUploadBox extends StatelessWidget {
               icon: const Icon(Icons.folder_open_rounded),
               label: const Text('Select Image'),
               style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFF00B894),
+                backgroundColor: Colors.grey.shade200,
+                foregroundColor: Colors.black87,
                 padding: const EdgeInsets.symmetric(
                   horizontal: 20,
                   vertical: 12,
