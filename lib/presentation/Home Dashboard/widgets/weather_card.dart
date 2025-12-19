@@ -9,7 +9,10 @@ class WeatherCard extends StatelessWidget {
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
         gradient: const LinearGradient(
-          colors: [Color(0xFF009688), Color(0xFF26A69A)],
+          colors: [
+            Color.fromARGB(255, 74, 186, 124),
+            Color.fromARGB(255, 92, 203, 142),
+          ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
@@ -45,7 +48,7 @@ class WeatherCard extends StatelessWidget {
               Expanded(
                 child: Container(
                   decoration: BoxDecoration(
-                    color: Colors.teal.shade200,
+                    color: Colors.green.shade200,
                     borderRadius: BorderRadius.circular(14),
                   ),
                   padding: const EdgeInsets.all(10),
@@ -70,7 +73,7 @@ class WeatherCard extends StatelessWidget {
               Expanded(
                 child: Container(
                   decoration: BoxDecoration(
-                    color: Colors.teal.shade200,
+                    color: Colors.green.shade200,
                     borderRadius: BorderRadius.circular(14),
                   ),
                   padding: const EdgeInsets.all(10),
