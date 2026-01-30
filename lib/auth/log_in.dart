@@ -82,6 +82,7 @@ class LoginScreen extends StatelessWidget {
                   Container(
                     height: 50,
                     width: double.infinity,
+
                     decoration: BoxDecoration(
                       border: Border.all(color: Color(0xff00796B)),
                       color: Colors.white,
@@ -98,6 +99,28 @@ class LoginScreen extends StatelessWidget {
                       ),
                     ),
                   ),
+                  const SizedBox(height: 20),
+
+                  const Center(child: Text("OR")),
+
+                  const SizedBox(height: 16),
+
+                  // 🔹 Social Icons
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      _socialIcon(Icons.facebook),
+                      _socialIcon(Icons.g_mobiledata),
+                    ],
+                  ),
+
+                  const SizedBox(height: 20),
+                  Center(
+                    child: Text(
+                      "Sign in with another account",
+                      style: TextStyle(color: Colors.grey[600], fontSize: 14),
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -106,4 +129,14 @@ class LoginScreen extends StatelessWidget {
       ),
     );
   }
+}
+
+Widget _socialIcon(IconData icon) {
+  return Container(
+    margin: const EdgeInsets.symmetric(horizontal: 8),
+    height: 45,
+    width: 45,
+    decoration: BoxDecoration(shape: BoxShape.circle, color: Color(0xff00796B)),
+    child: Icon(icon, color: Colors.white, size: 30),
+  );
 }
