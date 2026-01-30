@@ -20,7 +20,10 @@ class LoginScreen extends StatelessWidget {
                 width: double.infinity,
                 decoration: const BoxDecoration(
                   gradient: LinearGradient(
-                    colors: [Color(0xff6A5AE0), Color(0xff2EC5FF)],
+                    colors: [
+                      Color(0xff00796B), // Deep Teal
+                      Color(0xff26A69A), // Teal Accent
+                    ],
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
                   ),
@@ -28,10 +31,10 @@ class LoginScreen extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: const [
-                    Icon(Icons.flutter_dash, size: 70, color: Colors.white),
+                    Icon(Icons.agriculture, size: 70, color: Colors.white),
                     SizedBox(height: 10),
                     Text(
-                      "MOFINOW",
+                      "FarmAI",
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 22,
