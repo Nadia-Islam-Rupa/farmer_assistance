@@ -49,23 +49,53 @@ class LoginScreen extends StatelessWidget {
 
             const SizedBox(height: 20),
 
-            // 🔹 Login Card
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 24),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
-                    "Welcome back !",
-                    style: TextStyle(fontSize: 26, fontWeight: FontWeight.w600),
+                  Center(
+                    child: const Text(
+                      "Welcome!",
+                      style: TextStyle(
+                        fontSize: 26,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
                   ),
                   const SizedBox(height: 25),
                   Container(
                     height: 50,
                     width: double.infinity,
                     decoration: BoxDecoration(
-                      color: Colors.teal[50],
-                      borderRadius: BorderRadius.circular(20),
+                      color: Color(0xff00796B),
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                    child: Center(
+                      child: Text(
+                        "Create Account ",
+                        style: TextStyle(color: Colors.white, fontSize: 18),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 15),
+                  Container(
+                    height: 50,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Color(0xff00796B)),
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                    child: Center(
+                      child: Text(
+                        "Login ",
+                        style: TextStyle(
+                          color: Color(0xff00796B),
+                          fontSize: 18,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
                     ),
                   ),
                 ],
