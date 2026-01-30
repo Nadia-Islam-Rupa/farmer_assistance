@@ -1,5 +1,5 @@
-import 'package:farmer_assistance/presentation/crop_disease_detection/pages/image_upload.dart';
-import 'package:farmer_assistance/presentation/crop_disease_detection/pages/tips_section.dart';
+import 'package:farmer_assistance/presentation/crop_disease_detection/image_upload.dart';
+import 'package:farmer_assistance/presentation/crop_disease_detection/tips_section.dart';
 import 'package:flutter/material.dart';
 
 class UploadLeafScreen extends StatelessWidget {
