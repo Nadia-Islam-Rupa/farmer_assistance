@@ -56,7 +56,7 @@ class LoginScreen extends StatelessWidget {
                 children: [
                   Center(
                     child: const Text(
-                      "Welcome!",
+                      "Welcome !",
                       style: TextStyle(
                         fontSize: 26,
                         fontWeight: FontWeight.w600,
@@ -64,17 +64,22 @@ class LoginScreen extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 25),
-                  Container(
-                    height: 50,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: Color(0xff00796B),
-                      borderRadius: BorderRadius.circular(30),
-                    ),
-                    child: Center(
-                      child: Text(
-                        "Create Account ",
-                        style: TextStyle(color: Colors.white, fontSize: 18),
+                  GestureDetector(
+                    onTap: () {
+                      // Navigate to Create Account Screen
+                    },
+                    child: Container(
+                      height: 50,
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        color: Color(0xff00796B),
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                      child: Center(
+                        child: Text(
+                          "Create Account ",
+                          style: TextStyle(color: Colors.white, fontSize: 18),
+                        ),
                       ),
                     ),
                   ),
