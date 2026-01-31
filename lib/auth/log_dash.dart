@@ -86,8 +86,8 @@ class LoginScreen extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      _socialIcon(Icons.facebook),
-                      _socialIcon(Icons.g_mobiledata),
+                      socialIcon(Icons.facebook),
+                      socialIcon(Icons.g_mobiledata),
                     ],
                   ),
 
@@ -108,7 +108,7 @@ class LoginScreen extends StatelessWidget {
   }
 }
 
-Widget _socialIcon(IconData icon) {
+Widget socialIcon(IconData icon) {
   return Container(
     margin: const EdgeInsets.symmetric(horizontal: 8),
     height: 45,

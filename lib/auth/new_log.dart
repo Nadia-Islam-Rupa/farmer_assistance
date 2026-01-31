@@ -1,3 +1,4 @@
+import 'package:farmer_assistance/auth/log_dash.dart';
 import 'package:farmer_assistance/auth/text_container.dart';
 import 'package:farmer_assistance/auth/wave_clip.dart';
 import 'package:flutter/material.dart';
@@ -11,74 +12,76 @@ class CreateAccount extends StatelessWidget {
       body: Column(
         children: [
           Logdash(),
-          SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24),
-              child: Column(
-                children: [
-                  Center(
-                    child: const Text(
-                      "Create Account",
-                      style: TextStyle(
-                        fontSize: 26,
-                        fontWeight: FontWeight.w600,
+          Expanded(
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 24),
+                child: Column(
+                  children: [
+                    Center(
+                      child: const Text(
+                        "Create Account",
+                        style: TextStyle(
+                          fontSize: 26,
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
                     ),
-                  ),
-                  const SizedBox(height: 25),
-                  TextContainer(text: "Name", icon: Icons.person),
-                  SizedBox(height: 15),
-                  TextContainer(text: "Email", icon: Icons.email),
-                  SizedBox(height: 15),
-                  TextContainer(text: "Password", icon: Icons.lock),
-                  SizedBox(height: 15),
-                  TextContainer(text: "Confirm Password", icon: Icons.lock),
-                  SizedBox(height: 30),
-                  GestureDetector(
-                    onTap: () {
-                      // Handle Create Account action
-                    },
-                    child: Container(
-                      height: 50,
-                      width: double.infinity,
+                    const SizedBox(height: 25),
+                    TextContainer(text: "Name", icon: Icons.person),
+                    SizedBox(height: 15),
+                    TextContainer(text: "Email", icon: Icons.email),
+                    SizedBox(height: 15),
+                    TextContainer(text: "Password", icon: Icons.lock),
+                    SizedBox(height: 15),
+                    TextContainer(text: "Confirm Password", icon: Icons.lock),
+                    SizedBox(height: 30),
+                    GestureDetector(
+                      onTap: () {
+                        // Handle Create Account action
+                      },
+                      child: Container(
+                        height: 50,
+                        width: double.infinity,
 
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Color(0xff00796B)),
-                        color: Color(0xff00796B),
-                        borderRadius: BorderRadius.circular(30),
-                      ),
-                      child: Center(
-                        child: Text(
-                          "Create Account",
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 18,
-                            fontWeight: FontWeight.w600,
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Color(0xff00796B)),
+                          color: Color(0xff00796B),
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        child: Center(
+                          child: Text(
+                            "Create Account",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 18,
+                              fontWeight: FontWeight.w600,
+                            ),
                           ),
                         ),
                       ),
                     ),
-                  ),
-                  SizedBox(height: 20),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text("Already have an account? "),
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.pop(context);
-                        },
-                        child: Text(
-                          "Log In Here",
-                          style: TextStyle(
-                            color: Color(0xff00796B),
-                            fontWeight: FontWeight.w600,
+                    SizedBox(height: 20),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text("Already have an account? "),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.pop(context);
+                          },
+                          child: Text(
+                            "Log In Here",
+                            style: TextStyle(
+                              color: Color(0xff00796B),
+                              fontWeight: FontWeight.w600,
+                            ),
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-                ],
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
