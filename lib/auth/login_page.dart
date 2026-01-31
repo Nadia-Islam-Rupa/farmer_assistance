@@ -1,4 +1,5 @@
 import 'package:farmer_assistance/auth/create_account.dart';
+import 'package:farmer_assistance/auth/forgot_pass.dart';
 import 'package:farmer_assistance/auth/text_container.dart';
 import 'package:farmer_assistance/auth/wave_clip.dart';
 import 'package:farmer_assistance/presentation/Home%20Dashboard/pages/homepage.dart';
@@ -32,6 +33,22 @@ class LoginPage extends StatelessWidget {
                     TextContainer(text: "Email", icon: Icons.email),
                     SizedBox(height: 15),
                     TextContainer(text: "Password", icon: Icons.lock),
+                    SizedBox(height: 10),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => ForgotPass()),
+                        );
+                      },
+                      child: Text(
+                        " Forgot Password?",
+                        style: TextStyle(
+                          color: Color(0xff00796B),
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ),
                     SizedBox(height: 30),
                     GestureDetector(
                       onTap: () {
