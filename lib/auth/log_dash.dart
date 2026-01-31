@@ -1,5 +1,5 @@
 import 'package:farmer_assistance/auth/login_page.dart';
-import 'package:farmer_assistance/auth/new_log.dart';
+import 'package:farmer_assistance/auth/create_account.dart';
 import 'package:farmer_assistance/auth/wave_clip.dart';
 import 'package:flutter/material.dart';
 
