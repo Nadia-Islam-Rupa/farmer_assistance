@@ -27,7 +27,7 @@ class ForgotPass extends StatelessWidget {
                   ),
                   child: Center(
                     child: Text(
-                      "Verify",
+                      "Submit",
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 18,
