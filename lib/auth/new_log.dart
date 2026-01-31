@@ -38,6 +38,7 @@ class CreateAccount extends StatelessWidget {
                     GestureDetector(
                       onTap: () {
                         // Handle Create Account action
+                        Navigator.pop(context);
                       },
                       child: Container(
                         height: 50,
