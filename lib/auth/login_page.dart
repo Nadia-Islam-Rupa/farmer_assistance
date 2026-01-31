@@ -29,7 +29,7 @@ class LoginPage extends StatelessWidget {
                 SizedBox(height: 30),
                 GestureDetector(
                   onTap: () {
-                    // Handle Log In action
+                    Navigator.pop(context);
                   },
                   child: Container(
                     height: 50,
