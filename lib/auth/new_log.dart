@@ -11,10 +11,24 @@ class CreateAccount extends StatelessWidget {
       body: Column(
         children: [
           Logdash(),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24),
-            child: Column(
-              children: [TextContainer(text: "Name", icon: Icons.person)],
+          SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24),
+              child: Column(
+                children: [
+                  Center(
+                    child: const Text(
+                      "Create Account",
+                      style: TextStyle(
+                        fontSize: 26,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 25),
+                  TextContainer(text: "Name", icon: Icons.person),
+                ],
+              ),
             ),
           ),
         ],
