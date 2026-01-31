@@ -95,8 +95,9 @@ class LoginScreen extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      socialIcon(Icons.facebook),
-                      socialIcon(Icons.g_mobiledata),
+                      socialIcon("assets/facebook.png"),
+                      socialIcon("assets/google.png"),
+                      socialIcon("assets/linkedin.png"),
                     ],
                   ),
 
@@ -117,12 +118,12 @@ class LoginScreen extends StatelessWidget {
   }
 }
 
-Widget socialIcon(IconData icon) {
+Widget socialIcon(String icon) {
   return Container(
     margin: const EdgeInsets.symmetric(horizontal: 8),
     height: 45,
     width: 45,
-    decoration: BoxDecoration(shape: BoxShape.circle, color: Color(0xff00796B)),
-    child: Icon(icon, color: Colors.white, size: 30),
+    decoration: BoxDecoration(shape: BoxShape.circle),
+    child: Image.asset(icon, height: 20, width: 20),
   );
 }
