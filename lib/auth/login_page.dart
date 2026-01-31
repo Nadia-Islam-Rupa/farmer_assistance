@@ -1,6 +1,7 @@
 import 'package:farmer_assistance/auth/create_account.dart';
 import 'package:farmer_assistance/auth/text_container.dart';
 import 'package:farmer_assistance/auth/wave_clip.dart';
+import 'package:farmer_assistance/presentation/Home%20Dashboard/pages/homepage.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatelessWidget {
@@ -34,7 +35,10 @@ class LoginPage extends StatelessWidget {
                     SizedBox(height: 30),
                     GestureDetector(
                       onTap: () {
-                        Navigator.pop(context);
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => HomePage()),
+                        );
                       },
                       child: Container(
                         height: 50,

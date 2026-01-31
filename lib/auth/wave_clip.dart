@@ -53,9 +53,10 @@ class Logdash extends StatelessWidget {
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: const [
-            Icon(Icons.agriculture, size: 70, color: Colors.white),
-            SizedBox(height: 10),
+          children: [
+            Image.asset("assets/agriculture.png", color: Colors.white),
+
+            //Icon(Icons.agriculture, size: 70, color: Colors.white),
             Text(
               "FarmAI",
               style: TextStyle(
