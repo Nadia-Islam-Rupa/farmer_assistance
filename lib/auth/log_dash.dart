@@ -1,3 +1,4 @@
+import 'package:farmer_assistance/auth/new_log.dart';
 import 'package:farmer_assistance/auth/wave_clip.dart';
 import 'package:flutter/material.dart';
 
@@ -32,6 +33,12 @@ class LoginScreen extends StatelessWidget {
                   GestureDetector(
                     onTap: () {
                       // Navigate to Create Account Screen
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => CreateAccount(),
+                        ),
+                      );
                     },
                     child: Container(
                       height: 50,
