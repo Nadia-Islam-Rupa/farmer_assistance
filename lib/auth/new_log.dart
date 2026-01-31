@@ -59,6 +59,25 @@ class CreateAccount extends StatelessWidget {
                       ),
                     ),
                   ),
+                  SizedBox(height: 20),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text("Already have an account? "),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                        child: Text(
+                          "Log In Here",
+                          style: TextStyle(
+                            color: Color(0xff00796B),
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ],
               ),
             ),
