@@ -1,3 +1,4 @@
+import 'package:farmer_assistance/auth/login_page.dart';
 import 'package:farmer_assistance/auth/text_container.dart';
 import 'package:farmer_assistance/auth/wave_clip.dart';
 import 'package:flutter/material.dart';
@@ -68,7 +69,12 @@ class CreateAccount extends StatelessWidget {
                         Text("Already have an account? "),
                         GestureDetector(
                           onTap: () {
-                            Navigator.pop(context);
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => LoginPage(),
+                              ),
+                            );
                           },
                           child: Text(
                             "Log In Here",

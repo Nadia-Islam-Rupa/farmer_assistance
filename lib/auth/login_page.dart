@@ -1,3 +1,4 @@
+import 'package:farmer_assistance/auth/create_account.dart';
 import 'package:farmer_assistance/auth/text_container.dart';
 import 'package:farmer_assistance/auth/wave_clip.dart';
 import 'package:flutter/material.dart';
@@ -49,6 +50,30 @@ class LoginPage extends StatelessWidget {
                       ),
                     ),
                   ),
+                ),
+                SizedBox(height: 20),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text("Don't have an account? "),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => CreateAccount(),
+                          ),
+                        );
+                      },
+                      child: Text(
+                        "Create Account Here",
+                        style: TextStyle(
+                          color: Color(0xff00796B),
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),
