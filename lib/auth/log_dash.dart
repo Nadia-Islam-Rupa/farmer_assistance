@@ -1,3 +1,4 @@
+import 'package:farmer_assistance/auth/login_page.dart';
 import 'package:farmer_assistance/auth/new_log.dart';
 import 'package:farmer_assistance/auth/wave_clip.dart';
 import 'package:flutter/material.dart';
@@ -58,7 +59,10 @@ class LoginScreen extends StatelessWidget {
                   const SizedBox(height: 15),
                   GestureDetector(
                     onTap: () {
-                      // Handle Login action
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => LoginPage()),
+                      );
                     },
                     child: Container(
                       height: 50,
