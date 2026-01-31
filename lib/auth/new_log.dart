@@ -33,6 +33,27 @@ class CreateAccount extends StatelessWidget {
                   TextContainer(text: "Password", icon: Icons.lock),
                   SizedBox(height: 15),
                   TextContainer(text: "Confirm Password", icon: Icons.lock),
+                  SizedBox(height: 30),
+                  Container(
+                    height: 50,
+                    width: double.infinity,
+
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Color(0xff00796B)),
+                      color: Color(0xff00796B),
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                    child: Center(
+                      child: Text(
+                        "Create Account",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),
