@@ -1,4 +1,3 @@
-import 'package:farmer_assistance/auth/log_dash.dart';
 import 'package:farmer_assistance/auth/text_container.dart';
 import 'package:farmer_assistance/auth/wave_clip.dart';
 import 'package:flutter/material.dart';
