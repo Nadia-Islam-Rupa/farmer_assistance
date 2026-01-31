@@ -56,22 +56,27 @@ class LoginScreen extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 15),
-                  Container(
-                    height: 50,
-                    width: double.infinity,
+                  GestureDetector(
+                    onTap: () {
+                      // Handle Login action
+                    },
+                    child: Container(
+                      height: 50,
+                      width: double.infinity,
 
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Color(0xff00796B)),
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(30),
-                    ),
-                    child: Center(
-                      child: Text(
-                        "Login ",
-                        style: TextStyle(
-                          color: Color(0xff00796B),
-                          fontSize: 18,
-                          fontWeight: FontWeight.w600,
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Color(0xff00796B)),
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                      child: Center(
+                        child: Text(
+                          "Login ",
+                          style: TextStyle(
+                            color: Color(0xff00796B),
+                            fontSize: 18,
+                            fontWeight: FontWeight.w600,
+                          ),
                         ),
                       ),
                     ),
