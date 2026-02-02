@@ -1,7 +1,8 @@
-import 'package:farmer_assistance/auth/login_page.dart';
-import 'package:farmer_assistance/auth/text_container.dart';
-import 'package:farmer_assistance/auth/wave_clip.dart';
+import 'package:farmer_assistance/application/pages/auth/text_container.dart';
+import 'package:farmer_assistance/application/pages/auth/wave_clip.dart';
 import 'package:flutter/material.dart';
+
+import 'login_page/login_page.dart';
 
 class CreateAccount extends StatelessWidget {
   const CreateAccount({super.key});
