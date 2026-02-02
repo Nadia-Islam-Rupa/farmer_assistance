@@ -9,5 +9,5 @@ class LoginState with _$LoginState {
   const factory LoginState.signOut() = SignOutLoginState;
   const factory LoginState.errorSignOut({required String message}) =
       ErrorSignOut;
-  const factory LoginState.signOutSuccess() = SignOutSuccess;
+  const factory LoginState.signOutSuccess() = LogOutSuccessState;
 }
