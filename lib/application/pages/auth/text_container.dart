@@ -24,6 +24,12 @@ class TextContainer extends StatelessWidget {
       ),
       child: TextField(
         controller: controller,
+        cursorColor: Color(0xff00796B),
+        obscureText: text == "Password"
+            ? true
+            : text == "Confirm Password"
+            ? true
+            : false,
         decoration: InputDecoration(
           border: InputBorder.none,
           prefixIcon: Icon(icon, color: Color(0xff00796B)),
