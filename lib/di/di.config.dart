@@ -13,7 +13,7 @@ import 'package:cloud_firestore/cloud_firestore.dart' as _i974;
 import 'package:farmer_assistance/application/pages/auth/create_account_page/bloc/create_account_bloc.dart'
     as _i1041;
 import 'package:farmer_assistance/application/pages/auth/forget_password_page/bloc/forget_password_bloc.dart'
-    as _i431;
+    as _i430;
 import 'package:farmer_assistance/application/pages/auth/login_page/bloc/login_bloc.dart'
     as _i860;
 import 'package:farmer_assistance/data/repositories/auth_repositories_iml.dart'
@@ -51,8 +51,8 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i1041.CreateAccountBloc>(
       () => _i1041.CreateAccountBloc(gh<_i382.AuthUseCase>()),
     );
-    gh.factory<_i431.ForgetPasswordBloc>(
-      () => _i431.ForgetPasswordBloc(gh<_i382.AuthUseCase>()),
+    gh.factory<_i430.ForgetPasswordBloc>(
+      () => _i430.ForgetPasswordBloc(gh<_i382.AuthUseCase>()),
     );
     gh.factory<_i860.LoginBloc>(() => _i860.LoginBloc(gh<_i382.AuthUseCase>()));
     return this;
