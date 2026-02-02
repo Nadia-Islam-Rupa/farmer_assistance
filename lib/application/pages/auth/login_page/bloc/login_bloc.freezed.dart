@@ -359,7 +359,7 @@ extension LoginStatePatterns on LoginState {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _Initial value)?  initial,TResult Function( LoadingLoginState value)?  loading,TResult Function( SuccessLoginState value)?  success,TResult Function( ErrorLoginState value)?  error,TResult Function( SignOutLoginState value)?  signOut,TResult Function( ErrorSignOut value)?  errorSignOut,TResult Function( SignOutSuccess value)?  signOutSuccess,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _Initial value)?  initial,TResult Function( LoadingLoginState value)?  loading,TResult Function( SuccessLoginState value)?  success,TResult Function( ErrorLoginState value)?  error,TResult Function( SignOutLoginState value)?  signOut,TResult Function( ErrorSignOut value)?  errorSignOut,TResult Function( LogOutSuccessState value)?  signOutSuccess,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
@@ -368,7 +368,7 @@ return loading(_that);case SuccessLoginState() when success != null:
 return success(_that);case ErrorLoginState() when error != null:
 return error(_that);case SignOutLoginState() when signOut != null:
 return signOut(_that);case ErrorSignOut() when errorSignOut != null:
-return errorSignOut(_that);case SignOutSuccess() when signOutSuccess != null:
+return errorSignOut(_that);case LogOutSuccessState() when signOutSuccess != null:
 return signOutSuccess(_that);case _:
   return orElse();
 
@@ -387,7 +387,7 @@ return signOutSuccess(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _Initial value)  initial,required TResult Function( LoadingLoginState value)  loading,required TResult Function( SuccessLoginState value)  success,required TResult Function( ErrorLoginState value)  error,required TResult Function( SignOutLoginState value)  signOut,required TResult Function( ErrorSignOut value)  errorSignOut,required TResult Function( SignOutSuccess value)  signOutSuccess,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _Initial value)  initial,required TResult Function( LoadingLoginState value)  loading,required TResult Function( SuccessLoginState value)  success,required TResult Function( ErrorLoginState value)  error,required TResult Function( SignOutLoginState value)  signOut,required TResult Function( ErrorSignOut value)  errorSignOut,required TResult Function( LogOutSuccessState value)  signOutSuccess,}){
 final _that = this;
 switch (_that) {
 case _Initial():
@@ -396,7 +396,7 @@ return loading(_that);case SuccessLoginState():
 return success(_that);case ErrorLoginState():
 return error(_that);case SignOutLoginState():
 return signOut(_that);case ErrorSignOut():
-return errorSignOut(_that);case SignOutSuccess():
+return errorSignOut(_that);case LogOutSuccessState():
 return signOutSuccess(_that);case _:
   throw StateError('Unexpected subclass');
 
@@ -414,7 +414,7 @@ return signOutSuccess(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _Initial value)?  initial,TResult? Function( LoadingLoginState value)?  loading,TResult? Function( SuccessLoginState value)?  success,TResult? Function( ErrorLoginState value)?  error,TResult? Function( SignOutLoginState value)?  signOut,TResult? Function( ErrorSignOut value)?  errorSignOut,TResult? Function( SignOutSuccess value)?  signOutSuccess,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _Initial value)?  initial,TResult? Function( LoadingLoginState value)?  loading,TResult? Function( SuccessLoginState value)?  success,TResult? Function( ErrorLoginState value)?  error,TResult? Function( SignOutLoginState value)?  signOut,TResult? Function( ErrorSignOut value)?  errorSignOut,TResult? Function( LogOutSuccessState value)?  signOutSuccess,}){
 final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
@@ -423,7 +423,7 @@ return loading(_that);case SuccessLoginState() when success != null:
 return success(_that);case ErrorLoginState() when error != null:
 return error(_that);case SignOutLoginState() when signOut != null:
 return signOut(_that);case ErrorSignOut() when errorSignOut != null:
-return errorSignOut(_that);case SignOutSuccess() when signOutSuccess != null:
+return errorSignOut(_that);case LogOutSuccessState() when signOutSuccess != null:
 return signOutSuccess(_that);case _:
   return null;
 
@@ -449,7 +449,7 @@ return loading();case SuccessLoginState() when success != null:
 return success();case ErrorLoginState() when error != null:
 return error(_that.message);case SignOutLoginState() when signOut != null:
 return signOut();case ErrorSignOut() when errorSignOut != null:
-return errorSignOut(_that.message);case SignOutSuccess() when signOutSuccess != null:
+return errorSignOut(_that.message);case LogOutSuccessState() when signOutSuccess != null:
 return signOutSuccess();case _:
   return orElse();
 
@@ -476,7 +476,7 @@ return loading();case SuccessLoginState():
 return success();case ErrorLoginState():
 return error(_that.message);case SignOutLoginState():
 return signOut();case ErrorSignOut():
-return errorSignOut(_that.message);case SignOutSuccess():
+return errorSignOut(_that.message);case LogOutSuccessState():
 return signOutSuccess();case _:
   throw StateError('Unexpected subclass');
 
@@ -502,7 +502,7 @@ return loading();case SuccessLoginState() when success != null:
 return success();case ErrorLoginState() when error != null:
 return error(_that.message);case SignOutLoginState() when signOut != null:
 return signOut();case ErrorSignOut() when errorSignOut != null:
-return errorSignOut(_that.message);case SignOutSuccess() when signOutSuccess != null:
+return errorSignOut(_that.message);case LogOutSuccessState() when signOutSuccess != null:
 return signOutSuccess();case _:
   return null;
 
@@ -774,8 +774,8 @@ as String,
 /// @nodoc
 
 
-class SignOutSuccess implements LoginState {
-  const SignOutSuccess();
+class LogOutSuccessState implements LoginState {
+  const LogOutSuccessState();
   
 
 
@@ -785,7 +785,7 @@ class SignOutSuccess implements LoginState {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SignOutSuccess);
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is LogOutSuccessState);
 }
 
 
