@@ -82,8 +82,9 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     });
     on<_LoginWithGoogle>((event, emit) async {
       try {
-        final result = await _authUseCase.loginWithGoogle();
         emit(LoadingLoginState());
+        final result = await _authUseCase.loginWithGoogle();
+        // emit(LoadingLoginState());
 
         result.fold(
           (failure) {
