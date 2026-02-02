@@ -1,7 +1,8 @@
-import 'package:farmer_assistance/auth/login_page.dart';
-import 'package:farmer_assistance/auth/create_account.dart';
-import 'package:farmer_assistance/auth/wave_clip.dart';
+import 'package:farmer_assistance/application/core/services/routing/app_router.dart';
+import 'package:farmer_assistance/application/pages/auth/wave_clip.dart';
 import 'package:flutter/material.dart';
+
+import '../../core/services/routing/routing_utils.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -34,12 +35,7 @@ class LoginScreen extends StatelessWidget {
                   GestureDetector(
                     onTap: () {
                       // Navigate to Create Account Screen
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => CreateAccount(),
-                        ),
-                      );
+                      AppRouter.router.push(PAGES.createAccountPage.screenPath);
                     },
                     child: Container(
                       height: 50,
@@ -59,10 +55,7 @@ class LoginScreen extends StatelessWidget {
                   const SizedBox(height: 15),
                   GestureDetector(
                     onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => LoginPage()),
-                      );
+                      AppRouter.router.push(PAGES.loginPage.screenPath);
                     },
                     child: Container(
                       height: 50,
@@ -96,7 +89,10 @@ class LoginScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       socialIcon("assets/facebook.png"),
-                      socialIcon("assets/google.png"),
+                      GestureDetector(
+                        onTap: () {},
+                        child: socialIcon("assets/google.png"),
+                      ),
                       socialIcon("assets/linkedin.png"),
                     ],
                   ),
