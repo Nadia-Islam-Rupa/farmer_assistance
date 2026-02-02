@@ -1,9 +1,10 @@
-import 'package:farmer_assistance/auth/create_account.dart';
-import 'package:farmer_assistance/auth/forgot_pass.dart';
-import 'package:farmer_assistance/auth/text_container.dart';
-import 'package:farmer_assistance/auth/wave_clip.dart';
+import 'package:farmer_assistance/application/pages/auth/text_container.dart';
+import 'package:farmer_assistance/application/pages/auth/wave_clip.dart';
 import 'package:farmer_assistance/presentation/Home%20Dashboard/pages/homepage.dart';
 import 'package:flutter/material.dart';
+
+import '../create_account.dart';
+import '../forgot_pass.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
