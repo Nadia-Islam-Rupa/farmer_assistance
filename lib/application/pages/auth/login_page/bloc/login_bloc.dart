@@ -115,5 +115,15 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         emit(LoginState.error(message: e.toString()));
       }
     });
+
+    on<_LogOutEvet>((event, emit) async {
+      emit(LoadingLoginState());
+      try {
+        await _authUseCase.logOut();
+        emit(const LogOutSuccessState());
+      } catch (e) {
+        emit(LoginState.error(message: e.toString()));
+      }
+    });
   }
 }
