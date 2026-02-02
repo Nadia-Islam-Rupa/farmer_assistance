@@ -1,5 +1,6 @@
-import 'package:farmer_assistance/auth/text_container.dart';
-import 'package:farmer_assistance/auth/wave_clip.dart';
+
+import 'package:farmer_assistance/application/pages/auth/text_container.dart';
+import 'package:farmer_assistance/application/pages/auth/wave_clip.dart';
 import 'package:flutter/material.dart';
 
 class ForgotPass extends StatelessWidget {
