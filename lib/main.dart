@@ -1,9 +1,13 @@
-import 'package:farmer_assistance/auth/log_dash.dart';
-
+import 'package:farmer_assistance/application/core/services/routing/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-void main() {
+import 'application/pages/auth/log_dash.dart';
+import 'di/di.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await configureDependencies();
   runApp(ProviderScope(child: const MyApp()));
 }
 
@@ -12,6 +16,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(debugShowCheckedModeBanner: false, home: LoginScreen());
+    return MaterialApp.router(
+      routeInformationParser: AppRouter.router.routeInformationParser,
+      routeInformationProvider: AppRouter.router.routeInformationProvider,
+      routerDelegate: AppRouter.router.routerDelegate,
+      debugShowCheckedModeBanner: false,
+    );
+    // debugShowCheckedModeBanner: false, home: LoginScreen());
   }
 }
