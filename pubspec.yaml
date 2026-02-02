@@ -45,6 +45,8 @@ dependencies:
   injectable: ^2.7.1+4
   dartz: ^0.10.1
   flutter_bloc: ^9.1.1
+  firebase_auth: ^6.1.4
+  cloud_firestore: ^6.1.2
 
 dev_dependencies:
   flutter_test:
