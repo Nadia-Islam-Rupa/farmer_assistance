@@ -4,6 +4,7 @@ import '../../crop_disease_detection/disease_upload.dart';
 import '../widgets/feature_card.dart';
 import '../widgets/quote_card.dart';
 import '../widgets/weather_card.dart';
+import 'profile_page.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -17,6 +18,16 @@ class HomePage extends StatelessWidget {
         selectedItemColor: Colors.teal,
         unselectedItemColor: Colors.grey,
         showUnselectedLabels: true,
+        onTap: (index) {
+          if (index == 3) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => ProfilePage(),
+              ),
+            );
+          }
+        },
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
           BottomNavigationBarItem(
