@@ -1,56 +1,66 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-
 class UserModel {
-  final String? uid;
-  final String? name;
-  final String? email;
-  final DateTime? createdAt;
-  final String? photoUrl;
-  final String? phoneNumber;
+  final String id;          // auth UUID as string
+  final String email;
+  final String name;
+  final String? avatarUrl;
+  final String provider;
+  final DateTime createdAt;
+  final DateTime updatedAt;
 
-  UserModel({
-    required this.uid,
-    required this.name,
+  const UserModel({
+    required this.id,
     required this.email,
-    this.createdAt,
-    required this.photoUrl,
-    required this.phoneNumber,
+    required this.name,
+    this.avatarUrl,
+    required this.provider,
+    required this.createdAt,
+    required this.updatedAt,
   });
 
-  /// Convert UserModel → Map for Firestore
-  Map<String, dynamic> toMap() {
-    return {
-      'uid': uid,
-      'name': name,
-      'email': email,
-      'createdAt': FieldValue.serverTimestamp(),
-      'photoUrl': photoUrl,
-      'phoneNumber': phoneNumber,
-    };
-  }
-
-  /// Create UserModel from Firestore Document
-  factory UserModel.fromMap(Map<String, dynamic> map) {
+  // ---------- FROM JSON ----------
+  factory UserModel.fromJson(Map<String, dynamic> json) {
     return UserModel(
-      uid: map['uid'] ?? '',
-      name: map['name'] ?? '',
-      email: map['email'] ?? '',
-      createdAt: map['createdAt'] != null
-          ? (map['createdAt'] as Timestamp).toDate()
-          : null,
-      photoUrl: map['photoUrl'] ?? '',
-      phoneNumber: map['phoneNumber'] ?? '',
+      id: json['uuid'] as String,
+      email: json['email'] as String,
+      name: json['name'] as String,
+      avatarUrl: json['avatar_url'] as String?,
+      provider: json['provider'] as String,
+      createdAt: DateTime.parse(json['created_at']),
+      updatedAt: DateTime.parse(json['updated_at']),
     );
   }
 
-  /// Create UserModel from Firestore DocuFirebaseAuth.instancementSnapshot
-  factory UserModel.fromDocument(DocumentSnapshot doc) {
-    final data = doc.data() as Map<String, dynamic>;
-    return UserModel.fromMap(data);
+  // ---------- TO JSON ----------
+  Map<String, dynamic> toJson() {
+    return {
+      'uuid': id,
+      'email': email,
+      'name': name,
+      'avatar_url': avatarUrl,
+      'provider': provider,
+      'created_at': createdAt.toIso8601String(),
+      'updated_at': updatedAt.toIso8601String(),
+    };
   }
 
-  @override
-  String toString() {
-    return "$uid, $name, $email, $createdAt, $photoUrl, $phoneNumber";
+  // ---------- COPY WITH ----------
+  UserModel copyWith({
+    String? id,
+    String? email,
+    String? name,
+    String? avatarUrl,
+    String? provider,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+  }) {
+    return UserModel(
+      id: id ?? this.id,
+      email: email ?? this.email,
+      name: name ?? this.name,
+      avatarUrl: avatarUrl ?? this.avatarUrl,
+      provider: provider ?? this.provider,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
+    );
   }
 }
