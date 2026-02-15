@@ -9,7 +9,6 @@
 // coverage:ignore-file
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:cloud_firestore/cloud_firestore.dart' as _i974;
 import 'package:farmer_assistance/application/pages/auth/create_account_page/bloc/create_account_bloc.dart'
     as _i1041;
 import 'package:farmer_assistance/application/pages/auth/forget_password_page/bloc/forget_password_bloc.dart'
@@ -22,10 +21,10 @@ import 'package:farmer_assistance/di/register_module.dart' as _i625;
 import 'package:farmer_assistance/domain/repositories/auth_repository.dart'
     as _i953;
 import 'package:farmer_assistance/domain/usecases/auth_use_case.dart' as _i382;
-import 'package:firebase_auth/firebase_auth.dart' as _i59;
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:google_sign_in/google_sign_in.dart' as _i116;
 import 'package:injectable/injectable.dart' as _i526;
+import 'package:supabase_flutter/supabase_flutter.dart' as _i454;
 
 extension GetItInjectableX on _i174.GetIt {
   // initializes the registration of main-scope dependencies inside of GetIt
@@ -35,14 +34,12 @@ extension GetItInjectableX on _i174.GetIt {
   }) {
     final gh = _i526.GetItHelper(this, environment, environmentFilter);
     final registerModule = _$RegisterModule();
-    gh.singleton<_i59.FirebaseAuth>(() => registerModule.firebaseAuth);
-    gh.singleton<_i974.FirebaseFirestore>(() => registerModule.firestore);
+    gh.singleton<_i454.SupabaseClient>(() => registerModule.supabase);
     gh.singleton<_i116.GoogleSignIn>(() => registerModule.googleSignIn);
     gh.lazySingleton<_i953.AuthRepository>(
       () => _i139.AuthRepositoriesIml(
-        gh<_i59.FirebaseAuth>(),
-        gh<_i974.FirebaseFirestore>(),
         gh<_i116.GoogleSignIn>(),
+        gh<_i454.SupabaseClient>(),
       ),
     );
     gh.factory<_i382.AuthUseCase>(
