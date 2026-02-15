@@ -1,3 +1,4 @@
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
@@ -14,7 +15,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   final AuthUseCase _authUseCase;
   LoginBloc(this._authUseCase) : super(const LoginState.initial()) {
     on<_Started>((event, emit) async {
-      final email = event.email.trim();
+      final email = event.email.trim().toLowerCase();
       final password = event.password.trim();
       emit(LoadingLoginState());
 
@@ -26,7 +27,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
       // Email validation
       final emailRegex = RegExp(r"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$");
-      if (!emailRegex.hasMatch(email)) {
+      if (!emailRegex.hasMatch(email) || !EmailValidator.validate(email)) {
         emit(ErrorLoginState(message: "Invalid email format."));
         return;
       }
