@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:email_validator/email_validator.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 
@@ -16,7 +17,7 @@ class ForgetPasswordBloc
   ForgetPasswordBloc(this._authUseCase)
     : super(const ForgetPasswordState.initial()) {
     on<ForgetPasswordEvent>((event, emit) async {
-      final email = event.email.trim();
+      final email = event.email.trim().toLowerCase();
 
       emit(ForgetPasswordState.initial());
 
@@ -28,7 +29,7 @@ class ForgetPasswordBloc
 
       // Email validation
       final emailRegex = RegExp(r"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$");
-      if (!emailRegex.hasMatch(email)) {
+      if (!emailRegex.hasMatch(email) || !EmailValidator.validate(email)) {
         emit(ErrorForgetPasswordState(message: "Invalid email format."));
         return;
       }
