@@ -24,14 +24,18 @@ class Profile extends StatelessWidget {
       body: BlocListener<LoginBloc, LoginState>(
         listener: (context, state) {
           if (state is LoadingLoginState) {
-            Utils.showSnackBar(context, "Loading");
+            Utils.showSnackBar(context, "Loading", Color(0xff00796B));
           }
           if (state is ErrorLoginState) {
-            Utils.showSnackBar(context, state.message);
+            Utils.showSnackBar(context, state.message, Colors.red);
           }
           if (state is LogOutSuccessState) {
-            Utils.showSnackBar(context, "Successfully LogOut..!");
-            Navigator.pop(context);
+            Utils.showSnackBar(
+              context,
+              "Successfully LogOut..!",
+              Color(0xff00796B),
+            );
+            // Navigator.pop(context);
           }
         },
         child: SafeArea(
