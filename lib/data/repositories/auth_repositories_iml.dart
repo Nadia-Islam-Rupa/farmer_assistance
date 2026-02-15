@@ -31,11 +31,31 @@ class AuthRepositoriesIml extends AuthRepository {
   @override
   Future<Either<Failures, void>> logOut() async {
     try {
-      await _supabaseClient.auth.signOut();
+      final user = _supabaseClient.auth.currentUser;
+
+      // 1️⃣ Sign out from Supabase (local device)
+
+      // 2️⃣ Sign out from Google if needed
+      if (user != null && _isGoogleUser(user)) {
+        await _googleSignIn.signOut();
+        await _googleSignIn.disconnect(); // optional but recommended
+      }
+      await _supabaseClient.auth.signOut(scope: SignOutScope.local);
+
       return right(null);
     } catch (e) {
       return left(GeneralFailure(mapSupabaseAuthError(e)));
     }
+  }
+
+  bool _isGoogleUser(User user) {
+    final providers = user.appMetadata['providers'];
+
+    if (providers is List) {
+      return providers.contains('google');
+    }
+
+    return false;
   }
 
   @override
@@ -105,7 +125,7 @@ class AuthRepositoriesIml extends AuthRepository {
             ? DateTime.parse(authUser.updatedAt!)
             : DateTime.now(),
       );
-      await _supabaseClient.from('users').insert(user.toJson());
+      await _supabaseClient.from('users').upsert(user.toJson());
       return right(null);
     } catch (e) {
       print(e.toString());
@@ -126,33 +146,33 @@ class AuthRepositoriesIml extends AuthRepository {
         password: password,
       );
 
-      final authUser = authResponse.user;
+      // final authUser = authResponse.user;
 
-      if (authUser == null) {
-        return left(GeneralFailure("User registration failed"));
-      }
-
-      final createdAt = DateTime.parse(authUser.createdAt);
-      final updatedAt = DateTime.parse(authUser.updatedAt!);
-
-      // 2️⃣ Update display name in auth
-      await _supabaseClient.auth.updateUser(
-        UserAttributes(data: {'name': name}),
-      );
-
-      // 3️⃣ Create user model
-      final user = UserModel(
-        id: authUser.id, // auth UUID as string
-        email: email,
-        name: name,
-        avatarUrl: null,
-        provider: 'email',
-        createdAt: createdAt,
-        updatedAt: updatedAt,
-      );
-
-      // 4️⃣ Insert into users table
-      await _supabaseClient.from('users').insert(user.toJson());
+      // if (authUser == null) {
+      //   return left(GeneralFailure("User registration failed"));
+      // }
+      //
+      // final createdAt = DateTime.parse(authUser.createdAt);
+      // final updatedAt = DateTime.parse(authUser.updatedAt!);
+      //
+      // // 2️⃣ Update display name in auth
+      // await _supabaseClient.auth.updateUser(
+      //   UserAttributes(data: {'name': name}),
+      // );
+      //
+      // // 3️⃣ Create user model
+      // final user = UserModel(
+      //   id: authUser.id, // auth UUID as string
+      //   email: email,
+      //   name: name,
+      //   avatarUrl: null,
+      //   provider: 'email',
+      //   createdAt: createdAt,
+      //   updatedAt: updatedAt,
+      // );
+      //
+      // // 4️⃣ Insert into users table
+      // await _supabaseClient.from('users').insert(user.toJson());
 
       return right(null);
     } catch (e) {
