@@ -36,15 +36,15 @@ class CreateAccount extends StatelessWidget {
       body: BlocListener<CreateAccountBloc, CreateAccountState>(
         listener: (context, state) {
           if (state is LoadingCreateAccountState) {
-            Utils.showSnackBar(context, "Creating account...");
+            Utils.showSnackBar(context, "Creating account...",Color(0xff00796B));
           }
 
           if (state is ErrorAccountCreateState) {
-            Utils.showSnackBar(context, state.message);
+            Utils.showSnackBar(context, state.message,Colors.red);
           }
 
           if (state is SuccessCreateAccountState) {
-            Utils.showSnackBar(context, "Welcome To FarmAI");
+            Utils.showSnackBar(context, "Welcome To FarmAI",Color(0xff00796B));
             Navigator.pop(context);
           }
 
