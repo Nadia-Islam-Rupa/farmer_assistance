@@ -76,11 +76,14 @@ class GoRouterRefreshSupabase extends ChangeNotifier {
   late final StreamSubscription _subscription;
 
   GoRouterRefreshSupabase() {
-    _subscription = Supabase.instance.client.auth.onAuthStateChange.listen(
-          (data) {
+    _subscription = Supabase.instance.client.auth.onAuthStateChange.listen((
+      data,
+    ) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        // AppRouter.router.refresh();
         notifyListeners();
-      },
-    );
+      });
+    });
   }
 
   @override
