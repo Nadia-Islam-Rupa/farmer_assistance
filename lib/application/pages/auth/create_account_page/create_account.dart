@@ -44,7 +44,7 @@ class CreateAccount extends StatelessWidget {
           }
 
           if (state is SuccessCreateAccountState) {
-            Utils.showSnackBar(context, "Welcome To FarmAI",Color(0xff00796B));
+            Utils.showSnackBar(context, "Successfully created account! Please check your email to verify your account.",Color(0xff00796B));
             Navigator.pop(context);
           }
 
