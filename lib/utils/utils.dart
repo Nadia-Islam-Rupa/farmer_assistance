@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class Utils {
-  static void showSnackBar(BuildContext context, String message) {
+  static void showSnackBar(BuildContext context, String message, Color backgroundColor) {
     final messenger = ScaffoldMessenger.of(context);
     messenger.hideCurrentSnackBar(); // Hide previous snackbar if any
 
@@ -10,7 +10,7 @@ class Utils {
         content: Text(message),
         behavior: SnackBarBehavior.floating,
         duration: const Duration(seconds: 3),
-        backgroundColor: Color(0xff00796B),
+        backgroundColor: backgroundColor,
       ),
     );
   }
