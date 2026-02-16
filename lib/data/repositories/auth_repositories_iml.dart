@@ -146,7 +146,6 @@ class AuthRepositoriesIml extends AuthRepository {
         final provider = result['provider'];
         if (provider != null) {
           // Suggest Google sign-in
-          print('This email is registered with Email');
           return left(GeneralFailure("Already Registered Email..!"));
         }
       }
@@ -156,15 +155,15 @@ class AuthRepositoriesIml extends AuthRepository {
         password: password,
       );
 
-      // final authUser = authResponse.user;
+      final authUser = authResponse.user;
 
-      // if (authUser == null) {
-      //   return left(GeneralFailure("User registration failed"));
-      // }
-      final DateTime now = DateTime.now();
+      if (authUser == null) {
+        return left(GeneralFailure("User registration failed"));
+      }
+      // final DateTime now = DateTime.now();
 
-      // final createdAt = DateTime.parse(authUser.createdAt);
-      // final updatedAt = DateTime.parse(authUser.updatedAt!);
+      final createdAt = DateTime.parse(authUser.createdAt);
+      final updatedAt = DateTime.parse(authUser.updatedAt!);
       //
       // // 2️⃣ Update display name in auth
       // await _supabaseClient.auth.updateUser(
@@ -173,17 +172,17 @@ class AuthRepositoriesIml extends AuthRepository {
       //
       // // 3️⃣ Create user model
       final user = UserModel(
-        id: "", // auth UUID as string
+        id: authUser.id, // auth UUID as string
         email: email,
         name: name,
         avatarUrl: null,
         provider: 'email',
-        createdAt: now,
-        updatedAt: now,
+        createdAt: createdAt,
+        updatedAt: updatedAt,
       );
       //
       // // 4️⃣ Insert into users table
-      await _supabaseClient.from('users').insert(user.toJson());
+      await _supabaseClient.from('users').upsert(user.toJson());
 
       return right(null);
     } catch (e) {
