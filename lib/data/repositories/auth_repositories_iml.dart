@@ -140,6 +140,16 @@ class AuthRepositoriesIml extends AuthRepository {
     String name,
   ) async {
     try {
+      final result = await checkEmailProvider(email);
+
+      if (result != null) {
+        final provider = result['provider'];
+        if (provider != null) {
+          // Suggest Google sign-in
+          print('This email is registered with Email');
+          return left(GeneralFailure("Already Registered Email..!"));
+        }
+      }
       // 1️⃣ Sign up
       final authResponse = await _supabaseClient.auth.signUp(
         email: email,
@@ -151,7 +161,8 @@ class AuthRepositoriesIml extends AuthRepository {
       // if (authUser == null) {
       //   return left(GeneralFailure("User registration failed"));
       // }
-      //
+      final DateTime now = DateTime.now();
+
       // final createdAt = DateTime.parse(authUser.createdAt);
       // final updatedAt = DateTime.parse(authUser.updatedAt!);
       //
@@ -161,24 +172,35 @@ class AuthRepositoriesIml extends AuthRepository {
       // );
       //
       // // 3️⃣ Create user model
-      // final user = UserModel(
-      //   id: authUser.id, // auth UUID as string
-      //   email: email,
-      //   name: name,
-      //   avatarUrl: null,
-      //   provider: 'email',
-      //   createdAt: createdAt,
-      //   updatedAt: updatedAt,
-      // );
+      final user = UserModel(
+        id: "", // auth UUID as string
+        email: email,
+        name: name,
+        avatarUrl: null,
+        provider: 'email',
+        createdAt: now,
+        updatedAt: now,
+      );
       //
       // // 4️⃣ Insert into users table
-      // await _supabaseClient.from('users').insert(user.toJson());
+      await _supabaseClient.from('users').insert(user.toJson());
 
       return right(null);
     } catch (e) {
       print("Kawser Error: ${e.toString()}");
       return left(GeneralFailure(mapSupabaseAuthError(e)));
     }
+  }
+
+  Future<Map<String, dynamic>?> checkEmailProvider(String email) async {
+    final response = await _supabaseClient
+        .from('users')
+        .select('provider')
+        .eq('email', email.toLowerCase())
+        .maybeSingle();
+    print(response);
+
+    return response;
   }
 
   // @override
