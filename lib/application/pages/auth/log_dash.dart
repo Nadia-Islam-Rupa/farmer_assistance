@@ -29,13 +29,13 @@ class LoginScreenPage extends StatelessWidget {
       body: BlocListener<LoginBloc, LoginState>(
         listener: (context, state) {
           if (state is LoadingLoginState) {
-            return Utils.showSnackBar(context, "Logging in...");
+            return Utils.showSnackBar(context, "Logging in...",Color(0xff00796B));
           }
           if (state is ErrorLoginState) {
-            return Utils.showSnackBar(context, state.message);
+            return Utils.showSnackBar(context, state.message,Colors.red);
           }
           if (state is SuccessLoginState) {
-            return Utils.showSnackBar(context, "Welcome To FarmAI");
+            return Utils.showSnackBar(context, "Welcome To FarmAI",Color(0xff00796B));
           }
         },
         child: SingleChildScrollView(

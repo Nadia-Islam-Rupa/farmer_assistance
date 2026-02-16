@@ -1,3 +1,4 @@
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
@@ -16,7 +17,7 @@ class CreateAccountBloc extends Bloc<CreateAccountEvent, CreateAccountState> {
     : super(const CreateAccountState.initial()) {
     on<CreateAccountEvent>((event, emit) async {
       final String name = event.name.trim() ?? '';
-      final String email = event.email.trim() ?? '';
+      final String email = event.email.trim().toLowerCase() ?? '';
       final String password = event.password.trim() ?? "";
       final String confirmPassword = event.confirmPassword.trim() ?? '';
 
@@ -35,7 +36,7 @@ class CreateAccountBloc extends Bloc<CreateAccountEvent, CreateAccountState> {
       }
 
       // 2. Email format check
-      if (!emailRegex.hasMatch(email)) {
+      if (!emailRegex.hasMatch(email) || !EmailValidator.validate(email)) {
         emit(ErrorAccountCreateState("Please enter a valid email address."));
         return;
       }

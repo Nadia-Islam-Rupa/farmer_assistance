@@ -30,12 +30,12 @@ class ForgotPass extends StatelessWidget {
       body: BlocListener<ForgetPasswordBloc, ForgetPasswordState>(
         listener: (context, state) {
           if (state is ErrorForgetPasswordState) {
-            return Utils.showSnackBar(context, state.message);
+            return Utils.showSnackBar(context, state.message,Colors.red);
           } else if (state is LoadingForgetPasswordState) {
-            return Utils.showSnackBar(context, "Sending reset link...");
+            return Utils.showSnackBar(context, "Sending reset link...",Color(0xff00796B));
           } else if (state is SuccessForgetPasswordState) {
             Navigator.of(context).pop();
-            return Utils.showSnackBar(context, state.message);
+            return Utils.showSnackBar(context, state.message,Color(0xff00796B));
           }
         },
         child: Column(
@@ -105,7 +105,7 @@ class ForgotPass extends StatelessWidget {
                           ],
                         ),
                         SizedBox(height: 12),
-                        _buildNotePoint("• Firebase will send a password reset link to your email"),
+                        _buildNotePoint("• A password reset link will be sent to your email"),
                         _buildNotePoint("• The reset link is valid for 1 hour only"),
                         _buildNotePoint("• You can request a new link if the previous one expires"),
                         _buildNotePoint("• Make sure to use a valid email address registered with this app"),
