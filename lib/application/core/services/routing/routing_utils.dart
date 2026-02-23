@@ -1,4 +1,11 @@
-enum PAGES { homePage, loginDash, loginPage, createAccountPage, forgetPage }
+enum PAGES {
+  homePage,
+  loginDash,
+  loginPage,
+  createAccountPage,
+  forgetPage,
+  cropDiseaseDetectionResult,
+}
 
 extension AppPageExtention on PAGES {
   String get screenPath {
@@ -13,6 +20,8 @@ extension AppPageExtention on PAGES {
         return '/forgotPage';
       case PAGES.loginDash:
         return '/';
+      case PAGES.cropDiseaseDetectionResult:
+        return '/cropDiseaseDetectionResult';
     }
   }
 
@@ -28,6 +37,8 @@ extension AppPageExtention on PAGES {
         return 'Forgot Password';
       case PAGES.loginDash:
         return 'LoginDash';
+      case PAGES.cropDiseaseDetectionResult:
+        return 'Crop Disease Detection Result';
     }
   }
 }
