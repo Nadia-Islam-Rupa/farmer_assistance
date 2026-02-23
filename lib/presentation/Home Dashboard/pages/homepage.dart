@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../crop_disease_detection/disease_upload.dart';
+import '../../../application/pages/crop_disease_detection/disease_upload.dart';
 import '../widgets/feature_card.dart';
 import '../widgets/quote_card.dart';
 import '../widgets/weather_card.dart';
