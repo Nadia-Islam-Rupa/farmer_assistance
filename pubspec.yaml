@@ -52,6 +52,7 @@ dependencies:
   open_filex: ^4.7.0
   dio: ^5.9.1
   pretty_dio_logger: ^1.4.0
+  intl: ^0.20.2
 
 
 
