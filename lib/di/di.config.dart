@@ -16,20 +16,27 @@ import 'package:farmer_assistance/application/pages/auth/forget_password_page/bl
     as _i430;
 import 'package:farmer_assistance/application/pages/auth/login_page/bloc/login_bloc.dart'
     as _i860;
+import 'package:farmer_assistance/application/pages/chatbot/bloc/chat_bloc.dart'
+    as _i1025;
 import 'package:farmer_assistance/application/pages/crop_disease_detection/bloc/crop_disease_bloc.dart'
     as _i376;
 import 'package:farmer_assistance/data/datasources/remote_datasource/api_service.dart.dart'
     as _i991;
 import 'package:farmer_assistance/data/repositories/auth_repositories_iml.dart'
     as _i139;
+import 'package:farmer_assistance/data/repositories/chat_repository_impl.dart'
+    as _i830;
 import 'package:farmer_assistance/data/repositories/crop_disease_detection_repository_iml.dart'
     as _i607;
 import 'package:farmer_assistance/di/register_module.dart' as _i625;
 import 'package:farmer_assistance/domain/repositories/auth_repository.dart'
     as _i953;
+import 'package:farmer_assistance/domain/repositories/chat_repository.dart'
+    as _i350;
 import 'package:farmer_assistance/domain/repositories/crop_disease_detection_repository.dart'
     as _i344;
 import 'package:farmer_assistance/domain/usecases/auth_use_case.dart' as _i382;
+import 'package:farmer_assistance/domain/usecases/chat_use_case.dart' as _i735;
 import 'package:farmer_assistance/domain/usecases/crop_disease_use_case.dart'
     as _i347;
 import 'package:get_it/get_it.dart' as _i174;
@@ -72,9 +79,16 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i860.LoginBloc>(() => _i860.LoginBloc(gh<_i382.AuthUseCase>()));
     gh.factory<_i991.ApiService>(() => _i991.ApiService(gh<_i361.Dio>()));
+    gh.factory<_i350.ChatRepository>(
+      () => _i830.ChatRepositoryImpl(gh<_i991.ApiService>()),
+    );
+    gh.factory<_i735.ChatUseCase>(
+      () => _i735.ChatUseCase(gh<_i350.ChatRepository>()),
+    );
     gh.factory<_i344.CropDiseaseDetectionRepository>(
       () => _i607.CropDiseaseDetectionRepositoryIml(gh<_i991.ApiService>()),
     );
+    gh.factory<_i1025.ChatBloc>(() => _i1025.ChatBloc(gh<_i735.ChatUseCase>()));
     gh.factory<_i347.CropDiseaseUseCase>(
       () =>
           _i347.CropDiseaseUseCase(gh<_i344.CropDiseaseDetectionRepository>()),
