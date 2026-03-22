@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:farmer_assistance/domain/models/Crop_disease_model.dart';
+import 'package:farmer_assistance/domain/models/chat_models.dart';
 import 'package:injectable/injectable.dart';
 
 @injectable
@@ -28,5 +29,35 @@ class ApiService {
     }
 
     return CropDiseaseModel.fromJson(response.data);
+  }
+
+  Future<ChatResponseModel> sendChatMessage({
+    required String query,
+    String? conversationId,
+    List<ConversationHistoryItem>? conversationHistory,
+  }) async {
+    final Map<String, dynamic> requestData = {'query': query};
+
+    if (conversationId != null) {
+      requestData['conversation_id'] = conversationId;
+    }
+
+    if (conversationHistory != null && conversationHistory.isNotEmpty) {
+      requestData['conversation_history'] = conversationHistory
+          .map((e) => e.toJson())
+          .toList();
+    }
+
+    final response = await dio.post(
+      '/ai-chat/chat',
+      data: requestData,
+      options: Options(headers: {'Content-Type': 'application/json'}),
+    );
+
+    if (response.statusCode != 200) {
+      throw Exception('Failed to send chat message.');
+    }
+
+    return ChatResponseModel.fromJson(response.data);
   }
 }
