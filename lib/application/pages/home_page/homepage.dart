@@ -1,0 +1,103 @@
+import 'package:farmer_assistance/application/pages/home_page/widgets/feature_card.dart';
+import 'package:farmer_assistance/application/pages/home_page/widgets/quote_card.dart';
+import 'package:farmer_assistance/application/pages/home_page/widgets/weather_card.dart';
+import 'package:flutter/material.dart';
+
+import '../crop_disease_detection/disease_upload.dart';
+
+class HomePage extends StatelessWidget {
+  const HomePage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.grey[100],
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Stack(
+                clipBehavior: Clip.none,
+                children: [
+                  const WeatherCard(),
+                  const Positioned(
+                    bottom: -97,
+                    left: 20,
+                    right: 20,
+                    child: QuoteCard(),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 100),
+
+              // Grid of features
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 12,
+                ),
+                child: GridView.count(
+                  crossAxisCount: 2,
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  mainAxisSpacing: 14,
+                  crossAxisSpacing: 14,
+                  childAspectRatio: 1.1,
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => UploadLeafScreen(),
+                          ),
+                        );
+                      },
+                      child: FeatureCard(
+                        icon: Icons.local_florist,
+                        title: "Disease Prediction",
+                        subtitle: "Detect crop diseases",
+                        color: Colors.greenAccent,
+                      ),
+                    ),
+                    FeatureCard(
+                      icon: Icons.event_note,
+                      title: "Smart Scheduling",
+                      subtitle: "Plan your farming",
+                      color: Colors.tealAccent,
+                    ),
+                    FeatureCard(
+                      icon: Icons.grass,
+                      title: "Fertilizer Rec.",
+                      subtitle: "Best fertilizer advice",
+                      color: Colors.amberAccent,
+                    ),
+                    FeatureCard(
+                      icon: Icons.trending_up,
+                      title: "Market Forecast",
+                      subtitle: "Price predictions",
+                      color: Colors.purpleAccent,
+                    ),
+                    FeatureCard(
+                      icon: Icons.cloud,
+                      title: "Climate Impact",
+                      subtitle: "Weather insights",
+                      color: Colors.lightBlueAccent,
+                    ),
+                    FeatureCard(
+                      icon: Icons.smart_toy_outlined,
+                      title: "AI Chatbot",
+                      subtitle: "Ask farming questions",
+                      color: Colors.pinkAccent,
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
