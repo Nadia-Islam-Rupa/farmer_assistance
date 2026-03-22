@@ -4,7 +4,7 @@ import 'package:farmer_assistance/application/core/services/routing/routing_util
 import 'package:farmer_assistance/application/pages/auth/log_dash.dart';
 import 'package:farmer_assistance/application/pages/auth/login_page/login_page.dart';
 import 'package:farmer_assistance/domain/models/Crop_disease_model.dart';
-import 'package:farmer_assistance/presentation/Home%20Dashboard/pages/homepage.dart';
+import 'package:farmer_assistance/application/pages/bottom_nav_page/main_scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -58,7 +58,7 @@ class AppRouter {
       ),
       GoRoute(
         path: PAGES.homePage.screenPath,
-        builder: (context, state) => HomePage(),
+        builder: (context, state) => MainScaffold(),
       ),
       GoRoute(
         path: PAGES.createAccountPage.screenPath,
