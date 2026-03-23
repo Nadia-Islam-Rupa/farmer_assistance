@@ -34,4 +34,53 @@ class ChatRepositoryImpl extends ChatRepository {
       return left(GeneralFailure("Unexpected error occurred."));
     }
   }
+
+  @override
+  Future<Either<Failures, ConversationsListModel>> getConversations({
+    int? limit,
+  }) async {
+    try {
+      final response = await _apiService.getConversations(limit: limit);
+      return right(response);
+    } catch (e) {
+      if (e is DioException) {
+        return left(GeneralFailure(handleDioError(e)));
+      }
+      return left(GeneralFailure("Unexpected error occurred."));
+    }
+  }
+
+  @override
+  Future<Either<Failures, ConversationHistoryModel>> getConversationHistory({
+    required String conversationId,
+    int? limit,
+  }) async {
+    try {
+      final response = await _apiService.getConversationHistory(
+        conversationId: conversationId,
+        limit: limit,
+      );
+      return right(response);
+    } catch (e) {
+      if (e is DioException) {
+        return left(GeneralFailure(handleDioError(e)));
+      }
+      return left(GeneralFailure("Unexpected error occurred."));
+    }
+  }
+
+  @override
+  Future<Either<Failures, void>> deleteConversation({
+    required String conversationId,
+  }) async {
+    try {
+      await _apiService.deleteConversation(conversationId: conversationId);
+      return right(null);
+    } catch (e) {
+      if (e is DioException) {
+        return left(GeneralFailure(handleDioError(e)));
+      }
+      return left(GeneralFailure("Unexpected error occurred."));
+    }
+  }
 }
