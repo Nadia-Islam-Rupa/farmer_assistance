@@ -18,6 +18,8 @@ import 'package:farmer_assistance/application/pages/auth/login_page/bloc/login_b
     as _i860;
 import 'package:farmer_assistance/application/pages/chatbot/bloc/chat_bloc.dart'
     as _i1025;
+import 'package:farmer_assistance/application/pages/chatbot/bloc/conversations_list_bloc.dart'
+    as _i539;
 import 'package:farmer_assistance/application/pages/crop_disease_detection/bloc/crop_disease_bloc.dart'
     as _i376;
 import 'package:farmer_assistance/data/datasources/remote_datasource/api_service.dart.dart'
@@ -89,6 +91,9 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i607.CropDiseaseDetectionRepositoryIml(gh<_i991.ApiService>()),
     );
     gh.factory<_i1025.ChatBloc>(() => _i1025.ChatBloc(gh<_i735.ChatUseCase>()));
+    gh.factory<_i539.ConversationsListBloc>(
+      () => _i539.ConversationsListBloc(gh<_i735.ChatUseCase>()),
+    );
     gh.factory<_i347.CropDiseaseUseCase>(
       () =>
           _i347.CropDiseaseUseCase(gh<_i344.CropDiseaseDetectionRepository>()),
