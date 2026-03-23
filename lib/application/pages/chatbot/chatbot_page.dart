@@ -1,21 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../di/di.dart';
+import '../../../domain/failures/failures.dart';
 import '../../../domain/models/chat_models.dart';
+import '../../../domain/usecases/chat_use_case.dart';
 import 'bloc/chat_bloc.dart';
+import 'widgets/conversations_sidebar.dart';
 
 class ChatbotPage extends StatelessWidget {
   const ChatbotPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return  BlocProvider(
-  create: (_) => getIt<ChatBloc>(),
-  child: const Chatbot(),
-);
+    return BlocProvider(
+      create: (_) => getIt<ChatBloc>(),
+      child: const Chatbot(),
+    );
   }
 }
-
 
 class Chatbot extends StatefulWidget {
   const Chatbot({super.key});
@@ -27,6 +29,7 @@ class Chatbot extends StatefulWidget {
 class _ChatbotState extends State<Chatbot> {
   final TextEditingController _messageController = TextEditingController();
   final ScrollController _scrollController = ScrollController();
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final List<ChatMessage> _messages = [
     ChatMessage(
       text: 'Hello! I\'m your Farm Assistant. How can I help you today?',
@@ -69,6 +72,109 @@ class _ChatbotState extends State<Chatbot> {
             : null,
       ),
     );
+  }
+
+  void _startNewChat() {
+    setState(() {
+      _messages.clear();
+      _messages.add(
+        ChatMessage(
+          text: 'Hello! I\'m your Farm Assistant. How can I help you today?',
+          isBot: true,
+          timestamp: DateTime.now(),
+        ),
+      );
+      _conversationId = null;
+      _conversationHistory.clear();
+    });
+    context.read<ChatBloc>().add(const ChatEvent.reset());
+    if (_scaffoldKey.currentState?.isDrawerOpen ?? false) {
+      Navigator.of(context).pop();
+    }
+  }
+
+  Future<void> _loadConversation(String conversationId) async {
+    if (_scaffoldKey.currentState?.isDrawerOpen ?? false) {
+      Navigator.of(context).pop();
+    }
+
+    setState(() {
+      _conversationId = conversationId;
+      _messages.clear();
+      _messages.add(
+        ChatMessage(
+          text: 'Loading conversation...',
+          isBot: true,
+          timestamp: DateTime.now(),
+        ),
+      );
+      _conversationHistory.clear();
+    });
+
+    try {
+      final result = await getIt<ChatUseCase>().getConversationHistory(
+        conversationId: conversationId,
+      );
+
+      result.fold(
+        (failure) {
+          setState(() {
+            _messages.clear();
+            _messages.add(
+              ChatMessage(
+                text:
+                    'Failed to load conversation: ${failure is GeneralFailure ? failure.message : "Unknown error"}',
+                isBot: true,
+                timestamp: DateTime.now(),
+                isError: true,
+              ),
+            );
+          });
+        },
+        (history) {
+          setState(() {
+            _messages.clear();
+
+            // Convert message pairs to chat messages
+            for (final pair in history.pairs) {
+              final timestamp =
+                  DateTime.tryParse(pair.timestamp) ?? DateTime.now();
+
+              // Add question (user message)
+              _messages.add(
+                ChatMessage(
+                  text: pair.question,
+                  isBot: false,
+                  timestamp: timestamp,
+                ),
+              );
+
+              // Add answer (bot message)
+              _messages.add(
+                ChatMessage(
+                  text: pair.answer,
+                  isBot: true,
+                  timestamp: timestamp,
+                ),
+              );
+            }
+          });
+          _scrollToBottom();
+        },
+      );
+    } catch (e) {
+      setState(() {
+        _messages.clear();
+        _messages.add(
+          ChatMessage(
+            text: 'Error loading conversation: ${e.toString()}',
+            isBot: true,
+            timestamp: DateTime.now(),
+            isError: true,
+          ),
+        );
+      });
+    }
   }
 
   void _scrollToBottom() {
@@ -157,54 +263,6 @@ class _ChatbotState extends State<Chatbot> {
                           height: 1.4,
                         ),
                       ),
-                      if (message.sources != null &&
-                          message.sources!.isNotEmpty) ...[
-                        const SizedBox(height: 12),
-                        Container(
-                          padding: const EdgeInsets.all(8),
-                          decoration: BoxDecoration(
-                            color: Colors.grey.shade100,
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                children: [
-                                  Icon(
-                                    Icons.source,
-                                    size: 14,
-                                    color: Colors.grey.shade700,
-                                  ),
-                                  const SizedBox(width: 4),
-                                  Text(
-                                    'Sources',
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.grey.shade700,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              const SizedBox(height: 4),
-                              ...message.sources!.map(
-                                (source) => Padding(
-                                  padding: const EdgeInsets.only(top: 4),
-                                  child: Text(
-                                    '• ${source.content}',
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                      color: Colors.grey.shade600,
-                                      height: 1.3,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
                     ],
                   ),
                 ),
@@ -301,34 +359,34 @@ class _ChatbotState extends State<Chatbot> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       backgroundColor: Colors.grey[100],
       appBar: AppBar(
         title: const Text('Farm Assistant'),
         backgroundColor: const Color(0xff00796B),
         elevation: 0,
+        leading: IconButton(
+          icon: const Icon(Icons.menu),
+          onPressed: () {
+            _scaffoldKey.currentState?.openDrawer();
+          },
+          tooltip: 'Menu',
+        ),
         automaticallyImplyLeading: false,
         actions: [
           IconButton(
             icon: const Icon(Icons.refresh),
-            onPressed: () {
-              setState(() {
-                _messages.clear();
-                _messages.add(
-                  ChatMessage(
-                    text:
-                        'Hello! I\'m your Farm Assistant. How can I help you today?',
-                    isBot: true,
-                    timestamp: DateTime.now(),
-                  ),
-                );
-                _conversationId = null;
-                _conversationHistory.clear();
-              });
-              context.read<ChatBloc>().add(const ChatEvent.reset());
-            },
+            onPressed: _startNewChat,
             tooltip: 'New conversation',
           ),
         ],
+      ),
+      drawer: Drawer(
+        child: ConversationsSidebar(
+          onNewChat: _startNewChat,
+          onConversationSelected: _loadConversation,
+          currentConversationId: _conversationId,
+        ),
       ),
       body: Column(
         children: [
@@ -344,9 +402,7 @@ class _ChatbotState extends State<Chatbot> {
                       // Update conversation ID and history
                       _conversationId = response.conversationId;
                       _conversationHistory.clear();
-                      _conversationHistory.addAll(
-                        response.conversationHistory,
-                      );
+                      _conversationHistory.addAll(response.conversationHistory);
 
                       // Add bot response to messages
                       _messages.add(
@@ -354,7 +410,6 @@ class _ChatbotState extends State<Chatbot> {
                           text: response.answer,
                           isBot: true,
                           timestamp: DateTime.now(),
-                          sources: response.sources,
                         ),
                       );
                     });
