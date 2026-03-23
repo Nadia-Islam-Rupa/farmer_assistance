@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+
+import '../../../../utils/utils.dart';
 
 class WeatherCard extends StatelessWidget {
   const WeatherCard({super.key});
@@ -22,8 +25,8 @@ class WeatherCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // Greeting
-          const Text(
-            "Good Morning!",
+          Text(
+            Utils.getGreeting(),
             style: TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.bold,
@@ -32,11 +35,8 @@ class WeatherCard extends StatelessWidget {
           ),
           const SizedBox(height: 4),
           Text(
-            "October 22, 2024",
-            style: TextStyle(
-              color: Colors.white,
-              //color: Colors.teal.shade100,
-            ),
+            DateFormat('MMMM dd, yyyy').format(DateTime.now()),
+            style: TextStyle(color: Colors.white),
           ),
           const SizedBox(height: 18),
 

@@ -1,10 +1,9 @@
+import 'package:farmer_assistance/application/pages/home_page/widgets/feature_card.dart';
+import 'package:farmer_assistance/application/pages/home_page/widgets/quote_card.dart';
+import 'package:farmer_assistance/application/pages/home_page/widgets/weather_card.dart';
 import 'package:flutter/material.dart';
 
-import '../../crop_disease_detection/disease_upload.dart';
-import '../widgets/feature_card.dart';
-import '../widgets/quote_card.dart';
-import '../widgets/weather_card.dart';
-import 'profile_page.dart';
+import '../crop_disease_detection/disease_upload.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -13,37 +12,6 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[100],
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: 0,
-        selectedItemColor: Colors.teal,
-        unselectedItemColor: Colors.grey,
-        showUnselectedLabels: true,
-        onTap: (index) {
-          if (index == 3) {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => ProfilePage(),
-              ),
-            );
-          }
-        },
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.bar_chart),
-            label: 'Forecast',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.chat_bubble_outline),
-            label: 'Chatbot',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person_outline),
-            label: 'Profile',
-          ),
-        ],
-      ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
