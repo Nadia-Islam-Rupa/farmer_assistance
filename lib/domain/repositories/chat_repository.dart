@@ -8,4 +8,17 @@ abstract class ChatRepository {
     String? conversationId,
     List<ConversationHistoryItem>? conversationHistory,
   });
+
+  Future<Either<Failures, ConversationsListModel>> getConversations({
+    int? limit,
+  });
+
+  Future<Either<Failures, ConversationHistoryModel>> getConversationHistory({
+    required String conversationId,
+    int? limit,
+  });
+
+  Future<Either<Failures, void>> deleteConversation({
+    required String conversationId,
+  });
 }
