@@ -104,3 +104,124 @@ class ChatMessage {
     this.sources,
   });
 }
+
+/// Conversation item model
+class ConversationItem {
+  final String conversationId;
+  final String title;
+  final String firstQuestion;
+  final DateTime lastActivity;
+  final int messageCount;
+
+  ConversationItem({
+    required this.conversationId,
+    required this.title,
+    required this.firstQuestion,
+    required this.lastActivity,
+    required this.messageCount,
+  });
+
+  factory ConversationItem.fromJson(Map<String, dynamic> json) {
+    return ConversationItem(
+      conversationId: json['conversation_id'] as String,
+      title: json['title'] as String,
+      firstQuestion: json['first_question'] as String,
+      lastActivity: DateTime.parse(json['last_activity'] as String),
+      messageCount: json['message_count'] as int,
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'conversation_id': conversationId,
+      'title': title,
+      'first_question': firstQuestion,
+      'last_activity': lastActivity.toIso8601String(),
+      'message_count': messageCount,
+    };
+  }
+}
+
+/// Conversations list response model
+class ConversationsListModel {
+  final String userId;
+  final List<ConversationItem> conversations;
+
+  ConversationsListModel({required this.userId, required this.conversations});
+
+  factory ConversationsListModel.fromJson(Map<String, dynamic> json) {
+    return ConversationsListModel(
+      userId: json['user_id'] as String,
+      conversations:
+          (json['conversations'] as List<dynamic>?)
+              ?.map((e) => ConversationItem.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          [],
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'user_id': userId,
+      'conversations': conversations.map((e) => e.toJson()).toList(),
+    };
+  }
+}
+
+/// Message pair model for conversation history
+class MessagePair {
+  final String question;
+  final String answer;
+  final String timestamp;
+
+  MessagePair({
+    required this.question,
+    required this.answer,
+    required this.timestamp,
+  });
+
+  factory MessagePair.fromJson(Map<String, dynamic> json) {
+    return MessagePair(
+      question: json['question'] as String,
+      answer: json['answer'] as String,
+      timestamp: json['timestamp'] as String,
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {'question': question, 'answer': answer, 'timestamp': timestamp};
+  }
+}
+
+/// Conversation history detail model
+class ConversationHistoryModel {
+  final String conversationId;
+  final List<MessagePair> pairs;
+  final int totalMessages;
+
+  ConversationHistoryModel({
+    required this.conversationId,
+    required this.pairs,
+    required this.totalMessages,
+  });
+
+  factory ConversationHistoryModel.fromJson(Map<String, dynamic> json) {
+    return ConversationHistoryModel(
+      conversationId: json['conversation_id'] as String,
+      pairs:
+          (json['pairs'] as List<dynamic>?)
+              ?.map((e) => MessagePair.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          [],
+      totalMessages: json['total_messages'] as int,
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'conversation_id': conversationId,
+      'pairs': pairs.map((e) => e.toJson()).toList(),
+      'total_messages': totalMessages,
+    };
+  }
+}
