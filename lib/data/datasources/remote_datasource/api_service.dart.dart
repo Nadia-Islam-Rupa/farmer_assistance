@@ -60,4 +60,46 @@ class ApiService {
 
     return ChatResponseModel.fromJson(response.data);
   }
+
+  Future<ConversationsListModel> getConversations({int? limit}) async {
+    final response = await dio.get(
+      '/ai-chat/conversations',
+      queryParameters: {'limit': limit ?? 20},
+      options: Options(headers: {'Content-Type': 'application/json'}),
+    );
+
+    if (response.statusCode != 200) {
+      throw Exception('Failed to fetch conversations.');
+    }
+
+    return ConversationsListModel.fromJson(response.data);
+  }
+
+  Future<ConversationHistoryModel> getConversationHistory({
+    required String conversationId,
+    int? limit,
+  }) async {
+    final response = await dio.get(
+      '/ai-chat/conversations/$conversationId',
+      queryParameters: {'limit': limit ?? 50},
+      options: Options(headers: {'Content-Type': 'application/json'}),
+    );
+
+    if (response.statusCode != 200) {
+      throw Exception('Failed to fetch conversation history.');
+    }
+
+    return ConversationHistoryModel.fromJson(response.data);
+  }
+
+  Future<void> deleteConversation({required String conversationId}) async {
+    final response = await dio.delete(
+      '/ai-chat/conversations/$conversationId',
+      options: Options(headers: {'Content-Type': 'application/json'}),
+    );
+
+    if (response.statusCode != 200 && response.statusCode != 204) {
+      throw Exception('Failed to delete conversation.');
+    }
+  }
 }
