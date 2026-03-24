@@ -3,6 +3,7 @@ import 'package:farmer_assistance/application/pages/home_page/widgets/feature_ca
 import 'package:farmer_assistance/application/pages/home_page/widgets/quote_card.dart';
 import 'package:farmer_assistance/application/pages/home_page/widgets/weather_card.dart';
 import 'package:farmer_assistance/application/pages/profile/profile_page.dart';
+import 'package:farmer_assistance/presentation/weather/climate_page.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
@@ -108,11 +109,21 @@ class HomePage extends StatelessWidget {
                       subtitle: "Price predictions",
                       color: Colors.purpleAccent,
                     ),
-                    FeatureCard(
-                      icon: Icons.cloud,
-                      title: "Climate Impact",
-                      subtitle: "Weather insights",
-                      color: Colors.lightBlueAccent,
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ClimateImpactScreen(),
+                          ),
+                        );
+                      },
+                      child: FeatureCard(
+                        icon: Icons.cloud,
+                        title: "Climate Impact",
+                        subtitle: "Weather insights",
+                        color: Colors.lightBlueAccent,
+                      ),
                     ),
                     FeatureCard(
                       icon: Icons.smart_toy_outlined,
