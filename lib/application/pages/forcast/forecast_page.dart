@@ -1,268 +1,203 @@
+import 'package:farmer_assistance/application/pages/forcast/weather_service.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart';
 
-class ForecastPage extends StatelessWidget {
+class ForecastPage extends ConsumerWidget {
   const ForecastPage({super.key});
 
+  // ⏰ Format Time
+  String formatTime(String time) {
+    DateTime dt = DateTime.parse(time);
+    return DateFormat('hh:mm a').format(dt);
+  }
+
+  // 📅 Format Day
+  String formatDay(String time) {
+    DateTime dt = DateTime.parse(time);
+    return DateFormat('EEE').format(dt);
+  }
+
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final weatherAsync = ref.watch(weatherProvider);
+
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('Weather Forecast'),
+        backgroundColor: const Color(0xff00796B),
+      ),
       backgroundColor: Colors.grey[100],
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
+
+      body: weatherAsync.when(
+        loading: () => const Center(child: CircularProgressIndicator()),
+
+        error: (e, _) => Center(child: Text("Error: $e")),
+
+        data: (data) {
+          final current = data['current'];
+          final hourly = data['hourly'];
+
+          return Padding(
+            padding: const EdgeInsets.all(16),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Header
-                Text(
-                  'Weather Forecast',
-                  style: TextStyle(
-                    fontSize: 28,
-                    fontWeight: FontWeight.bold,
-                    color: Color(0xff00796B),
+                // 🌦 CURRENT WEATHER CARD
+                Container(
+                  padding: const EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                    gradient: const LinearGradient(
+                      colors: [Color(0xff00796B), Color(0xff26A69A)],
+                    ),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "${current['temperature_2m']}°C",
+                        style: const TextStyle(
+                          fontSize: 48,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                      Text(
+                        "Feels like ${current['apparent_temperature']}°C",
+                        style: const TextStyle(color: Colors.white70),
+                      ),
+                      const SizedBox(height: 16),
+
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          _stat(
+                            Icons.water_drop,
+                            "Humidity",
+                            "${current['relative_humidity_2m']}%",
+                          ),
+                          _stat(
+                            Icons.air,
+                            "Wind",
+                            "${current['wind_speed_10m']} km/h",
+                          ),
+                          _stat(
+                            Icons.umbrella,
+                            "Rain",
+                            "${current['rain']} mm",
+                          ),
+                        ],
+                      ),
+
+                      const SizedBox(height: 12),
+
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          _stat(
+                            Icons.cloud,
+                            "Cloud",
+                            "${current['cloud_cover']}%",
+                          ),
+                          _stat(
+                            Icons.flash_on,
+                            "Gust",
+                            "${current['wind_gusts_10m']} km/h",
+                          ),
+                          _stat(
+                            Icons.explore,
+                            "Dir",
+                            "${current['wind_direction_10m']}°",
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
                 ),
-                SizedBox(height: 8),
-                Text(
-                  '7-day agricultural weather insights',
-                  style: TextStyle(fontSize: 14, color: Colors.grey[600]),
-                ),
-                SizedBox(height: 24),
 
-                // Current Weather Card
-                _buildCurrentWeatherCard(),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
 
-                // 7-Day Forecast
-                Text(
-                  'Weekly Forecast',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                ),
-                SizedBox(height: 12),
-                _buildWeeklyForecastList(),
+                // ⏰ FORECAST LIST
+                Expanded(
+                  child: ListView.builder(
+                    itemCount: 24,
+                    itemBuilder: (context, index) {
+                      if (index % 2 != 0) return const SizedBox();
 
-                SizedBox(height: 20),
+                      final time = hourly['time'][index];
+                      final temp = hourly['temperature_2m'][index];
 
-                // Agricultural Insights
-                Text(
-                  'Crop Insights',
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                ),
-                SizedBox(height: 12),
-                _buildInsightCard(
-                  icon: Icons.water_drop,
-                  title: 'Irrigation Alert',
-                  description: 'Low rainfall expected. Consider irrigation.',
-                  color: Colors.blue,
-                ),
-                SizedBox(height: 12),
-                _buildInsightCard(
-                  icon: Icons.wb_sunny,
-                  title: 'Optimal Planting',
-                  description: 'Good conditions for planting next 3 days.',
-                  color: Colors.orange,
+                      return Container(
+                        margin: const EdgeInsets.only(bottom: 10),
+                        padding: const EdgeInsets.all(16),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(14),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.shade200,
+                              blurRadius: 4,
+                            ),
+                          ],
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            // 📅 Day + Time
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  formatDay(time),
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 16,
+                                  ),
+                                ),
+                                Text(
+                                  formatTime(time),
+                                  style: TextStyle(color: Colors.grey[600]),
+                                ),
+                              ],
+                            ),
+
+                            // 🌡 Temp
+                            Text(
+                              "${temp.toStringAsFixed(1)}°C",
+                              style: const TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                  ),
                 ),
               ],
             ),
-          ),
-        ),
+          );
+        },
       ),
     );
   }
 
-  Widget _buildCurrentWeatherCard() {
-    return Container(
-      padding: EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [Color(0xff00796B), Color(0xff26A69A)],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
-        borderRadius: BorderRadius.circular(20),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.1),
-            blurRadius: 10,
-            offset: Offset(0, 4),
-          ),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text('Today', style: TextStyle(color: Colors.white70, fontSize: 16)),
-          SizedBox(height: 8),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    '28°C',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 48,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  Text(
-                    'Partly Cloudy',
-                    style: TextStyle(color: Colors.white, fontSize: 18),
-                  ),
-                ],
-              ),
-              Icon(Icons.wb_cloudy, size: 80, color: Colors.white70),
-            ],
-          ),
-          SizedBox(height: 16),
-          Divider(color: Colors.white30),
-          SizedBox(height: 16),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              _buildWeatherStat(Icons.water_drop, 'Humidity', '65%'),
-              _buildWeatherStat(Icons.air, 'Wind', '12 km/h'),
-              _buildWeatherStat(Icons.umbrella, 'Rain', '20%'),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildWeatherStat(IconData icon, String label, String value) {
+  // 📊 Stat Widget
+  Widget _stat(IconData icon, String label, String value) {
     return Column(
       children: [
-        Icon(icon, color: Colors.white70, size: 24),
-        SizedBox(height: 4),
-        Text(label, style: TextStyle(color: Colors.white70, fontSize: 12)),
+        Icon(icon, color: Colors.white70),
+        const SizedBox(height: 4),
+        Text(label, style: const TextStyle(color: Colors.white70)),
         Text(
           value,
-          style: TextStyle(
+          style: const TextStyle(
             color: Colors.white,
-            fontSize: 16,
             fontWeight: FontWeight.bold,
           ),
         ),
       ],
-    );
-  }
-
-  Widget _buildWeeklyForecastList() {
-    final days = [
-      {'day': 'Mon', 'high': '27°C', 'low': '22°C', 'icon': Icons.wb_sunny},
-      {'day': 'Tue', 'high': '26°C', 'low': '21°C', 'icon': Icons.wb_cloudy},
-      {'day': 'Wed', 'high': '28°C', 'low': '23°C', 'icon': Icons.wb_sunny},
-      {'day': 'Thu', 'high': '25°C', 'low': '20°C', 'icon': Icons.cloud},
-      {'day': 'Fri', 'high': '24°C', 'low': '19°C', 'icon': Icons.grain},
-      {'day': 'Sat', 'high': '26°C', 'low': '21°C', 'icon': Icons.wb_cloudy},
-      {'day': 'Sun', 'high': '27°C', 'low': '22°C', 'icon': Icons.wb_sunny},
-    ];
-
-    return Column(
-      children: days.map((dayData) {
-        return _buildDayForecast(
-          dayData['day'] as String,
-          dayData['high'] as String,
-          dayData['low'] as String,
-          dayData['icon'] as IconData,
-        );
-      }).toList(),
-    );
-  }
-
-  Widget _buildDayForecast(String day, String high, String low, IconData icon) {
-    return Container(
-      margin: EdgeInsets.only(bottom: 8),
-      padding: EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.shade200,
-            blurRadius: 4,
-            offset: Offset(0, 2),
-          ),
-        ],
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          SizedBox(
-            width: 50,
-            child: Text(
-              day,
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-            ),
-          ),
-          Row(
-            children: [
-              Icon(icon, color: Colors.orange, size: 24),
-              SizedBox(width: 8),
-              Text(
-                high,
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-              ),
-            ],
-          ),
-          Text(low, style: TextStyle(fontSize: 16, color: Colors.grey[600])),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildInsightCard({
-    required IconData icon,
-    required String title,
-    required String description,
-    required Color color,
-  }) {
-    return Container(
-      padding: EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.shade200,
-            blurRadius: 4,
-            offset: Offset(0, 2),
-          ),
-        ],
-      ),
-      child: Row(
-        children: [
-          Container(
-            padding: EdgeInsets.all(12),
-            decoration: BoxDecoration(
-              color: color.withValues(alpha: 0.1),
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: Icon(icon, color: color, size: 28),
-          ),
-          SizedBox(width: 16),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  title,
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-                ),
-                SizedBox(height: 4),
-                Text(
-                  description,
-                  style: TextStyle(fontSize: 14, color: Colors.grey[600]),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
     );
   }
 }

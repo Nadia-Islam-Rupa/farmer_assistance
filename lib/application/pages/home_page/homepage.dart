@@ -1,6 +1,8 @@
+import 'package:farmer_assistance/application/pages/forcast/forecast_page.dart';
 import 'package:farmer_assistance/application/pages/home_page/widgets/feature_card.dart';
 import 'package:farmer_assistance/application/pages/home_page/widgets/quote_card.dart';
 import 'package:farmer_assistance/application/pages/home_page/widgets/weather_card.dart';
+
 import 'package:flutter/material.dart';
 
 import '../crop_disease_detection/disease_upload.dart';
@@ -79,11 +81,21 @@ class HomePage extends StatelessWidget {
                       subtitle: "Price predictions",
                       color: Colors.purpleAccent,
                     ),
-                    FeatureCard(
-                      icon: Icons.cloud,
-                      title: "Climate Impact",
-                      subtitle: "Weather insights",
-                      color: Colors.lightBlueAccent,
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const ForecastPage(),
+                          ),
+                        );
+                      },
+                      child: FeatureCard(
+                        icon: Icons.cloud,
+                        title: "Climate Impact",
+                        subtitle: "Weather insights",
+                        color: Colors.lightBlueAccent,
+                      ),
                     ),
                     FeatureCard(
                       icon: Icons.smart_toy_outlined,
