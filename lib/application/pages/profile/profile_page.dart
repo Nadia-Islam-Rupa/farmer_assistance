@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:farmer_assistance/application/pages/auth/login_page/bloc/login_bloc.dart';
 import 'package:farmer_assistance/di/di.dart';
 import 'package:flutter/material.dart';
@@ -320,6 +322,7 @@ class Profile extends StatelessWidget {
     );
   }
 
+  // ignore: unused_element
   void _showLogoutDialog(BuildContext context) {
     showDialog(
       context: context,

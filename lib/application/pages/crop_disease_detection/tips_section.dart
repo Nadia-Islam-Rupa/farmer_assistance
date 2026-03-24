@@ -25,7 +25,9 @@ class TipsSection extends StatelessWidget {
           Row(
             children: [
               CircleAvatar(
-                backgroundColor: const Color(0xff26A69A).withOpacity(0.15),
+                backgroundColor: const Color(
+                  0xff26A69A,
+                ).withValues(alpha: 0.15),
                 radius: 20,
                 child: const Icon(
                   Icons.lightbulb_outline_rounded,
@@ -48,8 +50,7 @@ class TipsSection extends StatelessWidget {
           const TipItem(
             icon: Icons.wb_sunny_rounded,
             title: 'Good Lighting',
-            description:
-                'Take photos in natural light or well-lit conditions',
+            description: 'Take photos in natural light or well-lit conditions',
           ),
           const SizedBox(height: 14),
           const TipItem(
@@ -90,7 +91,7 @@ class TipItem extends StatelessWidget {
         Container(
           padding: const EdgeInsets.all(10),
           decoration: BoxDecoration(
-            color: const Color(0xff26A69A).withOpacity(0.12),
+            color: const Color(0xff26A69A).withValues(alpha: 0.12),
             borderRadius: BorderRadius.circular(12),
           ),
           child: Icon(icon, color: const Color(0xff00796B), size: 24),
@@ -110,10 +111,7 @@ class TipItem extends StatelessWidget {
               const SizedBox(height: 2),
               Text(
                 description,
-                style: TextStyle(
-                  fontSize: 12,
-                  color: Colors.grey.shade600,
-                ),
+                style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
               ),
             ],
           ),

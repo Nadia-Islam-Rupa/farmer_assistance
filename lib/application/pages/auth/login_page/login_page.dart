@@ -2,14 +2,13 @@ import 'package:farmer_assistance/application/core/services/routing/app_router.d
 import 'package:farmer_assistance/application/pages/auth/text_container.dart';
 import 'package:farmer_assistance/application/pages/auth/wave_clip.dart';
 import 'package:farmer_assistance/di/di.dart';
-import 'package:farmer_assistance/application/pages/home_page/homepage.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../utils/utils.dart';
 import '../../../core/services/routing/routing_utils.dart';
-import '../create_account_page/create_account.dart';
-import '../forget_password_page/forgot_pass.dart';
+
 import 'bloc/login_bloc.dart';
 
 class LoginPage extends StatelessWidget {
@@ -33,15 +32,15 @@ class LoginPages extends StatelessWidget {
       body: BlocListener<LoginBloc, LoginState>(
         listener: (context, state) {
           if (state is LoadingLoginState) {
-            Utils.showSnackBar(context, "Logging in...",Color(0xff00796B));
+            Utils.showSnackBar(context, "Logging in...", Color(0xff00796B));
           }
 
           if (state is ErrorLoginState) {
-            Utils.showSnackBar(context, state.message,Colors.red);
+            Utils.showSnackBar(context, state.message, Colors.red);
           }
 
           if (state is SuccessLoginState) {
-            Utils.showSnackBar(context, "Welcome To FarmAI",Color(0xff00796B));
+            Utils.showSnackBar(context, "Welcome To FarmAI", Color(0xff00796B));
             Navigator.pop(context);
           }
         },

@@ -10,18 +10,18 @@ abstract class CreateAccountEvent with _$CreateAccountEvent {
   }) = _Started;
 
   // @override
-  // // TODO: implement confirmPassword
+  // //  implement confirmPassword
   // String get confirmPassword => throw UnimplementedError();
   //
   // @override
-  // // TODO: implement email
+  // //  implement email
   // String get email => throw UnimplementedError();
   //
   // @override
-  // // TODO: implement name
+  // //\ implement name
   // String get name => throw UnimplementedError();
   //
   // @override
-  // // TODO: implement password
+  // // implement password
   // String get password => throw UnimplementedError();
 }

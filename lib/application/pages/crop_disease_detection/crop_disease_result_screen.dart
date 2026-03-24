@@ -8,12 +8,15 @@ class CropDiseaseResultScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Format the disease label (replace underscores with spaces and capitalize)
-    String formattedLabel = cropDiseaseModel.label
+    String formattedLabel =
+        cropDiseaseModel.label
             ?.replaceAll('_', ' ')
             .split(' ')
-            .map((word) => word.isNotEmpty
-                ? word[0].toUpperCase() + word.substring(1).toLowerCase()
-                : '')
+            .map(
+              (word) => word.isNotEmpty
+                  ? word[0].toUpperCase() + word.substring(1).toLowerCase()
+                  : '',
+            )
             .join(' ') ??
         'Unknown Disease';
 
@@ -21,8 +24,8 @@ class CropDiseaseResultScreen extends StatelessWidget {
     Color confidenceColor = confidence >= 80
         ? Colors.green
         : confidence >= 60
-            ? Colors.orange
-            : Colors.red;
+        ? Colors.orange
+        : Colors.red;
 
     return Scaffold(
       backgroundColor: Colors.grey[50],
@@ -75,7 +78,7 @@ class CropDiseaseResultScreen extends StatelessWidget {
                       'Analysis Complete',
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                        color: Colors.white.withOpacity(0.9),
+                        color: Colors.white.withValues(alpha: .9),
                         fontSize: 14,
                       ),
                     ),
@@ -108,8 +111,9 @@ class CropDiseaseResultScreen extends StatelessWidget {
                       child: Column(
                         children: [
                           CircleAvatar(
-                            backgroundColor:
-                                const Color(0xff26A69A).withOpacity(0.15),
+                            backgroundColor: const Color(
+                              0xff26A69A,
+                            ).withValues(alpha: 0.15),
                             radius: 30,
                             child: const Icon(
                               Icons.biotech_rounded,
@@ -176,7 +180,7 @@ class CropDiseaseResultScreen extends StatelessWidget {
                                   vertical: 6,
                                 ),
                                 decoration: BoxDecoration(
-                                  color: confidenceColor.withOpacity(0.1),
+                                  color: confidenceColor.withValues(alpha: 0.1),
                                   borderRadius: BorderRadius.circular(20),
                                 ),
                                 child: Text(
@@ -197,8 +201,9 @@ class CropDiseaseResultScreen extends StatelessWidget {
                               value: confidence / 100,
                               minHeight: 12,
                               backgroundColor: Colors.grey.shade200,
-                              valueColor:
-                                  AlwaysStoppedAnimation<Color>(confidenceColor),
+                              valueColor: AlwaysStoppedAnimation<Color>(
+                                confidenceColor,
+                              ),
                             ),
                           ),
                           const SizedBox(height: 12),
@@ -216,8 +221,8 @@ class CropDiseaseResultScreen extends StatelessWidget {
                                 confidence >= 80
                                     ? 'High'
                                     : confidence >= 60
-                                        ? 'Medium'
-                                        : 'Low',
+                                    ? 'Medium'
+                                    : 'Low',
                                 style: TextStyle(
                                   fontSize: 12,
                                   color: confidenceColor,
@@ -256,8 +261,9 @@ class CropDiseaseResultScreen extends StatelessWidget {
                               child: Row(
                                 children: [
                                   CircleAvatar(
-                                    backgroundColor: const Color(0xff26A69A)
-                                        .withOpacity(0.15),
+                                    backgroundColor: const Color(
+                                      0xff26A69A,
+                                    ).withValues(alpha: 0.15),
                                     radius: 20,
                                     child: const Icon(
                                       Icons.analytics_outlined,
@@ -287,22 +293,24 @@ class CropDiseaseResultScreen extends StatelessWidget {
                                 fit: BoxFit.cover,
                                 loadingBuilder:
                                     (context, child, loadingProgress) {
-                                  if (loadingProgress == null) return child;
-                                  return Container(
-                                    height: 300,
-                                    alignment: Alignment.center,
-                                    child: CircularProgressIndicator(
-                                      value: loadingProgress
-                                                  .expectedTotalBytes !=
-                                              null
-                                          ? loadingProgress
-                                                  .cumulativeBytesLoaded /
-                                              loadingProgress.expectedTotalBytes!
-                                          : null,
-                                      color: const Color(0xff00796B),
-                                    ),
-                                  );
-                                },
+                                      if (loadingProgress == null) return child;
+                                      return Container(
+                                        height: 300,
+                                        alignment: Alignment.center,
+                                        child: CircularProgressIndicator(
+                                          value:
+                                              loadingProgress
+                                                      .expectedTotalBytes !=
+                                                  null
+                                              ? loadingProgress
+                                                        .cumulativeBytesLoaded /
+                                                    loadingProgress
+                                                        .expectedTotalBytes!
+                                              : null,
+                                          color: const Color(0xff00796B),
+                                        ),
+                                      );
+                                    },
                                 errorBuilder: (context, error, stackTrace) {
                                   return Container(
                                     height: 200,

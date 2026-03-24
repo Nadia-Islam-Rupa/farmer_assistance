@@ -26,10 +26,7 @@ class ForecastPage extends StatelessWidget {
                 SizedBox(height: 8),
                 Text(
                   '7-day agricultural weather insights',
-                  style: TextStyle(
-                    fontSize: 14,
-                    color: Colors.grey[600],
-                  ),
+                  style: TextStyle(fontSize: 14, color: Colors.grey[600]),
                 ),
                 SizedBox(height: 24),
 
@@ -40,10 +37,7 @@ class ForecastPage extends StatelessWidget {
                 // 7-Day Forecast
                 Text(
                   'Weekly Forecast',
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 ),
                 SizedBox(height: 12),
                 _buildWeeklyForecastList(),
@@ -53,10 +47,7 @@ class ForecastPage extends StatelessWidget {
                 // Agricultural Insights
                 Text(
                   'Crop Insights',
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 ),
                 SizedBox(height: 12),
                 _buildInsightCard(
@@ -92,7 +83,7 @@ class ForecastPage extends StatelessWidget {
         borderRadius: BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.1),
+            color: Colors.black.withValues(alpha: 0.1),
             blurRadius: 10,
             offset: Offset(0, 4),
           ),
@@ -101,13 +92,7 @@ class ForecastPage extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            'Today',
-            style: TextStyle(
-              color: Colors.white70,
-              fontSize: 16,
-            ),
-          ),
+          Text('Today', style: TextStyle(color: Colors.white70, fontSize: 16)),
           SizedBox(height: 8),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -125,18 +110,11 @@ class ForecastPage extends StatelessWidget {
                   ),
                   Text(
                     'Partly Cloudy',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 18,
-                    ),
+                    style: TextStyle(color: Colors.white, fontSize: 18),
                   ),
                 ],
               ),
-              Icon(
-                Icons.wb_cloudy,
-                size: 80,
-                color: Colors.white70,
-              ),
+              Icon(Icons.wb_cloudy, size: 80, color: Colors.white70),
             ],
           ),
           SizedBox(height: 16),
@@ -160,10 +138,7 @@ class ForecastPage extends StatelessWidget {
       children: [
         Icon(icon, color: Colors.white70, size: 24),
         SizedBox(height: 4),
-        Text(
-          label,
-          style: TextStyle(color: Colors.white70, fontSize: 12),
-        ),
+        Text(label, style: TextStyle(color: Colors.white70, fontSize: 12)),
         Text(
           value,
           style: TextStyle(
@@ -221,10 +196,7 @@ class ForecastPage extends StatelessWidget {
             width: 50,
             child: Text(
               day,
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w600,
-              ),
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
             ),
           ),
           Row(
@@ -237,10 +209,7 @@ class ForecastPage extends StatelessWidget {
               ),
             ],
           ),
-          Text(
-            low,
-            style: TextStyle(fontSize: 16, color: Colors.grey[600]),
-          ),
+          Text(low, style: TextStyle(fontSize: 16, color: Colors.grey[600])),
         ],
       ),
     );
@@ -270,7 +239,7 @@ class ForecastPage extends StatelessWidget {
           Container(
             padding: EdgeInsets.all(12),
             decoration: BoxDecoration(
-              color: color.withOpacity(0.1),
+              color: color.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(10),
             ),
             child: Icon(icon, color: color, size: 28),
@@ -282,18 +251,12 @@ class ForecastPage extends StatelessWidget {
               children: [
                 Text(
                   title,
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                  ),
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
                 ),
                 SizedBox(height: 4),
                 Text(
                   description,
-                  style: TextStyle(
-                    fontSize: 14,
-                    color: Colors.grey[600],
-                  ),
+                  style: TextStyle(fontSize: 14, color: Colors.grey[600]),
                 ),
               ],
             ),
