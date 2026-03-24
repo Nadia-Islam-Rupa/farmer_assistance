@@ -2,6 +2,8 @@
 /// confidence : 82.48
 /// heatmap_url : "https://rdqpssnvyywzjiqrokfv.supabase.co/storage/v1/object/public/crop_disease/gradcam_e27d27521ae04e40a7db2d0709ba0832.png"
 
+// ignore_for_file: file_names, dangling_library_doc_comments
+
 class CropDiseaseModel {
   CropDiseaseModel({this.label, this.confidence, this.heatmapUrl});
 

@@ -79,7 +79,7 @@ class UploadLeaf extends StatelessWidget {
                         'Upload a leaf image to detect diseases\nand get treatment recommendations.',
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                          color: Colors.white.withOpacity(0.9),
+                          color: Colors.white.withValues(alpha: .9),
                           fontSize: 14,
                           height: 1.4,
                         ),
@@ -146,7 +146,7 @@ class UploadLeaf extends StatelessWidget {
                                   CircleAvatar(
                                     backgroundColor: const Color(
                                       0xff26A69A,
-                                    ).withOpacity(0.15),
+                                    ).withValues(alpha: 0.15),
                                     radius: 20,
                                     child: const Icon(
                                       Icons.local_florist,

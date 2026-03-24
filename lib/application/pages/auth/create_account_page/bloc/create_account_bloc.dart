@@ -16,10 +16,10 @@ class CreateAccountBloc extends Bloc<CreateAccountEvent, CreateAccountState> {
   CreateAccountBloc(this._authUseCase)
     : super(const CreateAccountState.initial()) {
     on<CreateAccountEvent>((event, emit) async {
-      final String name = event.name.trim() ?? '';
-      final String email = event.email.trim().toLowerCase() ?? '';
-      final String password = event.password.trim() ?? "";
-      final String confirmPassword = event.confirmPassword.trim() ?? '';
+      final String name = event.name.trim();
+      final String email = event.email.trim().toLowerCase();
+      final String password = event.password.trim();
+      final String confirmPassword = event.confirmPassword.trim();
 
       final emailRegex = RegExp(r"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$");
       final passwordRegex = RegExp(

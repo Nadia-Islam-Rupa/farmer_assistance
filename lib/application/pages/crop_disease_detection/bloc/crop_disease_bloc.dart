@@ -27,7 +27,7 @@ class CropDiseaseBloc extends Bloc<CropDiseaseEvent, CropDiseaseState> {
           (failure) {
             if (failure is GeneralFailure) {
               emit(CropDiseaseState.error(failure.message));
-              print(failure.message);
+              //print(failure.message);
             } else {
               emit(
                 const CropDiseaseState.error('An unexpected error occurred.'),
@@ -46,5 +46,3 @@ class CropDiseaseBloc extends Bloc<CropDiseaseEvent, CropDiseaseState> {
     });
   }
 }
-
-

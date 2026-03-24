@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:math';
 
 import 'package:dartz/dartz.dart';
 
@@ -70,7 +69,7 @@ class AuthRepositoriesIml extends AuthRepository {
       );
       return right(null);
     } catch (e) {
-      print("Kawser Error: ${e.toString()}");
+      //print("Kawser Error: ${e.toString()}");
       return left(GeneralFailure(mapSupabaseAuthError(e)));
     }
   }
@@ -128,7 +127,7 @@ class AuthRepositoriesIml extends AuthRepository {
       await _supabaseClient.from('users').upsert(user.toJson());
       return right(null);
     } catch (e) {
-      print(e.toString());
+      //print(e.toString());
       return left(GeneralFailure(mapSupabaseAuthError(e)));
     }
   }
@@ -186,7 +185,7 @@ class AuthRepositoriesIml extends AuthRepository {
 
       return right(null);
     } catch (e) {
-      print("Kawser Error: ${e.toString()}");
+      // print("Kawser Error: ${e.toString()}");
       return left(GeneralFailure(mapSupabaseAuthError(e)));
     }
   }
@@ -197,7 +196,7 @@ class AuthRepositoriesIml extends AuthRepository {
         .select('provider')
         .eq('email', email.toLowerCase())
         .maybeSingle();
-    print(response);
+    // print(response);
 
     return response;
   }

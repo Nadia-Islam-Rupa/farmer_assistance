@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:dio/dio.dart';
 import 'package:farmer_assistance/domain/models/Crop_disease_model.dart';
 import 'package:farmer_assistance/domain/models/chat_models.dart';
