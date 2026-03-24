@@ -17,8 +17,11 @@ class WeeklyForecastPage extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("7-Day Forecast"),
-        backgroundColor: const Color(0xff00796B),
+        title: const Text(
+          "7-Day Forecast",
+          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+        ),
+        backgroundColor: Color(0xff26A69A),
       ),
       backgroundColor: Colors.grey[100],
 

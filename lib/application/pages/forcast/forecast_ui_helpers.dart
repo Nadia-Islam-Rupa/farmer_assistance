@@ -30,6 +30,19 @@ IconData weatherIconFromCode(int? code) {
   return Icons.cloud;
 }
 
+Color weatherIconColorFromCode(int? code) {
+  if (code == null) return const Color(0xffCFD8DC);
+  if (code == 0) return const Color(0xffFFB300);
+  if (code == 1 || code == 2) return const Color(0xffFFD54F);
+  if (code == 3) return const Color(0xffB0BEC5);
+  if (code == 45 || code == 48) return const Color(0xff90A4AE);
+  if (code >= 51 && code <= 67) return const Color(0xff4FC3F7);
+  if (code >= 71 && code <= 77) return const Color(0xff81D4FA);
+  if (code >= 80 && code <= 82) return const Color(0xff29B6F6);
+  if (code >= 95) return const Color(0xffFFD740);
+  return const Color(0xffCFD8DC);
+}
+
 String weatherLabelFromCode(int? code) {
   if (code == null) return 'Weather';
   if (code == 0) return 'Clear sky';

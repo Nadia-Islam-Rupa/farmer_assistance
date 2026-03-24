@@ -48,9 +48,9 @@ class ForecastPage extends ConsumerWidget {
     final coordinateLabel = _coordinatesText(weatherData);
 
     return Scaffold(
-      backgroundColor: const Color(0xffF4FAF8),
+      backgroundColor: const Color(0xffF1FAF8),
       appBar: AppBar(
-        backgroundColor: const Color(0xff0D6F62),
+        backgroundColor: Color(0xff26A69A),
         foregroundColor: Colors.white,
         elevation: 0,
         titleSpacing: 0,
@@ -72,21 +72,21 @@ class ForecastPage extends ConsumerWidget {
             ),
           ],
         ),
-        actions: [
-          IconButton(
-            tooltip: 'Refresh weather',
-            onPressed: () => _refreshWeather(ref),
-            icon: const Icon(Icons.refresh_rounded),
-          ),
-          const SizedBox(width: 6),
-        ],
+        // actions: [
+        //   IconButton(
+        //     tooltip: 'Refresh weather',
+        //     onPressed: () => _refreshWeather(ref),
+        //     icon: const Icon(Icons.refresh_rounded),
+        //   ),
+        //   const SizedBox(width: 6),
+        // ],
       ),
       body: Container(
         decoration: const BoxDecoration(
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
-            colors: [Color(0xffDFF4EF), Color(0xffF8FCFB)],
+            colors: [Color(0xffD7F2EE), Color(0xffF3FBF9)],
             stops: [0.0, 0.45],
           ),
         ),
@@ -107,7 +107,7 @@ class ForecastPage extends ConsumerWidget {
                   (hourly['temperature_2m'] as List<dynamic>? ?? <dynamic>[]);
 
               return RefreshIndicator(
-                color: const Color(0xff00695C),
+                color: Color(0xff26A69A),
                 onRefresh: () => _refreshWeather(ref),
                 child: SingleChildScrollView(
                   physics: const AlwaysScrollableScrollPhysics(),
@@ -129,7 +129,7 @@ class ForecastPage extends ConsumerWidget {
                           borderRadius: BorderRadius.circular(16),
                           boxShadow: const [
                             BoxShadow(
-                              color: Color(0x140C5A52),
+                              color: Color(0x1A26A69A),
                               blurRadius: 18,
                               offset: Offset(0, 10),
                             ),
@@ -148,7 +148,7 @@ class ForecastPage extends ConsumerWidget {
                           style: ElevatedButton.styleFrom(
                             minimumSize: const Size(double.infinity, 52),
                             elevation: 0,
-                            backgroundColor: const Color(0xff00796B),
+                            backgroundColor: const Color(0xff26A69A),
                             foregroundColor: Colors.white,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(16),
@@ -196,12 +196,12 @@ class _ForecastHeroHeader extends StatelessWidget {
         gradient: const LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: [Color(0xff0D5C52), Color(0xff108B78)],
+          colors: [Color(0xff26A69A), Color(0xff1F8E84)],
         ),
         borderRadius: BorderRadius.circular(20),
         boxShadow: const [
           BoxShadow(
-            color: Color(0x26085A50),
+            color: Color(0x2426A69A),
             blurRadius: 18,
             offset: Offset(0, 12),
           ),
@@ -215,7 +215,7 @@ class _ForecastHeroHeader extends StatelessWidget {
               const CircleAvatar(
                 radius: 16,
                 backgroundColor: Color(0x33FFFFFF),
-                child: Icon(Icons.wb_sunny_outlined, color: Colors.white),
+                child: Icon(Icons.wb_sunny_outlined, color: Color(0xffFFB300)),
               ),
               const SizedBox(width: 10),
               const Expanded(
@@ -230,14 +230,14 @@ class _ForecastHeroHeader extends StatelessWidget {
               ),
               const Icon(
                 Icons.location_on_outlined,
-                color: Colors.white70,
+                color: Color(0xffFFE082),
                 size: 18,
               ),
               const SizedBox(width: 4),
               Text(
                 locationLabel,
                 style: const TextStyle(
-                  color: Colors.white70,
+                  color: Colors.white,
                   fontWeight: FontWeight.w600,
                 ),
               ),
@@ -258,7 +258,7 @@ class _ForecastHeroHeader extends StatelessWidget {
             children: [
               const Icon(
                 Icons.explore_outlined,
-                color: Color(0xffCBEDE6),
+                color: Color(0xffFFCC80),
                 size: 15,
               ),
               const SizedBox(width: 6),
@@ -294,14 +294,14 @@ class _LoadingState extends StatelessWidget {
               borderRadius: BorderRadius.circular(16),
               boxShadow: const [
                 BoxShadow(
-                  color: Color(0x1700796B),
+                  color: Color(0x1F26A69A),
                   blurRadius: 14,
                   offset: Offset(0, 6),
                 ),
               ],
             ),
             child: const CircularProgressIndicator(
-              color: Color(0xff00796B),
+              color: Color(0xff26A69A),
               strokeWidth: 3,
             ),
           ),
@@ -309,7 +309,7 @@ class _LoadingState extends StatelessWidget {
           const Text(
             'Loading latest weather...',
             style: TextStyle(
-              color: Color(0xff325A54),
+              color: Color(0xff2F6F69),
               fontSize: 14,
               fontWeight: FontWeight.w600,
             ),
@@ -337,14 +337,14 @@ class _ErrorState extends StatelessWidget {
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(16),
-            border: Border.all(color: const Color(0xffDDEBE7)),
+            border: Border.all(color: const Color(0xffBEE6E1)),
           ),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               const Icon(
                 Icons.cloud_off_rounded,
-                color: Color(0xff5B7D76),
+                color: Color(0xff3A8981),
                 size: 36,
               ),
               const SizedBox(height: 10),
@@ -352,20 +352,20 @@ class _ErrorState extends StatelessWidget {
                 'Unable to load weather data',
                 style: TextStyle(
                   fontWeight: FontWeight.w700,
-                  color: Color(0xff213A35),
+                  color: Color(0xff1D5751),
                 ),
               ),
               const SizedBox(height: 8),
               Text(
                 message,
                 textAlign: TextAlign.center,
-                style: const TextStyle(color: Color(0xff4F6B66), fontSize: 13),
+                style: const TextStyle(color: Color(0xff26A69A), fontSize: 13),
               ),
               const SizedBox(height: 14),
               FilledButton.icon(
                 onPressed: onRetry,
                 style: FilledButton.styleFrom(
-                  backgroundColor: const Color(0xff00796B),
+                  backgroundColor: Color(0xff26A69A),
                 ),
                 icon: const Icon(Icons.refresh),
                 label: const Text('Try Again'),

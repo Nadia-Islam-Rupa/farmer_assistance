@@ -23,14 +23,14 @@ class NextHoursSection extends StatelessWidget {
       children: [
         const Row(
           children: [
-            Icon(Icons.schedule, color: Color(0xff0B8E81)),
+            Icon(Icons.schedule, color: Color(0xff26A69A)),
             SizedBox(width: 8),
             Text(
               'Next Hours',
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.w700,
-                color: Color(0xff1D2B36),
+                color: Color(0xff1F5F58),
               ),
             ),
           ],
@@ -75,19 +75,19 @@ class _NextHourCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 118,
+      width: 130,
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 14),
       decoration: BoxDecoration(
         gradient: const LinearGradient(
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
-          colors: [Color(0xffE7F8F5), Color(0xffD3F1EC)],
+          colors: [Color(0xffE3F7F4), Color(0xffD3F1EC)],
         ),
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: const Color(0xffA8E1D8), width: 1.2),
+        border: Border.all(color: const Color(0xff8BD8CF), width: 1.2),
         boxShadow: const [
           BoxShadow(
-            color: Color(0x2200796B),
+            color: Color(0x2626A69A),
             blurRadius: 8,
             offset: Offset(0, 3),
           ),
@@ -100,13 +100,13 @@ class _NextHourCard extends StatelessWidget {
             formatHourlyDay(time),
             style: const TextStyle(
               fontWeight: FontWeight.w700,
-              color: Color(0xff0A6F64),
+              color: Color(0xff1F7D74),
             ),
           ),
           Text(
             formatHourlyTime(time),
             style: const TextStyle(
-              color: Color(0xff2B857A),
+              color: Color(0xff2A9388),
               fontSize: 12,
               fontWeight: FontWeight.w500,
             ),
@@ -115,12 +115,12 @@ class _NextHourCard extends StatelessWidget {
             width: 34,
             height: 34,
             decoration: const BoxDecoration(
-              color: Color(0xffBFEAE2),
+              color: Color(0xffBEEBE6),
               shape: BoxShape.circle,
             ),
             child: const Icon(
               Icons.thermostat,
-              color: Color(0xff00796B),
+              color: Color(0xffFF9800),
               size: 20,
             ),
           ),
@@ -129,7 +129,7 @@ class _NextHourCard extends StatelessWidget {
             style: const TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 16,
-              color: Color(0xff004D45),
+              color: Color(0xff1B6158),
             ),
           ),
         ],

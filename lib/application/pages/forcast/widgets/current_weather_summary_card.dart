@@ -17,7 +17,7 @@ class CurrentWeatherSummaryCard extends StatelessWidget {
         gradient: const LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: [Color(0xff00695C), Color(0xff26A69A)],
+          colors: [Color(0xff1F8E84), Color(0xff26A69A)],
         ),
         borderRadius: BorderRadius.circular(20),
       ),
@@ -28,7 +28,7 @@ class CurrentWeatherSummaryCard extends StatelessWidget {
             children: [
               Icon(
                 weatherIconFromCode(weatherCode),
-                color: Colors.white,
+                color: weatherIconColorFromCode(weatherCode),
                 size: 26,
               ),
               const SizedBox(width: 10),
@@ -75,31 +75,37 @@ class CurrentWeatherSummaryCard extends StatelessWidget {
                 icon: Icons.water_drop,
                 label: 'Humidity',
                 value: '${current['relative_humidity_2m']}%',
+                iconColor: const Color(0xff7FDBFF),
               ),
               _MetricChip(
                 icon: Icons.air,
                 label: 'Wind',
                 value: '${current['wind_speed_10m']} km/h',
+                iconColor: const Color(0xffB3E5FC),
               ),
               _MetricChip(
                 icon: Icons.umbrella,
                 label: 'Rain',
                 value: '${current['rain']} mm',
+                iconColor: const Color(0xff4FC3F7),
               ),
               _MetricChip(
                 icon: Icons.cloud,
                 label: 'Cloud',
                 value: '${current['cloud_cover']}%',
+                iconColor: const Color(0xffCFD8DC),
               ),
               _MetricChip(
                 icon: Icons.flash_on,
                 label: 'Gust',
                 value: '${current['wind_gusts_10m']} km/h',
+                iconColor: const Color(0xffFFE082),
               ),
               _MetricChip(
                 icon: Icons.explore,
                 label: 'Direction',
                 value: '${current['wind_direction_10m']}°',
+                iconColor: const Color(0xffFFCC80),
               ),
             ],
           ),
@@ -114,11 +120,13 @@ class _MetricChip extends StatelessWidget {
     required this.icon,
     required this.label,
     required this.value,
+    required this.iconColor,
   });
 
   final IconData icon;
   final String label;
   final String value;
+  final Color iconColor;
 
   @override
   Widget build(BuildContext context) {
@@ -131,7 +139,7 @@ class _MetricChip extends StatelessWidget {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(icon, color: Colors.white, size: 16),
+          Icon(icon, color: iconColor, size: 16),
           const SizedBox(width: 6),
           Text(
             '$label: $value',
