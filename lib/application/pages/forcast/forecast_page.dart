@@ -1,4 +1,4 @@
-import 'package:farmer_assistance/application/pages/forcast/weather_service.dart';
+import 'package:farmer_assistance/application/pages/forcast/provider/weather_service.dart';
 import 'package:farmer_assistance/application/pages/forcast/weekly_fore.dart';
 import 'package:farmer_assistance/application/pages/forcast/widgets/current_weather_summary_card.dart';
 import 'package:farmer_assistance/application/pages/forcast/widgets/next_hours_section.dart';

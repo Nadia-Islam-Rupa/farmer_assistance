@@ -1,4 +1,4 @@
-import 'package:farmer_assistance/application/pages/forcast/weather_service.dart';
+import 'package:farmer_assistance/application/pages/forcast/provider/weather_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
@@ -91,7 +91,7 @@ class WeeklyForecastPage extends ConsumerWidget {
                     Column(
                       children: [
                         const Icon(Icons.umbrella, color: Colors.blue),
-                        Text("${rain} mm"),
+                        Text("$rain mm"),
                       ],
                     ),
                   ],
