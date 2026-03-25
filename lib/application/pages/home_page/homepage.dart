@@ -1,6 +1,5 @@
 import 'package:farmer_assistance/application/pages/forcast/forecast_page.dart';
 import 'package:farmer_assistance/application/pages/home_page/widgets/feature_card.dart';
-import 'package:farmer_assistance/application/pages/home_page/widgets/quote_card.dart';
 import 'package:farmer_assistance/application/pages/home_page/widgets/weather_card.dart';
 import 'package:farmer_assistance/application/pages/water_prediction/prediction_water.dart';
 import 'package:farmer_assistance/application/pages/yield_prediction/yield_page.dart';
@@ -26,15 +25,15 @@ class HomePage extends StatelessWidget {
                 clipBehavior: Clip.none,
                 children: [
                   const WeatherCard(),
-                  const Positioned(
-                    bottom: -97,
-                    left: 20,
-                    right: 20,
-                    child: QuoteCard(),
-                  ),
+                  // const Positioned(
+                  //   bottom: -97,
+                  //   left: 20,
+                  //   right: 20,
+                  //   child: QuoteCard(),
+                  // ),
                 ],
               ),
-              const SizedBox(height: 100),
+              //const SizedBox(height: 100),
 
               // Grid of features
               Padding(
@@ -76,7 +75,7 @@ class HomePage extends StatelessWidget {
                         );
                       },
                       child: FeatureCard(
-                        icon: Icons.event_note,
+                        icon: Icons.water_drop,
                         title: "Smart Irrigation",
                         subtitle: "Water crops smartly",
                         color: Colors.tealAccent,
@@ -93,7 +92,7 @@ class HomePage extends StatelessWidget {
                         );
                       },
                       child: FeatureCard(
-                        icon: Icons.grass,
+                        icon: Icons.calendar_month,
                         title: "Fertilizer tips",
                         subtitle: "Best fertilizer advice",
                         color: Colors.amberAccent,
@@ -135,6 +134,23 @@ class HomePage extends StatelessWidget {
                         title: "Yield Estimate",
                         subtitle: "Predict crop yields",
                         color: Colors.pinkAccent,
+                      ),
+                    ),
+
+                    GestureDetector(
+                      onTap: () {
+                        // Navigator.push(
+                        //   context,
+                        //   MaterialPageRoute(
+                        //     builder: (context) => const YieldPredictionPage(),
+                        //   ),
+                        // );
+                      },
+                      child: FeatureCard(
+                        icon: Icons.grass,
+                        title: "Crop Recom..",
+                        subtitle: "Best crop advice",
+                        color: Colors.green,
                       ),
                     ),
                   ],
