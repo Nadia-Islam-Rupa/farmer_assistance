@@ -2,9 +2,16 @@ import 'package:farmer_assistance/application/pages/water_prediction/water_predi
 import 'package:flutter/material.dart';
 
 class FertilizerHeaderCard extends StatelessWidget {
-  const FertilizerHeaderCard({super.key, this.subtitleStyle});
+  const FertilizerHeaderCard({
+    super.key,
+    this.subtitleStyle,
+    required this.hasWeather,
+    required this.weatherSourceLabel,
+  });
 
   final TextStyle? subtitleStyle;
+  final bool hasWeather;
+  final String weatherSourceLabel;
 
   @override
   Widget build(BuildContext context) {
@@ -62,6 +69,29 @@ class FertilizerHeaderCard extends StatelessWidget {
                         ) ??
                         TextStyle(fontSize: 13, color: Colors.grey.shade700),
                   ),
+                  if (hasWeather) ...[
+                    const SizedBox(height: 8),
+                    Row(
+                      children: [
+                        const Icon(
+                          Icons.cloud_done_outlined,
+                          size: 14,
+                          color: WaterPredictionTheme.primaryTeal,
+                        ),
+                        const SizedBox(width: 6),
+                        Expanded(
+                          child: Text(
+                            weatherSourceLabel,
+                            style: const TextStyle(
+                              fontSize: 11,
+                              color: WaterPredictionTheme.primaryTeal,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
                 ],
               ),
             ),

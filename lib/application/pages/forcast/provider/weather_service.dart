@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:dio/dio.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:geocoding/geocoding.dart';
 
 const double _defaultLatitude = 23.8103;
 const double _defaultLongitude = 90.4125;
@@ -10,7 +11,7 @@ const double _defaultLongitude = 90.4125;
 const _ForecastLocation _dhakaFallbackLocation = _ForecastLocation(
   latitude: _defaultLatitude,
   longitude: _defaultLongitude,
-  label: 'Dhaka (Fallback)',
+  label: 'Dhaka',
   isFallback: true,
 );
 
@@ -37,7 +38,7 @@ Future<_ForecastLocation> _resolveForecastLocation() async {
       return const _ForecastLocation(
         latitude: _defaultLatitude,
         longitude: _defaultLongitude,
-        label: 'Dhaka (Location Off)',
+        label: 'Dhaka',
         isFallback: true,
       );
     }
@@ -56,7 +57,7 @@ Future<_ForecastLocation> _resolveForecastLocation() async {
       return const _ForecastLocation(
         latitude: _defaultLatitude,
         longitude: _defaultLongitude,
-        label: 'Dhaka (Permission Denied)',
+        label: 'Dhaka',
         isFallback: true,
       );
     }
@@ -68,10 +69,42 @@ Future<_ForecastLocation> _resolveForecastLocation() async {
       ),
     ).timeout(const Duration(seconds: 7));
 
+    // Get location name from coordinates using reverse geocoding
+    String locationLabel = 'Current Location';
+    try {
+      final placemarks = await placemarkFromCoordinates(
+        position.latitude,
+        position.longitude,
+      ).timeout(const Duration(seconds: 4));
+
+      if (placemarks.isNotEmpty) {
+        final place = placemarks.first;
+        // Build location name from available components
+        final parts = <String>[];
+
+        if (place.locality?.isNotEmpty ?? false) {
+          parts.add(place.locality!);
+        } else if (place.subAdministrativeArea?.isNotEmpty ?? false) {
+          parts.add(place.subAdministrativeArea!);
+        }
+
+        if (place.administrativeArea?.isNotEmpty ?? false) {
+          parts.add(place.administrativeArea!);
+        }
+
+        if (parts.isNotEmpty) {
+          locationLabel = parts.join(', ');
+        }
+      }
+    } catch (_) {
+      // If geocoding fails, use generic label
+      locationLabel = 'Current Location';
+    }
+
     return _ForecastLocation(
       latitude: position.latitude,
       longitude: position.longitude,
-      label: 'Current Location',
+      label: locationLabel,
       isFallback: false,
     );
   } catch (e) {
@@ -79,7 +112,7 @@ Future<_ForecastLocation> _resolveForecastLocation() async {
       return const _ForecastLocation(
         latitude: _defaultLatitude,
         longitude: _defaultLongitude,
-        label: 'Dhaka (Location Timeout)',
+        label: 'Dhaka',
         isFallback: true,
       );
     }
@@ -87,7 +120,7 @@ Future<_ForecastLocation> _resolveForecastLocation() async {
     return const _ForecastLocation(
       latitude: _defaultLatitude,
       longitude: _defaultLongitude,
-      label: 'Dhaka (Using Default)',
+      label: 'Dhaka',
       isFallback: true,
     );
   }

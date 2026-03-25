@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:farmer_assistance/application/core/utils/validation_utils.dart';
 
 import 'package:farmer_assistance/application/pages/fertilizer/provider/fertilizer_provider.dart';
@@ -5,6 +7,7 @@ import 'package:farmer_assistance/application/pages/fertilizer/services/fertiliz
 import 'package:farmer_assistance/application/pages/fertilizer/widgets/fertilizer_form_card.dart';
 import 'package:farmer_assistance/application/pages/fertilizer/widgets/fertilizer_header_card.dart';
 import 'package:farmer_assistance/application/pages/fertilizer/widgets/fertilizer_result_card.dart';
+import 'package:farmer_assistance/application/pages/forcast/provider/weather_service.dart';
 import 'package:farmer_assistance/application/pages/water_prediction/water_prediction_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -21,6 +24,66 @@ class _FertilizerRecommendationPageState
     extends ConsumerState<FertilizerRecommendationPage> {
   String? selectedCrop;
   String? selectedSoilType;
+
+  void _applyWeatherData(
+    WidgetRef ref,
+    Map<String, dynamic> weather, {
+    required bool force,
+  }) {
+    final current = weather['current'] as Map<String, dynamic>?;
+    final temperatureController = ref.read(
+      fertilizerTemperatureControllerProvider,
+    );
+    final moistureController = ref.read(fertilizerMoistureControllerProvider);
+
+    final currentTemp = (current?['temperature_2m'] as num?)?.toDouble();
+    final currentHumidity = (current?['relative_humidity_2m'] as num?)
+        ?.toDouble();
+
+    var hasChanges = false;
+
+    if (currentTemp != null &&
+        (force || temperatureController.text.trim().isEmpty)) {
+      temperatureController.text = currentTemp.toStringAsFixed(1);
+      hasChanges = true;
+    }
+
+    if (currentHumidity != null &&
+        (force || moistureController.text.trim().isEmpty)) {
+      moistureController.text = currentHumidity.toStringAsFixed(1);
+      hasChanges = true;
+    }
+
+    if (hasChanges) {
+      ref.read(fertilizerWeatherAutofilledProvider.notifier).markAutofilled();
+      ref
+          .read(fertilizerWeatherSourceLabelProvider.notifier)
+          .setLabel(weather['_locationLabel']?.toString() ?? 'Live weather');
+    }
+  }
+
+  Future<void> _fillFromLatestWeather(
+    BuildContext context,
+    WidgetRef ref,
+  ) async {
+    try {
+      final weather = await ref.read(weatherProvider.future);
+      _applyWeatherData(ref, weather, force: true);
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Temperature and moisture updated from live weather.'),
+          backgroundColor: WaterPredictionTheme.primaryTeal,
+        ),
+      );
+    } catch (_) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Unable to fetch weather right now.'),
+          backgroundColor: Colors.redAccent,
+        ),
+      );
+    }
+  }
 
   void _calculateRecommendation() {
     final formKey = ref.read(fertilizerFormKeyProvider);
@@ -73,7 +136,17 @@ class _FertilizerRecommendationPageState
   Widget build(BuildContext context) {
     final formKey = ref.watch(fertilizerFormKeyProvider);
     final result = ref.watch(fertilizerRecommendationProvider);
+    final weatherAsync = ref.watch(weatherProvider);
+    final weatherSourceLabel = ref.watch(fertilizerWeatherSourceLabelProvider);
     final textTheme = Theme.of(context).textTheme;
+
+    ref.listen<AsyncValue<Map<String, dynamic>>>(weatherProvider, (prev, next) {
+      next.whenData((weather) {
+        if (!ref.read(fertilizerWeatherAutofilledProvider)) {
+          _applyWeatherData(ref, weather, force: false);
+        }
+      });
+    });
 
     return Scaffold(
       backgroundColor: const Color(0xffF1FAF8),
@@ -107,7 +180,11 @@ class _FertilizerRecommendationPageState
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  FertilizerHeaderCard(subtitleStyle: textTheme.bodyMedium),
+                  FertilizerHeaderCard(
+                    subtitleStyle: textTheme.bodyMedium,
+                    hasWeather: weatherAsync.hasValue,
+                    weatherSourceLabel: weatherSourceLabel,
+                  ),
                   const SizedBox(height: 16),
                   FertilizerFormCard(
                     cropController: ref.watch(fertilizerCropControllerProvider),
@@ -138,7 +215,26 @@ class _FertilizerRecommendationPageState
                     onSoilTypeChanged: (value) =>
                         setState(() => selectedSoilType = value),
                   ),
-                  const SizedBox(height: 16),
+                  const SizedBox(height: 14),
+                  SizedBox(
+                    width: double.infinity,
+                    child: OutlinedButton.icon(
+                      onPressed: () => _fillFromLatestWeather(context, ref),
+                      icon: const Icon(Icons.cloud_sync_outlined),
+                      label: const Text('Refresh From Weather'),
+                      style: OutlinedButton.styleFrom(
+                        minimumSize: const Size(double.infinity, 48),
+                        foregroundColor: WaterPredictionTheme.deepTeal,
+                        side: const BorderSide(
+                          color: WaterPredictionTheme.primaryTeal,
+                        ),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(14),
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 10),
                   SizedBox(
                     width: double.infinity,
                     child: ElevatedButton.icon(

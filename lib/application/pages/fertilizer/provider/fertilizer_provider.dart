@@ -56,6 +56,31 @@ final fertilizerTemperatureControllerProvider =
       return controller;
     });
 
+// Weather auto-fill tracking
+final fertilizerWeatherAutofilledProvider =
+    NotifierProvider<FertilizerWeatherAutofilledNotifier, bool>(
+  FertilizerWeatherAutofilledNotifier.new,
+);
+
+final fertilizerWeatherSourceLabelProvider =
+    NotifierProvider<FertilizerWeatherSourceLabelNotifier, String>(
+  FertilizerWeatherSourceLabelNotifier.new,
+);
+
+class FertilizerWeatherAutofilledNotifier extends Notifier<bool> {
+  @override
+  bool build() => false;
+
+  void markAutofilled() => state = true;
+}
+
+class FertilizerWeatherSourceLabelNotifier extends Notifier<String> {
+  @override
+  String build() => 'Weather data unavailable';
+
+  void setLabel(String label) => state = label;
+}
+
 // Fertilizer recommendation result notifier
 final fertilizerRecommendationProvider =
     NotifierProvider<FertilizerRecommendationNotifier, FertilizerResult?>(
