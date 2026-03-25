@@ -75,30 +75,49 @@ Future<_ForecastLocation> _resolveForecastLocation() async {
       final placemarks = await placemarkFromCoordinates(
         position.latitude,
         position.longitude,
-      ).timeout(const Duration(seconds: 4));
+      );
 
       if (placemarks.isNotEmpty) {
         final place = placemarks.first;
         // Build location name from available components
         final parts = <String>[];
 
-        if (place.locality?.isNotEmpty ?? false) {
+        // Try different fields in order of preference for area name
+        // subLocality is typically the neighborhood/area (like "Shawrapara")
+        if (place.subLocality?.isNotEmpty ?? false) {
+          parts.add(place.subLocality!);
+        } else if (place.locality?.isNotEmpty ?? false) {
           parts.add(place.locality!);
         } else if (place.subAdministrativeArea?.isNotEmpty ?? false) {
           parts.add(place.subAdministrativeArea!);
         }
 
+        // Add city/district name (like "Dhaka")
         if (place.administrativeArea?.isNotEmpty ?? false) {
           parts.add(place.administrativeArea!);
+        } else if (place.locality?.isNotEmpty ?? false) {
+          parts.add(place.locality!);
         }
 
         if (parts.isNotEmpty) {
           locationLabel = parts.join(', ');
+        } else {
+          // If no location parts found, try other fields
+          if (place.name?.isNotEmpty ?? false) {
+            locationLabel = place.name!;
+          } else if (place.country?.isNotEmpty ?? false) {
+            locationLabel = place.country!;
+          } else {
+            // Last resort: show formatted coordinates
+            locationLabel =
+                '${position.latitude.toStringAsFixed(2)}°N, ${position.longitude.toStringAsFixed(2)}°E';
+          }
         }
       }
-    } catch (_) {
-      // If geocoding fails, use generic label
-      locationLabel = 'Current Location';
+    } catch (e) {
+      // If geocoding fails, use a descriptive fallback with coordinates
+      locationLabel =
+          '${position.latitude.toStringAsFixed(2)}°N, ${position.longitude.toStringAsFixed(2)}°E';
     }
 
     return _ForecastLocation(

@@ -73,7 +73,7 @@ class ForecastHeroHeader extends StatelessWidget {
                       const SizedBox(width: 6),
                       Expanded(
                         child: Text(
-                          '$locationLabel • $coordinateLabel',
+                          locationLabel,
                           style: const TextStyle(
                             fontSize: 11,
                             color: WaterPredictionTheme.primaryTeal,
