@@ -1,6 +1,5 @@
 import 'package:farmer_assistance/application/pages/forcast/forecast_page.dart';
 import 'package:farmer_assistance/application/pages/home_page/widgets/feature_card.dart';
-import 'package:farmer_assistance/application/pages/home_page/widgets/quote_card.dart';
 import 'package:farmer_assistance/application/pages/home_page/widgets/weather_card.dart';
 import 'package:farmer_assistance/application/pages/water_prediction/prediction_water.dart';
 import 'package:farmer_assistance/application/pages/yield_prediction/yield_page.dart';
@@ -26,15 +25,15 @@ class HomePage extends StatelessWidget {
                 clipBehavior: Clip.none,
                 children: [
                   const WeatherCard(),
-                  const Positioned(
-                    bottom: -97,
-                    left: 20,
-                    right: 20,
-                    child: QuoteCard(),
-                  ),
+                  // const Positioned(
+                  //   bottom: -97,
+                  //   left: 20,
+                  //   right: 20,
+                  //   child: QuoteCard(),
+                  // ),
                 ],
               ),
-              const SizedBox(height: 100),
+              //const SizedBox(height: 100),
 
               // Grid of features
               Padding(
