@@ -50,36 +50,15 @@ class ForecastPage extends ConsumerWidget {
     return Scaffold(
       backgroundColor: const Color(0xffF1FAF8),
       appBar: AppBar(
+        centerTitle: true,
         backgroundColor: Color(0xff26A69A),
         foregroundColor: Colors.white,
         elevation: 0,
         titleSpacing: 0,
-        title: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'Weather Forecast',
-              style: const TextStyle(fontWeight: FontWeight.w700),
-            ),
-            const SizedBox(height: 2),
-            Text(
-              locationLabel,
-              style: const TextStyle(
-                fontSize: 12,
-                color: Color(0xffCDEEE7),
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-          ],
+        title: Text(
+          'Weather Forecast',
+          style: const TextStyle(fontWeight: FontWeight.w700),
         ),
-        // actions: [
-        //   IconButton(
-        //     tooltip: 'Refresh weather',
-        //     onPressed: () => _refreshWeather(ref),
-        //     icon: const Icon(Icons.refresh_rounded),
-        //   ),
-        //   const SizedBox(width: 6),
-        // ],
       ),
       body: Container(
         decoration: const BoxDecoration(
