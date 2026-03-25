@@ -136,6 +136,23 @@ class HomePage extends StatelessWidget {
                         color: Colors.pinkAccent,
                       ),
                     ),
+
+                    GestureDetector(
+                      onTap: () {
+                        // Navigator.push(
+                        //   context,
+                        //   MaterialPageRoute(
+                        //     builder: (context) => const YieldPredictionPage(),
+                        //   ),
+                        // );
+                      },
+                      child: FeatureCard(
+                        icon: Icons.grass,
+                        title: "Crop Recom..",
+                        subtitle: "Best crop advice",
+                        color: Colors.pinkAccent,
+                      ),
+                    ),
                   ],
                 ),
               ),
