@@ -2,6 +2,8 @@ import 'package:farmer_assistance/application/pages/forcast/forecast_page.dart';
 import 'package:farmer_assistance/application/pages/home_page/widgets/feature_card.dart';
 import 'package:farmer_assistance/application/pages/home_page/widgets/quote_card.dart';
 import 'package:farmer_assistance/application/pages/home_page/widgets/weather_card.dart';
+import 'package:farmer_assistance/application/pages/water_prediction/prediction_water.dart';
+import 'package:farmer_assistance/application/pages/yield_prediction/yield_page.dart';
 
 import 'package:flutter/material.dart';
 
@@ -63,21 +65,31 @@ class HomePage extends StatelessWidget {
                         color: Colors.greenAccent,
                       ),
                     ),
-                    FeatureCard(
-                      icon: Icons.event_note,
-                      title: "Smart Scheduling",
-                      subtitle: "Plan your farming",
-                      color: Colors.tealAccent,
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const IrrigationPage(),
+                          ),
+                        );
+                      },
+                      child: FeatureCard(
+                        icon: Icons.event_note,
+                        title: "Smart Irrigation",
+                        subtitle: "Water crops smartly",
+                        color: Colors.tealAccent,
+                      ),
                     ),
                     FeatureCard(
                       icon: Icons.grass,
-                      title: "Fertilizer Rec.",
+                      title: "Fertilizer tips",
                       subtitle: "Best fertilizer advice",
                       color: Colors.amberAccent,
                     ),
                     FeatureCard(
                       icon: Icons.trending_up,
-                      title: "Market Forecast",
+                      title: "Market trends",
                       subtitle: "Price predictions",
                       color: Colors.purpleAccent,
                     ),
@@ -92,16 +104,26 @@ class HomePage extends StatelessWidget {
                       },
                       child: FeatureCard(
                         icon: Icons.cloud,
-                        title: "Climate Impact",
-                        subtitle: "Weather insights",
+                        title: "Weather Insights",
+                        subtitle: "See weather impact",
                         color: Colors.lightBlueAccent,
                       ),
                     ),
-                    FeatureCard(
-                      icon: Icons.smart_toy_outlined,
-                      title: "AI Chatbot",
-                      subtitle: "Ask farming questions",
-                      color: Colors.pinkAccent,
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const YieldPredictionPage(),
+                          ),
+                        );
+                      },
+                      child: FeatureCard(
+                        icon: Icons.agriculture,
+                        title: "Yield Estimate",
+                        subtitle: "Predict crop yields",
+                        color: Colors.pinkAccent,
+                      ),
                     ),
                   ],
                 ),

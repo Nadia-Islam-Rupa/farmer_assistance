@@ -1,10 +1,11 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:farmer_assistance/application/pages/bottom_nav_page/providers/bottom_nav_provider.dart';
+import 'package:farmer_assistance/application/pages/forcast/weekly_fore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../home_page/homepage.dart';
-import '../forcast/forecast_page.dart';
+
 import '../chatbot/chatbot_page.dart';
 import '../profile/profile_page.dart';
 
@@ -16,7 +17,7 @@ class MainScaffold extends ConsumerWidget {
   /// List of all pages corresponding to bottom nav tabs
   static final List<Widget> _pages = [
     HomePage(), // index 0
-    ForecastPage(), // index 1
+    WeeklyForecastPage(), // index 1
     ChatbotPage(), // index 2
     ProfilePage(), // index 3
   ];

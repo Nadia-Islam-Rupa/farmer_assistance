@@ -365,7 +365,7 @@ class _ChatbotState extends State<Chatbot> {
       backgroundColor: Colors.grey[100],
       appBar: AppBar(
         title: const Text('Farm Assistant'),
-        backgroundColor: const Color(0xff00796B),
+        backgroundColor: Color(0xff26A69A),
         elevation: 0,
         leading: IconButton(
           icon: const Icon(Icons.menu),
