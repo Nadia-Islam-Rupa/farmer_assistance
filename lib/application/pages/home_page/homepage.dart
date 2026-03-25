@@ -75,7 +75,7 @@ class HomePage extends StatelessWidget {
                         );
                       },
                       child: FeatureCard(
-                        icon: Icons.event_note,
+                        icon: Icons.water_drop,
                         title: "Smart Irrigation",
                         subtitle: "Water crops smartly",
                         color: Colors.tealAccent,
@@ -92,7 +92,7 @@ class HomePage extends StatelessWidget {
                         );
                       },
                       child: FeatureCard(
-                        icon: Icons.grass,
+                        icon: Icons.calendar_month,
                         title: "Fertilizer tips",
                         subtitle: "Best fertilizer advice",
                         color: Colors.amberAccent,
