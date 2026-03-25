@@ -1,7 +1,10 @@
 import 'package:farmer_assistance/application/pages/forcast/provider/weather_service.dart';
-import 'package:farmer_assistance/application/pages/forcast/weekly_fore.dart';
 import 'package:farmer_assistance/application/pages/forcast/widgets/current_weather_summary_card.dart';
+import 'package:farmer_assistance/application/pages/forcast/widgets/forecast_error_state.dart';
+import 'package:farmer_assistance/application/pages/forcast/widgets/forecast_hero_header.dart';
+import 'package:farmer_assistance/application/pages/forcast/widgets/forecast_loading_state.dart';
 import 'package:farmer_assistance/application/pages/forcast/widgets/next_hours_section.dart';
+import 'package:farmer_assistance/application/pages/forcast/widgets/weekly_forecast_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -71,8 +74,8 @@ class ForecastPage extends ConsumerWidget {
         ),
         child: SafeArea(
           child: weatherAsync.when(
-            loading: () => const _LoadingState(),
-            error: (e, _) => _ErrorState(
+            loading: () => const ForecastLoadingState(),
+            error: (e, _) => ForecastErrorState(
               message: e.toString(),
               onRetry: () => _refreshWeather(ref),
             ),
@@ -94,52 +97,14 @@ class ForecastPage extends ConsumerWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      _ForecastHeroHeader(
+                      ForecastHeroHeader(
                         locationLabel: locationLabel,
                         coordinateLabel: coordinateLabel,
                       ),
                       const SizedBox(height: 16),
                       CurrentWeatherSummaryCard(current: current),
                       const SizedBox(height: 16),
-                      Container(
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(16),
-                          boxShadow: const [
-                            BoxShadow(
-                              color: Color(0x1A26A69A),
-                              blurRadius: 18,
-                              offset: Offset(0, 10),
-                            ),
-                          ],
-                        ),
-                        child: ElevatedButton.icon(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) =>
-                                    const WeeklyForecastPage(),
-                              ),
-                            );
-                          },
-                          style: ElevatedButton.styleFrom(
-                            minimumSize: const Size(double.infinity, 52),
-                            elevation: 0,
-                            backgroundColor: const Color(0xff26A69A),
-                            foregroundColor: Colors.white,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(16),
-                            ),
-                          ),
-                          icon: const Icon(Icons.calendar_month),
-                          label: const Text(
-                            'View 7-Day Forecast',
-                            style: TextStyle(fontWeight: FontWeight.w700),
-                          ),
-                        ),
-                      ),
+                      const WeeklyForecastButton(),
                       const SizedBox(height: 18),
                       NextHoursSection(
                         hourlyTimes: hourlyTimes,
@@ -150,206 +115,6 @@ class ForecastPage extends ConsumerWidget {
                 ),
               );
             },
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class _ForecastHeroHeader extends StatelessWidget {
-  const _ForecastHeroHeader({
-    required this.locationLabel,
-    required this.coordinateLabel,
-  });
-
-  final String locationLabel;
-  final String coordinateLabel;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.fromLTRB(16, 16, 16, 14),
-      decoration: BoxDecoration(
-        gradient: const LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: [Color(0xff26A69A), Color(0xff1F8E84)],
-        ),
-        borderRadius: BorderRadius.circular(20),
-        boxShadow: const [
-          BoxShadow(
-            color: Color(0x2426A69A),
-            blurRadius: 18,
-            offset: Offset(0, 12),
-          ),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              const CircleAvatar(
-                radius: 16,
-                backgroundColor: Color(0x33FFFFFF),
-                child: Icon(Icons.wb_sunny_outlined, color: Color(0xffFFB300)),
-              ),
-              const SizedBox(width: 10),
-              const Expanded(
-                child: Text(
-                  'Today\'s Weather',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 19,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-              ),
-              const Icon(
-                Icons.location_on_outlined,
-                color: Color(0xffFFE082),
-                size: 18,
-              ),
-              const SizedBox(width: 4),
-              Text(
-                locationLabel,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 10),
-          Text(
-            'Swipe down to refresh. Forecast is now fetched by your live location when permission is granted.',
-            style: const TextStyle(
-              color: Color(0xffD9F5EE),
-              fontSize: 13,
-              height: 1.35,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-          const SizedBox(height: 8),
-          Row(
-            children: [
-              const Icon(
-                Icons.explore_outlined,
-                color: Color(0xffFFCC80),
-                size: 15,
-              ),
-              const SizedBox(width: 6),
-              Text(
-                coordinateLabel,
-                style: const TextStyle(
-                  color: Color(0xffCBEDE6),
-                  fontSize: 12,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _LoadingState extends StatelessWidget {
-  const _LoadingState();
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Container(
-            padding: const EdgeInsets.all(14),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(16),
-              boxShadow: const [
-                BoxShadow(
-                  color: Color(0x1F26A69A),
-                  blurRadius: 14,
-                  offset: Offset(0, 6),
-                ),
-              ],
-            ),
-            child: const CircularProgressIndicator(
-              color: Color(0xff26A69A),
-              strokeWidth: 3,
-            ),
-          ),
-          const SizedBox(height: 14),
-          const Text(
-            'Loading latest weather...',
-            style: TextStyle(
-              color: Color(0xff2F6F69),
-              fontSize: 14,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _ErrorState extends StatelessWidget {
-  const _ErrorState({required this.message, required this.onRetry});
-
-  final String message;
-  final Future<void> Function() onRetry;
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Padding(
-        padding: const EdgeInsets.all(20),
-        child: Container(
-          width: double.infinity,
-          padding: const EdgeInsets.all(18),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(16),
-            border: Border.all(color: const Color(0xffBEE6E1)),
-          ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const Icon(
-                Icons.cloud_off_rounded,
-                color: Color(0xff3A8981),
-                size: 36,
-              ),
-              const SizedBox(height: 10),
-              const Text(
-                'Unable to load weather data',
-                style: TextStyle(
-                  fontWeight: FontWeight.w700,
-                  color: Color(0xff1D5751),
-                ),
-              ),
-              const SizedBox(height: 8),
-              Text(
-                message,
-                textAlign: TextAlign.center,
-                style: const TextStyle(color: Color(0xff26A69A), fontSize: 13),
-              ),
-              const SizedBox(height: 14),
-              FilledButton.icon(
-                onPressed: onRetry,
-                style: FilledButton.styleFrom(
-                  backgroundColor: Color(0xff26A69A),
-                ),
-                icon: const Icon(Icons.refresh),
-                label: const Text('Try Again'),
-              ),
-            ],
           ),
         ),
       ),
