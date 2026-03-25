@@ -1,15 +1,17 @@
 import 'package:farmer_assistance/application/pages/water_prediction/water_prediction_theme.dart';
 import 'package:flutter/material.dart';
 
-class ForecastHeroHeader extends StatelessWidget {
-  const ForecastHeroHeader({
+class FertilizerHeaderCard extends StatelessWidget {
+  const FertilizerHeaderCard({
     super.key,
-    required this.locationLabel,
-    required this.coordinateLabel,
+    this.subtitleStyle,
+    required this.hasWeather,
+    required this.weatherSourceLabel,
   });
 
-  final String locationLabel;
-  final String coordinateLabel;
+  final TextStyle? subtitleStyle;
+  final bool hasWeather;
+  final String weatherSourceLabel;
 
   @override
   Widget build(BuildContext context) {
@@ -39,8 +41,8 @@ class ForecastHeroHeader extends StatelessWidget {
                 borderRadius: BorderRadius.circular(14),
               ),
               child: const Icon(
-                Icons.wb_sunny_outlined,
-                color: Colors.orange,
+                Icons.science_outlined,
+                color: WaterPredictionTheme.deepTeal,
                 size: 32,
               ),
             ),
@@ -50,7 +52,7 @@ class ForecastHeroHeader extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Text(
-                    'Weather Forecast',
+                    'Fertilizer Recommendation',
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
@@ -59,31 +61,37 @@ class ForecastHeroHeader extends StatelessWidget {
                   ),
                   const SizedBox(height: 6),
                   Text(
-                    'Real-time weather data for your location',
-                    style: TextStyle(fontSize: 13, color: Colors.grey.shade700),
+                    'Get personalized fertilizer recommendations based on soil and crop analysis',
+                    style:
+                        subtitleStyle?.copyWith(
+                          fontSize: 13,
+                          color: Colors.grey.shade700,
+                        ) ??
+                        TextStyle(fontSize: 13, color: Colors.grey.shade700),
                   ),
-                  const SizedBox(height: 8),
-                  Row(
-                    children: [
-                      const Icon(
-                        Icons.location_on_outlined,
-                        size: 14,
-                        color: WaterPredictionTheme.primaryTeal,
-                      ),
-                      const SizedBox(width: 6),
-                      Expanded(
-                        child: Text(
-                          locationLabel,
-                          style: const TextStyle(
-                            fontSize: 11,
-                            color: WaterPredictionTheme.primaryTeal,
-                            fontWeight: FontWeight.w600,
-                          ),
-                          overflow: TextOverflow.ellipsis,
+                  if (hasWeather) ...[
+                    const SizedBox(height: 8),
+                    Row(
+                      children: [
+                        const Icon(
+                          Icons.cloud_done_outlined,
+                          size: 14,
+                          color: WaterPredictionTheme.primaryTeal,
                         ),
-                      ),
-                    ],
-                  ),
+                        const SizedBox(width: 6),
+                        Expanded(
+                          child: Text(
+                            weatherSourceLabel,
+                            style: const TextStyle(
+                              fontSize: 11,
+                              color: WaterPredictionTheme.primaryTeal,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
                 ],
               ),
             ),

@@ -2,34 +2,36 @@ import 'package:farmer_assistance/application/pages/water_prediction/water_predi
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class YieldInputField extends StatelessWidget {
-  const YieldInputField({
+class FertilizerInputField extends StatelessWidget {
+  const FertilizerInputField({
     super.key,
     required this.controller,
     required this.label,
     required this.icon,
-    required this.validator,
     this.isNumeric = false,
+    this.validator,
+    this.suffix,
+    this.readOnly = false,
   });
 
   final TextEditingController controller;
   final String label;
   final IconData icon;
-  final String? Function(String?) validator;
   final bool isNumeric;
+  final String? Function(String?)? validator;
+  final String? suffix;
+  final bool readOnly;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       controller: controller,
-      validator: validator,
-      keyboardType: isNumeric
-          ? const TextInputType.numberWithOptions(decimal: true)
-          : null,
+      readOnly: readOnly,
+      keyboardType: isNumeric ? TextInputType.number : TextInputType.text,
       inputFormatters: isNumeric
           ? [FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}'))]
           : null,
-      textInputAction: TextInputAction.next,
+      validator: validator,
       decoration: InputDecoration(
         labelText: label,
         labelStyle: TextStyle(color: Colors.grey.shade700, fontSize: 14),
@@ -38,6 +40,8 @@ class YieldInputField extends StatelessWidget {
           color: WaterPredictionTheme.primaryTeal,
           size: 22,
         ),
+        suffixText: suffix,
+        suffixStyle: TextStyle(color: Colors.grey.shade600, fontSize: 13),
         filled: true,
         fillColor: Colors.grey.shade50,
         border: OutlineInputBorder(

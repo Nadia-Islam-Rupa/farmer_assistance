@@ -4,6 +4,7 @@ import 'package:farmer_assistance/application/pages/home_page/widgets/quote_card
 import 'package:farmer_assistance/application/pages/home_page/widgets/weather_card.dart';
 import 'package:farmer_assistance/application/pages/water_prediction/prediction_water.dart';
 import 'package:farmer_assistance/application/pages/yield_prediction/yield_page.dart';
+import 'package:farmer_assistance/application/pages/fertilizer/fertilizer_page.dart';
 
 import 'package:flutter/material.dart';
 
@@ -81,11 +82,22 @@ class HomePage extends StatelessWidget {
                         color: Colors.tealAccent,
                       ),
                     ),
-                    FeatureCard(
-                      icon: Icons.grass,
-                      title: "Fertilizer tips",
-                      subtitle: "Best fertilizer advice",
-                      color: Colors.amberAccent,
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                const FertilizerRecommendationPage(),
+                          ),
+                        );
+                      },
+                      child: FeatureCard(
+                        icon: Icons.grass,
+                        title: "Fertilizer tips",
+                        subtitle: "Best fertilizer advice",
+                        color: Colors.amberAccent,
+                      ),
                     ),
                     FeatureCard(
                       icon: Icons.trending_up,
