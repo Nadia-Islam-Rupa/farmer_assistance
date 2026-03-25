@@ -2,6 +2,7 @@ import 'package:farmer_assistance/application/pages/forcast/forecast_page.dart';
 import 'package:farmer_assistance/application/pages/home_page/widgets/feature_card.dart';
 import 'package:farmer_assistance/application/pages/home_page/widgets/quote_card.dart';
 import 'package:farmer_assistance/application/pages/home_page/widgets/weather_card.dart';
+import 'package:farmer_assistance/application/pages/water_prediction/prediction_water.dart';
 
 import 'package:flutter/material.dart';
 
@@ -63,11 +64,21 @@ class HomePage extends StatelessWidget {
                         color: Colors.greenAccent,
                       ),
                     ),
-                    FeatureCard(
-                      icon: Icons.event_note,
-                      title: "Smart Scheduling",
-                      subtitle: "Plan your farming",
-                      color: Colors.tealAccent,
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const IrrigationPage(),
+                          ),
+                        );
+                      },
+                      child: FeatureCard(
+                        icon: Icons.event_note,
+                        title: "Water Prediction",
+                        subtitle: "Plan your farming",
+                        color: Colors.tealAccent,
+                      ),
                     ),
                     FeatureCard(
                       icon: Icons.grass,
