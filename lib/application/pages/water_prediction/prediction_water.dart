@@ -19,9 +19,28 @@ class _IrrigationPageState extends ConsumerState<IrrigationPage> {
   String? selectedSoil;
   String? selectedStage;
 
-  final crops = ['Wheat', 'Rice', 'Maize', 'Cotton', 'Sugarcane'];
-  final soils = ['Black Soil', 'Sandy', 'Clay', 'Loam'];
-  final stages = ['Germination', 'Vegetative', 'Flowering', 'Fruiting'];
+  final crops = ['Wheat', 'Tomato', 'Carrot', 'Chilli', 'Potato'];
+
+  final soils = [
+    'Black Soil',
+    'Alluvial Soil',
+    'Sandy Soil',
+    'Red Soil',
+    'Clay Soil',
+    'Loam Soil',
+    'Chalky Soil',
+  ];
+
+  final stages = [
+    'Germination',
+    'Seedling',
+    'Vegetative',
+    'Flowering',
+    'Pollination',
+    'Fruit Formation',
+    'Maturation',
+    'Harvest',
+  ];
 
   void showInputSummary() {
     if (selectedCrop == null || selectedSoil == null || selectedStage == null) {
