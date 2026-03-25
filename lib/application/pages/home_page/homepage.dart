@@ -3,6 +3,7 @@ import 'package:farmer_assistance/application/pages/home_page/widgets/feature_ca
 import 'package:farmer_assistance/application/pages/home_page/widgets/quote_card.dart';
 import 'package:farmer_assistance/application/pages/home_page/widgets/weather_card.dart';
 import 'package:farmer_assistance/application/pages/water_prediction/prediction_water.dart';
+import 'package:farmer_assistance/application/pages/yield_prediction/yield_page.dart';
 
 import 'package:flutter/material.dart';
 
@@ -108,11 +109,21 @@ class HomePage extends StatelessWidget {
                         color: Colors.lightBlueAccent,
                       ),
                     ),
-                    FeatureCard(
-                      icon: Icons.agriculture,
-                      title: "Yield Estimate",
-                      subtitle: "Predict crop yields",
-                      color: Colors.pinkAccent,
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const YieldPredictionPage(),
+                          ),
+                        );
+                      },
+                      child: FeatureCard(
+                        icon: Icons.agriculture,
+                        title: "Yield Estimate",
+                        subtitle: "Predict crop yields",
+                        color: Colors.pinkAccent,
+                      ),
                     ),
                   ],
                 ),

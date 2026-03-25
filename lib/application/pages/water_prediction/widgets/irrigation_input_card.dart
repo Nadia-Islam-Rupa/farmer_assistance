@@ -216,7 +216,7 @@ class _DropdownField extends StatelessWidget {
                                 controller: scrollController,
                                 padding: const EdgeInsets.fromLTRB(8, 0, 8, 16),
                                 itemCount: filteredItems.length,
-                                separatorBuilder: (_, __) =>
+                                separatorBuilder: (_, _) =>
                                     const SizedBox(height: 2),
                                 itemBuilder: (context, index) {
                                   final option = filteredItems[index];
