@@ -21,7 +21,7 @@ class FertilizerResultCard extends StatelessWidget {
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
             colors: [
-              WaterPredictionTheme.primaryTeal.withOpacity(0.12),
+              WaterPredictionTheme.primaryTeal.withValues(alpha: 0.12),
               Colors.white,
             ],
           ),

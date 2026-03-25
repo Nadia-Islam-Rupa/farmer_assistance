@@ -163,7 +163,7 @@ class FertilizerFormCard extends StatelessWidget {
     String? Function(String?)? validator,
   }) {
     return DropdownButtonFormField<String>(
-      value: value,
+      initialValue: value,
       decoration: InputDecoration(
         labelText: label,
         labelStyle: TextStyle(color: Colors.grey.shade700, fontSize: 14),

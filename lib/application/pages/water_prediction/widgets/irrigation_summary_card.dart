@@ -31,7 +31,9 @@ class IrrigationSummaryCard extends StatelessWidget {
                 Container(
                   padding: const EdgeInsets.all(8),
                   decoration: BoxDecoration(
-                    color: WaterPredictionTheme.primaryTeal.withOpacity(0.15),
+                    color: WaterPredictionTheme.primaryTeal.withValues(
+                      alpha: 0.15,
+                    ),
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: const Icon(

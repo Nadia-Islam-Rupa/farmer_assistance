@@ -27,7 +27,7 @@ class YieldHeaderCard extends StatelessWidget {
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
             colors: [
-              WaterPredictionTheme.primaryTeal.withOpacity(0.08),
+              WaterPredictionTheme.primaryTeal.withValues(alpha: 0.08),
               Colors.white,
             ],
           ),
@@ -37,7 +37,7 @@ class YieldHeaderCard extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(14),
               decoration: BoxDecoration(
-                color: WaterPredictionTheme.primaryTeal.withOpacity(0.15),
+                color: WaterPredictionTheme.primaryTeal.withValues(alpha: 0.15),
                 borderRadius: BorderRadius.circular(14),
               ),
               child: const Icon(
