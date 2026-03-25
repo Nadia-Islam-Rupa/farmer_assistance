@@ -150,7 +150,7 @@ class HomePage extends StatelessWidget {
                         icon: Icons.grass,
                         title: "Crop Recom..",
                         subtitle: "Best crop advice",
-                        color: Colors.pinkAccent,
+                        color: Colors.green,
                       ),
                     ),
                   ],
