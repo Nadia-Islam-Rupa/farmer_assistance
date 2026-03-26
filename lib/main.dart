@@ -1,4 +1,5 @@
 import 'package:farmer_assistance/application/core/services/routing/app_router.dart';
+import 'package:farmer_assistance/application/core/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -24,11 +25,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
+      title: 'Farmer Assistance',
+      theme: AppTheme.lightTheme,
       routeInformationParser: AppRouter.router.routeInformationParser,
       routeInformationProvider: AppRouter.router.routeInformationProvider,
       routerDelegate: AppRouter.router.routerDelegate,
       debugShowCheckedModeBanner: false,
     );
-    // debugShowCheckedModeBanner: false, home: LoginScreen());
   }
 }
