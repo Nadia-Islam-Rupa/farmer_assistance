@@ -60,4 +60,24 @@ class ValidationUtils {
     }
     return null;
   }
+
+  /// Validates that a number is within a specific range (simplified version)
+  static String? validateRange(
+    String? value,
+    double min,
+    double max,
+    String fieldName,
+  ) {
+    if (value == null || value.trim().isEmpty) {
+      return '$fieldName is required';
+    }
+    final numValue = double.tryParse(value.trim());
+    if (numValue == null) {
+      return 'Enter a valid number for $fieldName';
+    }
+    if (numValue < min || numValue > max) {
+      return '$fieldName must be between $min and $max';
+    }
+    return null;
+  }
 }
