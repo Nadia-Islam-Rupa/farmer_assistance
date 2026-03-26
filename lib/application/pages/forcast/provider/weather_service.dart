@@ -75,49 +75,60 @@ Future<_ForecastLocation> _resolveForecastLocation() async {
       final placemarks = await placemarkFromCoordinates(
         position.latitude,
         position.longitude,
-      );
+      ).timeout(const Duration(seconds: 5));
 
       if (placemarks.isNotEmpty) {
         final place = placemarks.first;
-        // Build location name from available components
         final parts = <String>[];
 
-        // Try different fields in order of preference for area name
-        // subLocality is typically the neighborhood/area (like "Shawrapara")
-        if (place.subLocality?.isNotEmpty ?? false) {
-          parts.add(place.subLocality!);
-        } else if (place.locality?.isNotEmpty ?? false) {
-          parts.add(place.locality!);
-        } else if (place.subAdministrativeArea?.isNotEmpty ?? false) {
-          parts.add(place.subAdministrativeArea!);
+        // Helper to check if string is valid
+        bool isValid(String? str) =>
+            str != null && str.trim().isNotEmpty && str.trim() != 'null';
+
+        // Priority order: locality (city) -> subAdministrativeArea (district) -> administrativeArea (division)
+        if (isValid(place.locality)) {
+          parts.add(place.locality!.trim());
+        } else if (isValid(place.subAdministrativeArea)) {
+          parts.add(place.subAdministrativeArea!.trim());
+        } else if (isValid(place.administrativeArea)) {
+          parts.add(place.administrativeArea!.trim());
         }
 
-        // Add city/district name (like "Dhaka")
-        if (place.administrativeArea?.isNotEmpty ?? false) {
-          parts.add(place.administrativeArea!);
-        } else if (place.locality?.isNotEmpty ?? false) {
-          parts.add(place.locality!);
+        // Add subLocality (area/neighborhood) if available and different from locality
+        if (isValid(place.subLocality) &&
+            (parts.isEmpty || place.subLocality!.trim() != parts.first)) {
+          if (parts.isEmpty) {
+            parts.add(place.subLocality!.trim());
+          } else {
+            parts.insert(0, place.subLocality!.trim());
+          }
+        }
+
+        // Fallback to other fields if still empty
+        if (parts.isEmpty) {
+          if (isValid(place.name)) {
+            parts.add(place.name!.trim());
+          } else if (isValid(place.thoroughfare)) {
+            parts.add(place.thoroughfare!.trim());
+          } else if (isValid(place.country)) {
+            parts.add(place.country!.trim());
+          }
         }
 
         if (parts.isNotEmpty) {
-          locationLabel = parts.join(', ');
-        } else {
-          // If no location parts found, try other fields
-          if (place.name?.isNotEmpty ?? false) {
-            locationLabel = place.name!;
-          } else if (place.country?.isNotEmpty ?? false) {
-            locationLabel = place.country!;
-          } else {
-            // Last resort: show formatted coordinates
-            locationLabel =
-                '${position.latitude.toStringAsFixed(2)}°N, ${position.longitude.toStringAsFixed(2)}°E';
+          // Remove duplicates while preserving order
+          final uniqueParts = <String>[];
+          for (final part in parts) {
+            if (!uniqueParts.contains(part)) {
+              uniqueParts.add(part);
+            }
           }
+          locationLabel = uniqueParts.join(', ');
         }
       }
     } catch (e) {
-      // If geocoding fails, use a descriptive fallback with coordinates
-      locationLabel =
-          '${position.latitude.toStringAsFixed(2)}°N, ${position.longitude.toStringAsFixed(2)}°E';
+      // If geocoding fails, keep the default "Current Location"
+      locationLabel = 'Current Location';
     }
 
     return _ForecastLocation(

@@ -1,3 +1,4 @@
+import 'package:farmer_assistance/application/pages/crop_recommendation/crop_recommendation_page.dart';
 import 'package:farmer_assistance/application/pages/forcast/forecast_page.dart';
 import 'package:farmer_assistance/application/pages/home_page/widgets/feature_card.dart';
 import 'package:farmer_assistance/application/pages/home_page/widgets/weather_card.dart';
@@ -139,12 +140,13 @@ class HomePage extends StatelessWidget {
 
                     GestureDetector(
                       onTap: () {
-                        // Navigator.push(
-                        //   context,
-                        //   MaterialPageRoute(
-                        //     builder: (context) => const YieldPredictionPage(),
-                        //   ),
-                        // );
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                const CropRecommendationPage(),
+                          ),
+                        );
                       },
                       child: FeatureCard(
                         icon: Icons.grass,
