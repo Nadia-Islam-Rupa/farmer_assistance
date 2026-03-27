@@ -93,7 +93,7 @@ class HomePage extends StatelessWidget {
                         );
                       },
                       child: FeatureCard(
-                        icon: Icons.calendar_month,
+                        icon: Icons.science_outlined,
                         title: "Fertilizer tips",
                         subtitle: "Best fertilizer advice",
                         color: Colors.amberAccent,
@@ -115,7 +115,7 @@ class HomePage extends StatelessWidget {
                         );
                       },
                       child: FeatureCard(
-                        icon: Icons.cloud,
+                        icon: Icons.wb_cloudy_outlined,
                         title: "Weather Insights",
                         subtitle: "See weather impact",
                         color: Colors.lightBlueAccent,
@@ -149,7 +149,7 @@ class HomePage extends StatelessWidget {
                         );
                       },
                       child: FeatureCard(
-                        icon: Icons.grass,
+                        icon: Icons.eco_outlined,
                         title: "Crop Recom..",
                         subtitle: "Best crop advice",
                         color: Colors.green,
