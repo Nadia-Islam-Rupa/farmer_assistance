@@ -8,6 +8,8 @@ import 'package:farmer_assistance/application/pages/crop_recommendation/widgets/
 import 'package:farmer_assistance/application/pages/crop_recommendation/widgets/crop_header_card.dart';
 import 'package:farmer_assistance/application/pages/crop_recommendation/widgets/crop_result_card.dart';
 import 'package:farmer_assistance/application/pages/forcast/provider/weather_service.dart';
+import 'package:farmer_assistance/application/pages/water_prediction/water_prediction_theme.dart'
+    show WaterPredictionTheme;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -117,7 +119,7 @@ class _CropRecommendationPageState
     return Scaffold(
       backgroundColor: const Color(0xffF1FAF8),
       appBar: AppBar(
-        backgroundColor: const Color(0xff00796B),
+        backgroundColor: WaterPredictionTheme.primaryTeal,
         foregroundColor: Colors.white,
         elevation: 0,
         title: const Text(
@@ -147,9 +149,9 @@ class _CropRecommendationPageState
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   CropHeaderCard(
-                    subtitleStyle: textTheme.bodyMedium,
                     hasWeather: weatherAsync.hasValue,
                     weatherSourceLabel: weatherSourceLabel,
+                    textTheme: textTheme,
                   ),
                   const SizedBox(height: 16),
                   CropFormCard(
