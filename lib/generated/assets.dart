@@ -7,7 +7,8 @@ class Assets {
   Assets._();
 
   static const AssetGenImage agriculture = AssetGenImage(
-      'assets/agriculture.png');
+    'assets/agriculture.png',
+  );
   static const AssetGenImage facebook = AssetGenImage('assets/facebook.png');
   static const AssetGenImage google = AssetGenImage('assets/google.png');
   static const AssetGenImage linkedin = AssetGenImage('assets/linkedin.png');
@@ -17,7 +18,6 @@ class AssetGenImage {
   const AssetGenImage(this._assetName, {this.size, this.flavors = const {}});
 
   final String _assetName;
-
 
   final Size? size;
   final Set<String> flavors;
@@ -75,15 +75,8 @@ class AssetGenImage {
     );
   }
 
-  ImageProvider provider({
-    AssetBundle? bundle,
-    String? package,
-  }) {
-    return AssetImage(
-      _assetName,
-      bundle: bundle,
-      package: package,
-    );
+  ImageProvider provider({AssetBundle? bundle, String? package}) {
+    return AssetImage(_assetName, bundle: bundle, package: package);
   }
 
   Widget custom({
