@@ -1,7 +1,7 @@
 /// irrigation_needed : true
 /// recommendation : "💧 Irrigation Needed"
 /// confidence : 0.95
-/// feature_importance : {"additionalProp1":{}}
+/// feature_importance : {}
 
 class SmartIrrigationResponseModel {
   SmartIrrigationResponseModel({
