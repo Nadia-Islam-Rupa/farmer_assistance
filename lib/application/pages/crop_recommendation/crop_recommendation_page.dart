@@ -134,8 +134,8 @@ class _CropRecommendationPageState
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
             colors: [
-              const Color(0xff00796B).withValues(alpha: 0.1),
-              Colors.white,
+              WaterPredictionTheme.pageTopTint,
+              WaterPredictionTheme.pageBottomTint,
             ],
             stops: const [0, 0.3],
           ),
