@@ -42,7 +42,14 @@ final fertilizerPotassiumControllerProvider =
       return controller;
     });
 
-final fertilizerMoistureControllerProvider =
+final fertilizerPhControllerProvider =
+    Provider.autoDispose<TextEditingController>((ref) {
+      final controller = TextEditingController();
+      ref.onDispose(controller.dispose);
+      return controller;
+    });
+
+final fertilizerRainfallControllerProvider =
     Provider.autoDispose<TextEditingController>((ref) {
       final controller = TextEditingController();
       ref.onDispose(controller.dispose);
@@ -59,13 +66,13 @@ final fertilizerTemperatureControllerProvider =
 // Weather auto-fill tracking
 final fertilizerWeatherAutofilledProvider =
     NotifierProvider<FertilizerWeatherAutofilledNotifier, bool>(
-  FertilizerWeatherAutofilledNotifier.new,
-);
+      FertilizerWeatherAutofilledNotifier.new,
+    );
 
 final fertilizerWeatherSourceLabelProvider =
     NotifierProvider<FertilizerWeatherSourceLabelNotifier, String>(
-  FertilizerWeatherSourceLabelNotifier.new,
-);
+      FertilizerWeatherSourceLabelNotifier.new,
+    );
 
 class FertilizerWeatherAutofilledNotifier extends Notifier<bool> {
   @override
