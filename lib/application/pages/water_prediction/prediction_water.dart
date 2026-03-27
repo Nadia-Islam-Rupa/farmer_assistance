@@ -42,25 +42,25 @@ class _IrrigationState extends ConsumerState<Irrigation> {
   String moisture = '';
   SmartIrrigationResponseModel? predictionResult;
 
-  final crops = ['Wheat', 'Tomato', 'Carrot', 'Chilli', 'Potato'];
+  final crops = ['Wheat', 'Chilli', 'Potato', 'Carrot', 'Tomato'];
 
   final soils = [
-    'Black Soil',
-    'Alluvial Soil',
+    'Clay Soil',
     'Sandy Soil',
     'Red Soil',
-    'Clay Soil',
     'Loam Soil',
+    'Black Soil',
+    'Alluvial Soil',
     'Chalky Soil',
   ];
 
   final stages = [
-    'Germination',
-    'Seedling',
-    'Vegetative',
     'Flowering',
+    'Seedling Stage',
+    'Vegetative Growth / Root or Tuber Development',
+    'Germination',
     'Pollination',
-    'Fruit Formation',
+    'Fruit/Grain/Bulb Formation',
     'Maturation',
     'Harvest',
   ];
@@ -80,9 +80,9 @@ class _IrrigationState extends ConsumerState<Irrigation> {
     context.read<WaterPredictionBloc>().add(
       WaterPredictionEvent.started(
         data: SmartIrrigationRequestModel(
-          cropId: 1,
-          soilType: 0,
-          seedlingStage: 2,
+          cropId: selectedCrop,
+          soilType: selectedSoil,
+          seedlingStage: selectedStage,
           moi: double.tryParse(moisture),
           temp: double.tryParse(temperature),
           humidity: double.tryParse(humidity),
