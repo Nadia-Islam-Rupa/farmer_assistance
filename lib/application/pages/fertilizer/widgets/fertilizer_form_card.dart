@@ -11,8 +11,9 @@ class FertilizerFormCard extends StatelessWidget {
     required this.nitrogenController,
     required this.phosphorusController,
     required this.potassiumController,
-    required this.moistureController,
+    required this.rainfallController,
     required this.temperatureController,
+    required this.phController,
     required this.requiredText,
     required this.requiredNumber,
     this.onSoilTypeChanged,
@@ -26,8 +27,9 @@ class FertilizerFormCard extends StatelessWidget {
   final TextEditingController nitrogenController;
   final TextEditingController phosphorusController;
   final TextEditingController potassiumController;
-  final TextEditingController moistureController;
+  final TextEditingController rainfallController;
   final TextEditingController temperatureController;
+  final TextEditingController phController;
   final String? Function(String?, String) requiredText;
   final String? Function(String?, String) requiredNumber;
   final void Function(String?)? onSoilTypeChanged;
@@ -55,11 +57,10 @@ class FertilizerFormCard extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 16),
-            _buildDropdownField(
-              context: context,
-              label: 'Crop Type',
-              icon: Icons.grass_outlined,
+            _DropdownField(
               value: selectedCrop,
+              label: 'Crop Type',
+              icon: Icons.eco_outlined,
               items: FertilizerConstants.crops,
               onChanged: (value) {
                 if (value != null) {
@@ -67,14 +68,12 @@ class FertilizerFormCard extends StatelessWidget {
                   onCropChanged?.call(value);
                 }
               },
-              validator: (value) => requiredText(value, 'Crop type'),
             ),
             const SizedBox(height: 12),
-            _buildDropdownField(
-              context: context,
-              label: 'Soil Type',
-              icon: Icons.terrain,
+            _DropdownField(
               value: selectedSoilType,
+              label: 'Soil Type',
+              icon: Icons.landscape_outlined,
               items: FertilizerConstants.soilTypes,
               onChanged: (value) {
                 if (value != null) {
@@ -82,7 +81,6 @@ class FertilizerFormCard extends StatelessWidget {
                   onSoilTypeChanged?.call(value);
                 }
               },
-              validator: (value) => requiredText(value, 'Soil type'),
             ),
             const SizedBox(height: 24),
             Text(
@@ -120,6 +118,14 @@ class FertilizerFormCard extends StatelessWidget {
               suffix: 'kg/ha',
               validator: (value) => requiredNumber(value, 'Potassium'),
             ),
+            const SizedBox(height: 12),
+            FertilizerInputField(
+              controller: phController,
+              label: 'Soil pH',
+              icon: Icons.water_drop,
+              isNumeric: true,
+              validator: (value) => requiredNumber(value, 'pH'),
+            ),
             const SizedBox(height: 24),
             Text(
               'Environmental Conditions',
@@ -131,12 +137,12 @@ class FertilizerFormCard extends StatelessWidget {
             ),
             const SizedBox(height: 16),
             FertilizerInputField(
-              controller: moistureController,
-              label: 'Soil Moisture',
-              icon: Icons.water_drop_outlined,
+              controller: rainfallController,
+              label: 'Rainfall',
+              icon: Icons.cloudy_snowing,
               isNumeric: true,
-              suffix: '%',
-              validator: (value) => requiredNumber(value, 'Soil moisture'),
+              suffix: 'mm',
+              validator: (value) => requiredNumber(value, 'Rainfall'),
             ),
             const SizedBox(height: 12),
             FertilizerInputField(
@@ -152,61 +158,232 @@ class FertilizerFormCard extends StatelessWidget {
       ),
     );
   }
+}
 
-  Widget _buildDropdownField({
-    required BuildContext context,
-    required String label,
-    required IconData icon,
-    required String? value,
-    required List<String> items,
-    required void Function(String?) onChanged,
-    String? Function(String?)? validator,
-  }) {
-    return DropdownButtonFormField<String>(
-      initialValue: value,
-      decoration: InputDecoration(
-        labelText: label,
-        labelStyle: TextStyle(color: Colors.grey.shade700, fontSize: 14),
-        prefixIcon: Icon(
-          icon,
-          color: WaterPredictionTheme.primaryTeal,
-          size: 22,
-        ),
-        filled: true,
-        fillColor: Colors.grey.shade50,
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide.none,
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide(color: Colors.grey.shade200, width: 1),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
-          borderSide: const BorderSide(
-            color: WaterPredictionTheme.primaryTeal,
-            width: 2,
+class _DropdownField extends StatelessWidget {
+  const _DropdownField({
+    required this.value,
+    required this.label,
+    required this.icon,
+    required this.items,
+    required this.onChanged,
+  });
+
+  final String? value;
+  final String label;
+  final IconData icon;
+  final List<String> items;
+  final ValueChanged<String?> onChanged;
+
+  Future<void> _openPicker(BuildContext context) async {
+    final searchController = TextEditingController();
+    List<String> filteredItems = List<String>.from(items);
+
+    final picked = await showModalBottomSheet<String>(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (context) {
+        return StatefulBuilder(
+          builder: (context, setModalState) {
+            return DraggableScrollableSheet(
+              initialChildSize: 0.65,
+              minChildSize: 0.45,
+              maxChildSize: 0.9,
+              expand: false,
+              builder: (context, scrollController) {
+                return Container(
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.vertical(
+                      top: Radius.circular(24),
+                    ),
+                  ),
+                  child: Column(
+                    children: [
+                      const SizedBox(height: 10),
+                      Container(
+                        width: 48,
+                        height: 5,
+                        decoration: BoxDecoration(
+                          color: const Color(0xffD3E6E2),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(16, 14, 16, 8),
+                        child: Row(
+                          children: [
+                            Icon(icon, color: WaterPredictionTheme.deepTeal),
+                            const SizedBox(width: 10),
+                            Expanded(
+                              child: Text(
+                                label,
+                                style: const TextStyle(
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.w700,
+                                  color: Color(0xff174A44),
+                                ),
+                              ),
+                            ),
+                            Text(
+                              '${filteredItems.length} options',
+                              style: const TextStyle(
+                                color: Color(0xff5D7D78),
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        child: TextField(
+                          controller: searchController,
+                          onChanged: (query) {
+                            setModalState(() {
+                              final normalized = query.trim().toLowerCase();
+                              filteredItems = items.where((item) {
+                                return item.toLowerCase().contains(normalized);
+                              }).toList();
+                            });
+                          },
+                          decoration: InputDecoration(
+                            hintText: 'Search option...',
+                            prefixIcon: const Icon(Icons.search),
+                            filled: true,
+                            fillColor: const Color(0xffF7FBFA),
+                            contentPadding: const EdgeInsets.symmetric(
+                              horizontal: 12,
+                              vertical: 12,
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(12),
+                              borderSide: const BorderSide(
+                                color: Color(0xffD5ECE7),
+                              ),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(12),
+                              borderSide: const BorderSide(
+                                color: WaterPredictionTheme.primaryTeal,
+                                width: 1.4,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      Expanded(
+                        child: filteredItems.isEmpty
+                            ? const Center(
+                                child: Text(
+                                  'No matching options',
+                                  style: TextStyle(color: Color(0xff5D7D78)),
+                                ),
+                              )
+                            : ListView.separated(
+                                controller: scrollController,
+                                padding: const EdgeInsets.fromLTRB(8, 0, 8, 16),
+                                itemCount: filteredItems.length,
+                                separatorBuilder: (_, _) =>
+                                    const SizedBox(height: 2),
+                                itemBuilder: (context, index) {
+                                  final option = filteredItems[index];
+                                  final isSelected = option == value;
+
+                                  return Material(
+                                    color: isSelected
+                                        ? const Color(0xffE8F7F3)
+                                        : Colors.transparent,
+                                    borderRadius: BorderRadius.circular(12),
+                                    child: ListTile(
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(12),
+                                      ),
+                                      onTap: () =>
+                                          Navigator.pop(context, option),
+                                      title: Text(
+                                        option,
+                                        style: TextStyle(
+                                          fontWeight: isSelected
+                                              ? FontWeight.w700
+                                              : FontWeight.w500,
+                                          color: const Color(0xff174A44),
+                                        ),
+                                      ),
+                                      trailing: isSelected
+                                          ? const Icon(
+                                              Icons.check_circle,
+                                              color: WaterPredictionTheme
+                                                  .primaryTeal,
+                                            )
+                                          : const Icon(
+                                              Icons.chevron_right,
+                                              color: Color(0xff9DBBB5),
+                                            ),
+                                    ),
+                                  );
+                                },
+                              ),
+                      ),
+                    ],
+                  ),
+                );
+              },
+            );
+          },
+        );
+      },
+    );
+
+    searchController.dispose();
+
+    if (picked != null) {
+      onChanged(picked);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      borderRadius: BorderRadius.circular(12),
+      onTap: () => _openPicker(context),
+      child: InputDecorator(
+        decoration: InputDecoration(
+          labelText: label,
+          prefixIcon: Icon(icon, color: WaterPredictionTheme.deepTeal),
+          suffixIcon: const Icon(
+            Icons.expand_more_rounded,
+            color: Color(0xff4C736D),
+          ),
+          filled: true,
+          fillColor: const Color(0xffF8FCFB),
+          contentPadding: const EdgeInsets.symmetric(
+            horizontal: 12,
+            vertical: 12,
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(12),
+            borderSide: const BorderSide(color: Color(0xffD5ECE7)),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(12),
+            borderSide: const BorderSide(
+              color: WaterPredictionTheme.primaryTeal,
+              width: 1.4,
+            ),
           ),
         ),
-        errorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
-          borderSide: const BorderSide(color: Colors.redAccent, width: 1),
+        child: Text(
+          value ?? 'Tap to choose',
+          style: TextStyle(
+            color: value == null
+                ? const Color(0xff7B9A95)
+                : const Color(0xff174A44),
+            fontWeight: value == null ? FontWeight.w500 : FontWeight.w700,
+          ),
         ),
-        contentPadding: const EdgeInsets.symmetric(
-          horizontal: 16,
-          vertical: 16,
-        ),
-      ),
-      items: items
-          .map((item) => DropdownMenuItem(value: item, child: Text(item)))
-          .toList(),
-      onChanged: onChanged,
-      validator: validator,
-      style: const TextStyle(
-        fontSize: 15,
-        fontWeight: FontWeight.w500,
-        color: Colors.black87,
       ),
     );
   }

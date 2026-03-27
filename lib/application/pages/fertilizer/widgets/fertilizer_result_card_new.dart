@@ -75,7 +75,7 @@ class _FertilizerResultCardState extends State<FertilizerResultCard>
           scale: _scaleAnimation,
           child: Card(
             elevation: 4,
-            shadowColor: const Color(0xff2E7D32).withValues(alpha: 0.3),
+            shadowColor: WaterPredictionTheme.primaryTeal.withValues(alpha: 0.3),
             color: Colors.white,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(20),
@@ -100,7 +100,9 @@ class _FertilizerResultCardState extends State<FertilizerResultCard>
                     // Header with animated icon and title
                     Row(
                       children: [
-                        _PulsingIcon(icon: Icons.eco),
+                        _PulsingIcon(
+                          icon: Icons.eco,
+                        ),
                         const SizedBox(width: 14),
                         Expanded(
                           child: Column(
@@ -133,21 +135,19 @@ class _FertilizerResultCardState extends State<FertilizerResultCard>
                     Container(
                       padding: const EdgeInsets.all(20),
                       decoration: BoxDecoration(
-                        gradient: LinearGradient(
+                        gradient: const LinearGradient(
                           begin: Alignment.topLeft,
                           end: Alignment.bottomRight,
                           colors: [
-                            const Color(0xffE8F5E9),
-                            const Color(0xffC8E6C9),
-                            const Color(0xffA5D6A7).withValues(alpha: 0.8),
+                            Color(0xffE8F5E9),
+                            Color(0xffC8E6C9),
+                            Color(0xffA5D6A7),
                           ],
                         ),
                         borderRadius: BorderRadius.circular(16),
                         boxShadow: [
                           BoxShadow(
-                            color: const Color(
-                              0xff2E7D32,
-                            ).withValues(alpha: 0.2),
+                            color: const Color(0xff2E7D32).withValues(alpha: 0.2),
                             blurRadius: 12,
                             offset: const Offset(0, 4),
                           ),
@@ -171,7 +171,7 @@ class _FertilizerResultCardState extends State<FertilizerResultCard>
                             ],
                           ),
                           child: Text(
-                            widget.result.fertilizer ?? 'N/A',
+                            widget.result.fertilizer ?? 'Unknown',
                             style: widget.textTheme.titleLarge?.copyWith(
                               fontWeight: FontWeight.w800,
                               color: const Color(0xff1B5E20),
@@ -378,7 +378,7 @@ class _FertilizerResultCardState extends State<FertilizerResultCard>
                           const SizedBox(width: 12),
                           Expanded(
                             child: Text(
-                              'This recommendation is based on soil conditions, weather, and nutrient levels',
+                              'This recommendation is based on soil conditions and environmental factors',
                               style: widget.textTheme.bodySmall?.copyWith(
                                 color: Colors.blue.shade900,
                                 height: 1.4,

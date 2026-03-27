@@ -1,22 +1,22 @@
 import 'package:farmer_assistance/application/pages/water_prediction/water_prediction_theme.dart';
-import 'package:farmer_assistance/domain/models/fertilizer_tips_response_model.dart';
+import 'package:farmer_assistance/domain/models/smart_irrigation_response_model.dart';
 import 'package:flutter/material.dart';
 
-class FertilizerResultCard extends StatefulWidget {
-  const FertilizerResultCard({
+class IrrigationResultCard extends StatefulWidget {
+  const IrrigationResultCard({
     super.key,
     required this.result,
     required this.textTheme,
   });
 
-  final FertilizerTipsResponseModel result;
+  final SmartIrrigationResponseModel result;
   final TextTheme textTheme;
 
   @override
-  State<FertilizerResultCard> createState() => _FertilizerResultCardState();
+  State<IrrigationResultCard> createState() => _IrrigationResultCardState();
 }
 
-class _FertilizerResultCardState extends State<FertilizerResultCard>
+class _IrrigationResultCardState extends State<IrrigationResultCard>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _fadeAnimation;
@@ -64,6 +64,7 @@ class _FertilizerResultCardState extends State<FertilizerResultCard>
 
   @override
   Widget build(BuildContext context) {
+    final isNeeded = widget.result.irrigationNeeded == true;
     final confidencePercent = ((widget.result.confidence ?? 0) * 100)
         .toStringAsFixed(1);
 
@@ -75,7 +76,9 @@ class _FertilizerResultCardState extends State<FertilizerResultCard>
           scale: _scaleAnimation,
           child: Card(
             elevation: 4,
-            shadowColor: const Color(0xff2E7D32).withValues(alpha: 0.3),
+            shadowColor: isNeeded
+                ? const Color(0xffF57C00).withValues(alpha: 0.3)
+                : WaterPredictionTheme.primaryTeal.withValues(alpha: 0.3),
             color: Colors.white,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(20),
@@ -88,7 +91,9 @@ class _FertilizerResultCardState extends State<FertilizerResultCard>
                   end: Alignment.bottomRight,
                   colors: [
                     Colors.white,
-                    const Color(0xffE8F5E9).withValues(alpha: 0.2),
+                    isNeeded
+                        ? const Color(0xffFFF3E0).withValues(alpha: 0.2)
+                        : const Color(0xffE8F5E9).withValues(alpha: 0.2),
                   ],
                 ),
               ),
@@ -100,14 +105,19 @@ class _FertilizerResultCardState extends State<FertilizerResultCard>
                     // Header with animated icon and title
                     Row(
                       children: [
-                        _PulsingIcon(icon: Icons.eco),
+                        _PulsingIcon(
+                          isNeeded: isNeeded,
+                          icon: isNeeded
+                              ? Icons.water_drop
+                              : Icons.check_circle,
+                        ),
                         const SizedBox(width: 14),
                         Expanded(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                '🎯 Fertilizer Recommendation',
+                                '🎯 Prediction Result',
                                 style: widget.textTheme.titleMedium?.copyWith(
                                   fontWeight: FontWeight.w800,
                                   color: WaterPredictionTheme.deepTeal,
@@ -136,18 +146,30 @@ class _FertilizerResultCardState extends State<FertilizerResultCard>
                         gradient: LinearGradient(
                           begin: Alignment.topLeft,
                           end: Alignment.bottomRight,
-                          colors: [
-                            const Color(0xffE8F5E9),
-                            const Color(0xffC8E6C9),
-                            const Color(0xffA5D6A7).withValues(alpha: 0.8),
-                          ],
+                          colors: isNeeded
+                              ? [
+                                  const Color(0xffFFF3E0),
+                                  const Color(0xffFFE0B2),
+                                  const Color(
+                                    0xffFFCC80,
+                                  ).withValues(alpha: 0.8),
+                                ]
+                              : [
+                                  const Color(0xffE8F5E9),
+                                  const Color(0xffC8E6C9),
+                                  const Color(
+                                    0xffA5D6A7,
+                                  ).withValues(alpha: 0.8),
+                                ],
                         ),
                         borderRadius: BorderRadius.circular(16),
                         boxShadow: [
                           BoxShadow(
-                            color: const Color(
-                              0xff2E7D32,
-                            ).withValues(alpha: 0.2),
+                            color: isNeeded
+                                ? const Color(0xffF57C00).withValues(alpha: 0.2)
+                                : const Color(
+                                    0xff2E7D32,
+                                  ).withValues(alpha: 0.2),
                             blurRadius: 12,
                             offset: const Offset(0, 4),
                           ),
@@ -171,10 +193,14 @@ class _FertilizerResultCardState extends State<FertilizerResultCard>
                             ],
                           ),
                           child: Text(
-                            widget.result.fertilizer ?? 'N/A',
+                            isNeeded
+                                ? 'Irrigation Needed'
+                                : 'No Irrigation Needed',
                             style: widget.textTheme.titleLarge?.copyWith(
                               fontWeight: FontWeight.w800,
-                              color: const Color(0xff1B5E20),
+                              color: isNeeded
+                                  ? const Color(0xffE65100)
+                                  : const Color(0xff1B5E20),
                               fontSize: 20,
                             ),
                           ),
@@ -378,7 +404,7 @@ class _FertilizerResultCardState extends State<FertilizerResultCard>
                           const SizedBox(width: 12),
                           Expanded(
                             child: Text(
-                              'This recommendation is based on soil conditions, weather, and nutrient levels',
+                              'This prediction is based on current weather data and soil conditions',
                               style: widget.textTheme.bodySmall?.copyWith(
                                 color: Colors.blue.shade900,
                                 height: 1.4,
@@ -492,10 +518,11 @@ class _MetricBox extends StatelessWidget {
   }
 }
 
-// Pulsing icon animation widget
+// Pulsing water drop animation widget
 class _PulsingIcon extends StatefulWidget {
-  const _PulsingIcon({required this.icon});
+  const _PulsingIcon({required this.isNeeded, required this.icon});
 
+  final bool isNeeded;
   final IconData icon;
 
   @override
@@ -528,17 +555,21 @@ class _PulsingIconState extends State<_PulsingIcon>
 
   @override
   Widget build(BuildContext context) {
-    const color = Color(0xff2E7D32);
+    final color = widget.isNeeded
+        ? const Color(0xffF57C00)
+        : const Color(0xff2E7D32);
 
     return ScaleTransition(
       scale: _pulseAnimation,
       child: Container(
         padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(
-          gradient: const LinearGradient(
+          gradient: LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
-            colors: [Color(0xffE8F5E9), Color(0xffC8E6C9)],
+            colors: widget.isNeeded
+                ? [const Color(0xffFFF3E0), const Color(0xffFFE0B2)]
+                : [const Color(0xffE8F5E9), const Color(0xffC8E6C9)],
           ),
           borderRadius: BorderRadius.circular(14),
           boxShadow: [

@@ -1,7 +1,12 @@
 import 'package:dio/dio.dart';
 import 'package:farmer_assistance/domain/models/Crop_disease_model.dart';
 import 'package:farmer_assistance/domain/models/chat_models.dart';
+import 'package:farmer_assistance/domain/models/smart_irrigation_request_model.dart';
+import 'package:farmer_assistance/domain/models/smart_irrigation_response_model.dart';
 import 'package:injectable/injectable.dart';
+
+import '../../../domain/models/fertilizer_tips_request_model.dart';
+import '../../../domain/models/fertilizer_tips_response_model.dart';
 
 @injectable
 class ApiService {
@@ -98,6 +103,46 @@ class ApiService {
 
     if (response.statusCode != 200 && response.statusCode != 204) {
       throw Exception('Failed to delete conversation.');
+    }
+  }
+
+  Future<SmartIrrigationResponseModel> smartIrrigation({
+    required SmartIrrigationRequestModel smartIrrigationRequestData,
+  }) async {
+    try {
+      final response = await dio.post(
+        '/smart-irrigation/predict',
+        data: smartIrrigationRequestData.toJson(),
+        options: Options(headers: {'Content-Type': 'application/json'}),
+      );
+
+      if (response.statusCode != 200) {
+        throw Exception('Failed to send Request.');
+      } else {
+        return SmartIrrigationResponseModel.fromJson(response.data);
+      }
+    } catch (e) {
+      throw Exception('Failed to send Request.');
+    }
+  }
+
+  Future<FertilizerTipsResponseModel> fertilizerTips({
+    required FertilizerTipsRequestModel fertilizerTipsRequestData,
+  }) async {
+    try {
+      final response = await dio.post(
+        '/fertilizer-tips/predict',
+        data: fertilizerTipsRequestData.toJson(),
+        options: Options(headers: {'Content-Type': 'application/json'}),
+      );
+
+      if (response.statusCode != 200) {
+        throw Exception('Failed to send Request.');
+      } else {
+        return FertilizerTipsResponseModel.fromJson(response.data);
+      }
+    } catch (e) {
+      throw Exception('Failed to send Request.');
     }
   }
 }

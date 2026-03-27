@@ -177,7 +177,7 @@ final weatherProvider = FutureProvider<Map<String, dynamic>>((ref) async {
             'latitude': location.latitude,
             'longitude': location.longitude,
             'current':
-                'temperature_2m,relative_humidity_2m,rain,precipitation,apparent_temperature,weather_code,cloud_cover,wind_gusts_10m,wind_direction_10m,wind_speed_10m',
+                'temperature_2m,relative_humidity_2m,rain,precipitation,apparent_temperature,weather_code,cloud_cover,wind_gusts_10m,wind_direction_10m,wind_speed_10m,soil_moisture_0_to_1cm',
             'hourly': 'temperature_2m',
             'daily': 'temperature_2m_max,temperature_2m_min,precipitation_sum',
             'forecast_days': 7,
@@ -195,7 +195,7 @@ final weatherProvider = FutureProvider<Map<String, dynamic>>((ref) async {
             'latitude': _dhakaFallbackLocation.latitude,
             'longitude': _dhakaFallbackLocation.longitude,
             'current':
-                'temperature_2m,relative_humidity_2m,rain,precipitation,apparent_temperature,weather_code,cloud_cover,wind_gusts_10m,wind_direction_10m,wind_speed_10m',
+                'temperature_2m,relative_humidity_2m,rain,precipitation,apparent_temperature,weather_code,cloud_cover,wind_gusts_10m,wind_direction_10m,wind_speed_10m,soil_moisture_0_to_1cm',
             'hourly': 'temperature_2m',
             'daily': 'temperature_2m_max,temperature_2m_min,precipitation_sum',
             'forecast_days': 7,

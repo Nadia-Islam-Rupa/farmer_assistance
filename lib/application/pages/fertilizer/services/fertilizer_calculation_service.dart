@@ -85,19 +85,35 @@ class FertilizerCalculationService {
   static List<String> generateTips({
     required String crop,
     required String soilType,
-    required double moisture,
+    required double ph,
+    required double rainfall,
     required double temperature,
   }) {
     final tips = <String>[];
 
-    // Moisture-based tips
-    if (moisture < FertilizerConstants.lowMoisture) {
+    // pH-based tips
+    if (ph < 6.0) {
       tips.add(
-        'Soil moisture is low. Water thoroughly before applying fertilizer for better absorption.',
+        'Soil pH is acidic (${ph.toStringAsFixed(1)}). Consider adding lime to raise pH for better nutrient availability.',
       );
-    } else if (moisture > FertilizerConstants.highMoisture) {
+    } else if (ph > 7.5) {
       tips.add(
-        'High soil moisture detected. Consider waiting for better drainage before heavy fertilization.',
+        'Soil pH is alkaline (${ph.toStringAsFixed(1)}). Consider adding sulfur or organic matter to lower pH.',
+      );
+    } else {
+      tips.add(
+        'Soil pH is optimal (${ph.toStringAsFixed(1)}) for nutrient absorption.',
+      );
+    }
+
+    // Rainfall-based tips
+    if (rainfall < 20) {
+      tips.add(
+        'Low rainfall detected. Ensure adequate irrigation before and after fertilizer application.',
+      );
+    } else if (rainfall > 100) {
+      tips.add(
+        'High rainfall may cause nutrient leaching. Consider split applications to minimize losses.',
       );
     }
 
@@ -127,9 +143,6 @@ class FertilizerCalculationService {
     tips.add(
       'Apply fertilizer at least 6 inches away from plant stems to prevent burning.',
     );
-    tips.add(
-      'Test soil pH before application. Most crops prefer pH 6.0-7.5 for optimal nutrient uptake.',
-    );
 
     return tips;
   }
@@ -141,7 +154,8 @@ class FertilizerCalculationService {
     required double nitrogen,
     required double phosphorus,
     required double potassium,
-    required double moisture,
+    required double ph,
+    required double rainfall,
     required double temperature,
   }) {
     final nitrogenNeeded = calculateNitrogenNeed(crop, nitrogen, soilType);
@@ -167,7 +181,8 @@ class FertilizerCalculationService {
     final tips = generateTips(
       crop: crop,
       soilType: soilType,
-      moisture: moisture,
+      ph: ph,
+      rainfall: rainfall,
       temperature: temperature,
     );
 

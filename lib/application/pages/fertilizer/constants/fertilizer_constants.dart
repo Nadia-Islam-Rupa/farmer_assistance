@@ -1,26 +1,32 @@
 class FertilizerConstants {
   // Crop types
   static const List<String> crops = [
-    'Rice',
-    'Wheat',
-    'Maize',
     'Sugarcane',
+    'Wheat',
     'Cotton',
-    'Potato',
-    'Tomato',
-    'Onion',
-    'Chickpea',
+    'Jowar',
+    'Maize',
+    'Rice',
     'Groundnut',
+    'Tur',
+    'Grapes',
+    'Ginger',
+    'Urad',
+    'Moong',
+    'Gram',
+    'Turmeric',
+    'Soybean',
+    'Masoor'
   ];
 
   // Soil types
   static const List<String> soilTypes = [
-    'Sandy',
-    'Loamy',
     'Black',
     'Red',
-    'Clayey',
-    'Alluvial',
+    'Dark Brown',
+    'Reddish Brown',
+    'Light Brown',
+    'Medium Brown'
   ];
 
   // Nitrogen base requirements by crop (kg/ha)
