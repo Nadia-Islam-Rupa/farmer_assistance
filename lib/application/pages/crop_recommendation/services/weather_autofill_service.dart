@@ -26,10 +26,12 @@ class WeatherAutofillService {
     final current = weather['current'] as Map<String, dynamic>?;
     final temperatureController = ref.read(cropTemperatureControllerProvider);
     final humidityController = ref.read(cropHumidityControllerProvider);
+    final rainfallController = ref.read(cropRainfallControllerProvider);
 
     final currentTemp = (current?['temperature_2m'] as num?)?.toDouble();
     final currentHumidity = (current?['relative_humidity_2m'] as num?)
         ?.toDouble();
+    final currentRainfall = (current?['rain'] as num?)?.toDouble();
 
     var hasChanges = false;
 
@@ -42,6 +44,12 @@ class WeatherAutofillService {
     if (currentHumidity != null &&
         (force || humidityController.text.trim().isEmpty)) {
       humidityController.text = currentHumidity.toStringAsFixed(1);
+      hasChanges = true;
+    }
+
+    if (currentRainfall != null &&
+        (force || rainfallController.text.trim().isEmpty)) {
+      rainfallController.text = currentRainfall.toStringAsFixed(1);
       hasChanges = true;
     }
 
