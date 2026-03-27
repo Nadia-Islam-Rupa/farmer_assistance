@@ -5,19 +5,40 @@ import 'package:farmer_assistance/application/pages/water_prediction/widgets/irr
 import 'package:farmer_assistance/application/pages/water_prediction/widgets/irrigation_summary_card.dart';
 import 'package:farmer_assistance/application/pages/water_prediction/widgets/irrigation_weather_card.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class IrrigationPage extends ConsumerStatefulWidget {
+import '../../../di/di.dart';
+import '../../../domain/models/smart_irrigation_request_model.dart';
+import 'bloc/water_prediction_bloc.dart';
+
+class IrrigationPage extends StatelessWidget {
   const IrrigationPage({super.key});
 
   @override
-  ConsumerState<IrrigationPage> createState() => _IrrigationPageState();
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (_) => getIt<WaterPredictionBloc>(),
+      child: const Irrigation(),
+    );
+  }
 }
 
-class _IrrigationPageState extends ConsumerState<IrrigationPage> {
+class Irrigation extends ConsumerStatefulWidget {
+  const Irrigation({super.key});
+
+  @override
+  ConsumerState<Irrigation> createState() => _IrrigationState();
+}
+
+class _IrrigationState extends ConsumerState<Irrigation> {
   String? selectedCrop;
   String? selectedSoil;
   String? selectedStage;
+  String temperature = '';
+  String humidity = '';
+  String rain = '';
+  String moisture = '';
 
   final crops = ['Wheat', 'Tomato', 'Carrot', 'Chilli', 'Potato'];
 
@@ -49,6 +70,19 @@ class _IrrigationPageState extends ConsumerState<IrrigationPage> {
       ).showSnackBar(const SnackBar(content: Text('Please fill all fields')));
       return;
     }
+
+    context.read<WaterPredictionBloc>().add(
+      WaterPredictionEvent.started(
+        data: SmartIrrigationRequestModel(
+          cropId: 1,
+          soilType: 0,
+          seedlingStage: 2,
+          moi: double.tryParse(moisture),
+          temp: double.tryParse(temperature),
+          humidity: double.tryParse(humidity),
+        ),
+      ),
+    );
 
     showDialog(
       context: context,
@@ -110,10 +144,57 @@ class _IrrigationPageState extends ConsumerState<IrrigationPage> {
               children: [
                 IrrigationPageHeader(textTheme: textTheme),
                 const SizedBox(height: 16),
-                IrrigationWeatherCard(
-                  weatherAsync: weatherAsync,
-                  textTheme: textTheme,
+                weatherAsync.when(
+                  data: (weather) {
+                    final current = weather['current'] as Map<String, dynamic>?;
+                    temperature = current?['temperature_2m']?.toString() ?? '';
+                    humidity =
+                        current?['relative_humidity_2m']?.toString() ?? '';
+                    rain = current?['rain']?.toString() ?? '';
+                    moisture =
+                        current?['soil_moisture_0_to_1cm']?.toString() ?? '';
+
+                    return IrrigationWeatherCard(
+                      textTheme: textTheme,
+                      temperature: temperature,
+                      humidity: humidity,
+                      rain: rain,
+                    );
+                  },
+                  loading: () => Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.all(24),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(18),
+                    ),
+                    child: const Center(
+                      child: CircularProgressIndicator(
+                        color: WaterPredictionTheme.primaryTeal,
+                      ),
+                    ),
+                  ),
+                  error: (e, _) => Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      color: const Color(0xffFFF3F2),
+                      borderRadius: BorderRadius.circular(18),
+                      border: Border.all(color: const Color(0xffF9C6C2)),
+                    ),
+                    child: const Row(
+                      children: [
+                        Icon(Icons.error_outline, color: Color(0xffC62828)),
+                        SizedBox(width: 10),
+                        Expanded(child: Text('Unable to load weather data')),
+                      ],
+                    ),
+                  ),
                 ),
+                // IrrigationWeatherCard(
+                //   weatherAsync: weatherAsync,
+                //   textTheme: textTheme,
+                // ),
                 const SizedBox(height: 16),
                 IrrigationInputCard(
                   textTheme: textTheme,
