@@ -7,9 +7,9 @@
 
 class SmartIrrigationRequestModel {
   SmartIrrigationRequestModel({
-      int? cropId, 
-      int? soilType, 
-      int? seedlingStage, 
+      String? cropId,
+      String? soilType,
+      String? seedlingStage,
       double? moi,
       double? temp,
       double? humidity,}){
@@ -29,16 +29,16 @@ class SmartIrrigationRequestModel {
     _temp = json['temp'];
     _humidity = json['humidity'];
   }
-  int? _cropId;
-  int? _soilType;
-  int? _seedlingStage;
+  String? _cropId;
+  String? _soilType;
+  String? _seedlingStage;
   double? _moi;
   double? _temp;
   double? _humidity;
 
-  int? get cropId => _cropId;
-  int? get soilType => _soilType;
-  int? get seedlingStage => _seedlingStage;
+  String? get cropId => _cropId;
+  String? get soilType => _soilType;
+  String? get seedlingStage => _seedlingStage;
   double? get moi => _moi;
   double? get temp => _temp;
   double? get humidity => _humidity;
