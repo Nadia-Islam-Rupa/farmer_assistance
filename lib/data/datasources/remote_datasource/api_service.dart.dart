@@ -7,6 +7,8 @@ import 'package:injectable/injectable.dart';
 
 import '../../../domain/models/fertilizer_tips_request_model.dart';
 import '../../../domain/models/fertilizer_tips_response_model.dart';
+import '../../../domain/models/yield_estimation_request_model.dart';
+import '../../../domain/models/yield_estimation_response_model.dart';
 
 @injectable
 class ApiService {
@@ -140,6 +142,26 @@ class ApiService {
         throw Exception('Failed to send Request.');
       } else {
         return FertilizerTipsResponseModel.fromJson(response.data);
+      }
+    } catch (e) {
+      throw Exception('Failed to send Request.');
+    }
+  }
+
+  Future<YieldEstimationResponseModel> estimateYield({
+    required YieldEstimationRequestModel yieldEstimationRequestData,
+  }) async {
+    try {
+      final response = await dio.post(
+        '/yield-estimation/predict',
+        data: yieldEstimationRequestData.toJson(),
+        options: Options(headers: {'Content-Type': 'application/json'}),
+      );
+
+      if (response.statusCode != 200) {
+        throw Exception('Failed to send Request.');
+      } else {
+        return YieldEstimationResponseModel.fromJson(response.data);
       }
     } catch (e) {
       throw Exception('Failed to send Request.');
