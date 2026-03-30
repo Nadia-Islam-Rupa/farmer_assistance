@@ -1,24 +1,31 @@
 import 'package:farmer_assistance/application/pages/yield_prediction/widgets/yield_input_field.dart';
+import 'package:farmer_assistance/application/pages/yield_prediction/widgets/yield_dropdown_field.dart';
 import 'package:flutter/material.dart';
 
 class YieldFormCard extends StatelessWidget {
   const YieldFormCard({
     super.key,
-    required this.cropController,
-    required this.areaController,
+    required this.selectedCrop,
+    required this.selectedArea,
     required this.rainfallController,
     required this.temperatureController,
     required this.pesticideController,
-    required this.requiredText,
+    required this.crops,
+    required this.areas,
+    required this.onCropChanged,
+    required this.onAreaChanged,
     required this.requiredNumber,
   });
 
-  final TextEditingController cropController;
-  final TextEditingController areaController;
+  final String? selectedCrop;
+  final String? selectedArea;
   final TextEditingController rainfallController;
   final TextEditingController temperatureController;
   final TextEditingController pesticideController;
-  final String? Function(String?, String) requiredText;
+  final List<String> crops;
+  final List<String> areas;
+  final ValueChanged<String?> onCropChanged;
+  final ValueChanged<String?> onAreaChanged;
   final String? Function(String?, String) requiredNumber;
 
   @override
@@ -31,19 +38,20 @@ class YieldFormCard extends StatelessWidget {
         padding: const EdgeInsets.all(16),
         child: Column(
           children: [
-            YieldInputField(
-              controller: cropController,
-              label: 'Crop Name',
-              icon: Icons.grass_outlined,
-              validator: (value) => requiredText(value, 'Crop'),
+            YieldDropdownField(
+              value: selectedCrop,
+              label: 'Select Crop',
+              icon: Icons.eco_outlined,
+              items: crops,
+              onChanged: onCropChanged,
             ),
             const SizedBox(height: 12),
-            YieldInputField(
-              controller: areaController,
-              label: 'Area (hectare)',
-              icon: Icons.square_foot,
-              isNumeric: true,
-              validator: (value) => requiredNumber(value, 'Area'),
+            YieldDropdownField(
+              value: selectedArea,
+              label: 'Select Location',
+              icon: Icons.location_on_outlined,
+              items: areas,
+              onChanged: onAreaChanged,
             ),
             const SizedBox(height: 12),
             YieldInputField(
