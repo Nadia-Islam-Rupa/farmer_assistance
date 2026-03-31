@@ -9,21 +9,15 @@ final yieldFormKeyProvider = Provider.autoDispose<GlobalKey<FormState>>(
   (ref) => GlobalKey<FormState>(),
 );
 
-final yieldCropControllerProvider = Provider.autoDispose<TextEditingController>(
-  (ref) {
-    final controller = TextEditingController();
-    ref.onDispose(controller.dispose);
-    return controller;
-  },
-);
+final yieldSelectedCropProvider =
+    NotifierProvider.autoDispose<YieldSelectedCropNotifier, String?>(
+      YieldSelectedCropNotifier.new,
+    );
 
-final yieldAreaControllerProvider = Provider.autoDispose<TextEditingController>(
-  (ref) {
-    final controller = TextEditingController();
-    ref.onDispose(controller.dispose);
-    return controller;
-  },
-);
+final yieldSelectedAreaProvider =
+    NotifierProvider.autoDispose<YieldSelectedAreaNotifier, String?>(
+      YieldSelectedAreaNotifier.new,
+    );
 
 final yieldRainfallControllerProvider =
     Provider.autoDispose<TextEditingController>((ref) {
@@ -68,6 +62,20 @@ class YieldWeatherSourceLabelNotifier extends Notifier<String> {
   String build() => 'Weather data unavailable';
 
   void setLabel(String label) => state = label;
+}
+
+class YieldSelectedCropNotifier extends Notifier<String?> {
+  @override
+  String? build() => null;
+
+  void setCrop(String? value) => state = value;
+}
+
+class YieldSelectedAreaNotifier extends Notifier<String?> {
+  @override
+  String? build() => null;
+
+  void setArea(String? value) => state = value;
 }
 
 class YieldNotifier extends Notifier<double?> {

@@ -26,6 +26,8 @@ import 'package:farmer_assistance/application/pages/fertilizer/bloc/fertilizer_b
     as _i993;
 import 'package:farmer_assistance/application/pages/water_prediction/bloc/water_prediction_bloc.dart'
     as _i20;
+import 'package:farmer_assistance/application/pages/yield_prediction/bloc/yield_prediction_bloc.dart'
+    as _i333;
 import 'package:farmer_assistance/data/datasources/remote_datasource/api_service.dart.dart'
     as _i991;
 import 'package:farmer_assistance/data/repositories/auth_repositories_iml.dart'
@@ -38,6 +40,8 @@ import 'package:farmer_assistance/data/repositories/fertilizer_tips_repositories
     as _i674;
 import 'package:farmer_assistance/data/repositories/smart_irrigation_repositories_iml.dart'
     as _i537;
+import 'package:farmer_assistance/data/repositories/yield_estimation_repositories_iml.dart'
+    as _i158;
 import 'package:farmer_assistance/di/register_module.dart' as _i625;
 import 'package:farmer_assistance/domain/repositories/auth_repository.dart'
     as _i953;
@@ -49,6 +53,8 @@ import 'package:farmer_assistance/domain/repositories/fertilizer_tips_repository
     as _i421;
 import 'package:farmer_assistance/domain/repositories/smart_irrigation_repository.dart'
     as _i835;
+import 'package:farmer_assistance/domain/repositories/yield_estimation_repository.dart'
+    as _i612;
 import 'package:farmer_assistance/domain/usecases/auth_use_case.dart' as _i382;
 import 'package:farmer_assistance/domain/usecases/chat_use_case.dart' as _i735;
 import 'package:farmer_assistance/domain/usecases/crop_disease_use_case.dart'
@@ -57,6 +63,8 @@ import 'package:farmer_assistance/domain/usecases/fertilizer_tips_use_case.dart'
     as _i624;
 import 'package:farmer_assistance/domain/usecases/smart_irrigation_use_case.dart'
     as _i866;
+import 'package:farmer_assistance/domain/usecases/yield_estimation_use_case.dart'
+    as _i574;
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:google_sign_in/google_sign_in.dart' as _i116;
 import 'package:injectable/injectable.dart' as _i526;
@@ -100,6 +108,12 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i421.FertilizerTipsRepository>(
       () => _i674.FertilizerTipsRepositoriesIml(gh<_i991.ApiService>()),
     );
+    gh.factory<_i612.YieldEstimationRepository>(
+      () => _i158.YieldEstimationRepositoriesIml(gh<_i991.ApiService>()),
+    );
+    gh.factory<_i574.YieldEstimationUseCase>(
+      () => _i574.YieldEstimationUseCase(gh<_i612.YieldEstimationRepository>()),
+    );
     gh.factory<_i835.SmartIrrigationRepository>(
       () => _i537.SmartIrrigationRepositoriesIml(gh<_i991.ApiService>()),
     );
@@ -126,6 +140,11 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i624.FertilizerTipsUseCase>(
       () => _i624.FertilizerTipsUseCase(gh<_i421.FertilizerTipsRepository>()),
+    );
+    gh.factory<_i333.YieldPredictionBloc>(
+      () => _i333.YieldPredictionBloc(
+        yieldEstimationUseCase: gh<_i574.YieldEstimationUseCase>(),
+      ),
     );
     gh.factory<_i993.FertilizerBloc>(
       () => _i993.FertilizerBloc(

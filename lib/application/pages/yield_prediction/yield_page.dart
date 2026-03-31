@@ -1,16 +1,39 @@
-// ignore_for_file: use_build_context_synchronously
-
 import 'package:farmer_assistance/application/pages/forcast/provider/weather_service.dart';
-import 'package:farmer_assistance/application/pages/yield_prediction/provider/yield_provider.dart';
+import 'package:farmer_assistance/application/pages/yield_prediction/bloc/yield_prediction_bloc.dart';
 import 'package:farmer_assistance/application/pages/yield_prediction/widgets/yield_form_card.dart';
 import 'package:farmer_assistance/application/pages/yield_prediction/widgets/yield_header_card.dart';
-import 'package:farmer_assistance/application/pages/yield_prediction/widgets/yield_result_card.dart';
+import 'package:farmer_assistance/application/pages/yield_prediction/widgets/yield_result_card_new.dart';
 import 'package:farmer_assistance/application/pages/water_prediction/water_prediction_theme.dart';
+import 'package:farmer_assistance/di/di.dart';
+import 'package:farmer_assistance/domain/models/yield_estimation_request_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class YieldPredictionPage extends ConsumerWidget {
+import '../../../domain/models/yield_estimation_response_model.dart';
+import 'provider/yield_provider.dart';
+
+class YieldPredictionPage extends StatelessWidget {
   const YieldPredictionPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (_) => getIt<YieldPredictionBloc>(),
+      child: const YieldPrediction(),
+    );
+  }
+}
+
+class YieldPrediction extends ConsumerStatefulWidget {
+  const YieldPrediction({super.key});
+
+  @override
+  ConsumerState<YieldPrediction> createState() => _YieldPredictionState();
+}
+
+class _YieldPredictionState extends ConsumerState<YieldPrediction> {
+  YieldEstimationResponseModel? predictionResult;
 
   void _applyWeatherData(
     WidgetRef ref,
@@ -71,13 +94,6 @@ class YieldPredictionPage extends ConsumerWidget {
     }
   }
 
-  String? _requiredText(String? value, String fieldName) {
-    if (value == null || value.trim().isEmpty) {
-      return '$fieldName is required';
-    }
-    return null;
-  }
-
   String? _requiredNumber(String? value, String fieldName) {
     if (value == null || value.trim().isEmpty) {
       return '$fieldName is required';
@@ -88,14 +104,29 @@ class YieldPredictionPage extends ConsumerWidget {
     return null;
   }
 
-  void _predictYield(WidgetRef ref, GlobalKey<FormState> formKey) {
+  void _predictYield() {
+    final selectedCrop = ref.read(yieldSelectedCropProvider);
+    final selectedArea = ref.read(yieldSelectedAreaProvider);
+
+    if (selectedCrop == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Please select a crop')),
+      );
+      return;
+    }
+
+    if (selectedArea == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Please select a location')),
+      );
+      return;
+    }
+
+    final formKey = ref.read(yieldFormKeyProvider);
     if (!(formKey.currentState?.validate() ?? false)) {
       return;
     }
 
-    final area = double.parse(
-      ref.read(yieldAreaControllerProvider).text.trim(),
-    );
     final rainfall = double.parse(
       ref.read(yieldRainfallControllerProvider).text.trim(),
     );
@@ -106,29 +137,152 @@ class YieldPredictionPage extends ConsumerWidget {
       ref.read(yieldPesticideControllerProvider).text.trim(),
     );
 
-    final estimatedYield =
-        (area * 38) +
-        (rainfall * 2.7) +
-        ((32 - (temperature - 26).abs()) * 42) -
-        (pesticide * 1.3);
+    setState(() {
+      predictionResult = null;
+    });
 
-    ref
-        .read(yieldProvider.notifier)
-        .setYield(estimatedYield.clamp(500, 12000).toDouble());
+    context.read<YieldPredictionBloc>().add(
+          YieldPredictionEvent.started(
+            data: YieldEstimationRequestModel(
+              item: selectedCrop,
+              area: selectedArea,
+              rainfall: rainfall,
+              temperature: temperature,
+              pesticides: pesticide,
+            ),
+          ),
+        );
   }
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     final formKey = ref.watch(yieldFormKeyProvider);
     final weatherAsync = ref.watch(weatherProvider);
-    final yield = ref.watch(yieldProvider);
-    final cropController = ref.watch(yieldCropControllerProvider);
-    final areaController = ref.watch(yieldAreaControllerProvider);
+    final selectedCrop = ref.watch(yieldSelectedCropProvider);
+    final selectedArea = ref.watch(yieldSelectedAreaProvider);
     final rainfallController = ref.watch(yieldRainfallControllerProvider);
     final tempController = ref.watch(yieldTemperatureControllerProvider);
     final pesticideController = ref.watch(yieldPesticideControllerProvider);
     final weatherSourceLabel = ref.watch(yieldWeatherSourceLabelProvider);
     final textTheme = Theme.of(context).textTheme;
+
+    // Define crop and area options
+    final crops = [
+      'Cassava',
+      'Maize',
+      'Plantains and others',
+      'Potatoes',
+      'Rice, paddy',
+      'Sorghum',
+      'Soybeans',
+      'Sweet potatoes',
+      'Wheat',
+      'Yams'
+    ];
+
+    final areas = [
+      'Albania',
+      'Algeria',
+      'Angola',
+      'Argentina',
+      'Armenia',
+      'Australia',
+      'Austria',
+      'Azerbaijan',
+      'Bahamas',
+      'Bahrain',
+      'Bangladesh',
+      'Belarus',
+      'Belgium',
+      'Botswana',
+      'Brazil',
+      'Bulgaria',
+      'Burkina Faso',
+      'Burundi',
+      'Cameroon',
+      'Canada',
+      'Central African Republic',
+      'Chile',
+      'Colombia',
+      'Croatia',
+      'Denmark',
+      'Dominican Republic',
+      'Ecuador',
+      'Egypt',
+      'El Salvador',
+      'Eritrea',
+      'Estonia',
+      'Finland',
+      'France',
+      'Germany',
+      'Ghana',
+      'Greece',
+      'Guatemala',
+      'Guinea',
+      'Guyana',
+      'Haiti',
+      'Honduras',
+      'Hungary',
+      'India',
+      'Indonesia',
+      'Iraq',
+      'Ireland',
+      'Italy',
+      'Jamaica',
+      'Japan',
+      'Kazakhstan',
+      'Kenya',
+      'Latvia',
+      'Lebanon',
+      'Lesotho',
+      'Libya',
+      'Lithuania',
+      'Madagascar',
+      'Malawi',
+      'Malaysia',
+      'Mali',
+      'Mauritania',
+      'Mauritius',
+      'Mexico',
+      'Montenegro',
+      'Morocco',
+      'Mozambique',
+      'Namibia',
+      'Nepal',
+      'Netherlands',
+      'New Zealand',
+      'Nicaragua',
+      'Niger',
+      'Norway',
+      'Pakistan',
+      'Papua New Guinea',
+      'Peru',
+      'Poland',
+      'Portugal',
+      'Qatar',
+      'Romania',
+      'Rwanda',
+      'Saudi Arabia',
+      'Senegal',
+      'Slovenia',
+      'South Africa',
+      'Spain',
+      'Sri Lanka',
+      'Sudan',
+      'Suriname',
+      'Sweden',
+      'Switzerland',
+      'Tajikistan',
+      'Thailand',
+      'Tunisia',
+      'Turkey',
+      'Uganda',
+      'Ukraine',
+      'United Kingdom',
+      'Uruguay',
+      'Zambia',
+      'Zimbabwe'
+    ];
 
     ref.listen<AsyncValue<Map<String, dynamic>>>(weatherProvider, (prev, next) {
       next.whenData((weather) {
@@ -138,7 +292,34 @@ class YieldPredictionPage extends ConsumerWidget {
       });
     });
 
-    return Scaffold(
+    return BlocListener<YieldPredictionBloc, YieldPredictionState>(
+      listener: (context, state) {
+        state.whenOrNull(
+          loaded: (data) {
+            setState(() {
+              predictionResult = data;
+            });
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text('Prediction completed!'),
+                backgroundColor: WaterPredictionTheme.primaryTeal,
+                duration: Duration(seconds: 2),
+              ),
+            );
+          },
+          error: (message) {
+            ScaffoldMessenger.of(context)
+              ..clearSnackBars()
+              ..showSnackBar(
+                SnackBar(
+                  content: Text(message),
+                  backgroundColor: Colors.red.shade700,
+                ),
+              );
+          },
+        );
+      },
+      child: Scaffold(
       backgroundColor: const Color(0xffF1FAF8),
       appBar: AppBar(
         backgroundColor: WaterPredictionTheme.primaryTeal,
@@ -174,12 +355,23 @@ class YieldPredictionPage extends ConsumerWidget {
                   ),
                   const SizedBox(height: 16),
                   YieldFormCard(
-                    cropController: cropController,
-                    areaController: areaController,
+                    selectedCrop: selectedCrop,
+                    selectedArea: selectedArea,
+                    crops: crops,
+                    areas: areas,
+                    onCropChanged: (value) {
+                      ref
+                          .read(yieldSelectedCropProvider.notifier)
+                          .setCrop(value);
+                    },
+                    onAreaChanged: (value) {
+                      ref
+                          .read(yieldSelectedAreaProvider.notifier)
+                          .setArea(value);
+                    },
                     rainfallController: rainfallController,
                     temperatureController: tempController,
                     pesticideController: pesticideController,
-                    requiredText: _requiredText,
                     requiredNumber: _requiredNumber,
                   ),
                   const SizedBox(height: 14),
@@ -204,8 +396,13 @@ class YieldPredictionPage extends ConsumerWidget {
                   const SizedBox(height: 10),
                   SizedBox(
                     width: double.infinity,
-                    child: ElevatedButton(
-                      onPressed: () => _predictYield(ref, formKey),
+                    child: ElevatedButton.icon(
+                      onPressed: _predictYield,
+                      icon: const Icon(Icons.check_circle_outline),
+                      label: const Text(
+                        'Predict Yield',
+                        style: TextStyle(fontWeight: FontWeight.w700),
+                      ),
                       style: ElevatedButton.styleFrom(
                         minimumSize: const Size(double.infinity, 52),
                         backgroundColor: WaterPredictionTheme.primaryTeal,
@@ -215,21 +412,22 @@ class YieldPredictionPage extends ConsumerWidget {
                           borderRadius: BorderRadius.circular(14),
                         ),
                       ),
-                      child: const Text(
-                        'Predict Yield',
-                        style: TextStyle(fontWeight: FontWeight.w700),
-                      ),
                     ),
                   ),
-                  const SizedBox(height: 16),
-                  if (yield != null)
-                    YieldResultCard(predictedYield: yield.toDouble()),
+                  if (predictionResult != null) ...[
+                    const SizedBox(height: 16),
+                    YieldResultCard(
+                      result: predictionResult!,
+                      textTheme: textTheme,
+                    ),
+                  ],
                 ],
               ),
             ),
           ),
         ),
       ),
-    );
-  }
-}
+    ), // child: Scaffold closing for BlocListener
+    ); // BlocListener closing
+  } // build method closing
+} // class closing
