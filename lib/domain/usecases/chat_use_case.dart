@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
+
 import '../failures/failures.dart';
 import '../models/chat_models.dart';
 import '../repositories/chat_repository.dart';
