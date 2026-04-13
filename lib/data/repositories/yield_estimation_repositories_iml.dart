@@ -1,11 +1,8 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:farmer_assistance/data/datasources/remote_datasource/api_service.dart.dart';
-
 import 'package:farmer_assistance/domain/failures/failures.dart';
-
 import 'package:farmer_assistance/domain/models/yield_estimation_request_model.dart';
-
 import 'package:farmer_assistance/domain/models/yield_estimation_response_model.dart';
 import 'package:injectable/injectable.dart';
 
