@@ -26,6 +26,8 @@ import 'package:farmer_assistance/application/pages/crop_recommendation/bloc/cro
     as _i582;
 import 'package:farmer_assistance/application/pages/fertilizer/bloc/fertilizer_bloc.dart'
     as _i993;
+import 'package:farmer_assistance/application/pages/market_trends/bloc/price_prediction_bloc.dart'
+    as _i777;
 import 'package:farmer_assistance/application/pages/water_prediction/bloc/water_prediction_bloc.dart'
     as _i20;
 import 'package:farmer_assistance/application/pages/yield_prediction/bloc/yield_prediction_bloc.dart'
@@ -42,6 +44,8 @@ import 'package:farmer_assistance/data/repositories/crop_recommendation_reposito
     as _i733;
 import 'package:farmer_assistance/data/repositories/fertilizer_tips_repositories_iml.dart'
     as _i674;
+import 'package:farmer_assistance/data/repositories/price_prediction_repository_impl.dart'
+    as _i888;
 import 'package:farmer_assistance/data/repositories/smart_irrigation_repositories_iml.dart'
     as _i537;
 import 'package:farmer_assistance/data/repositories/yield_estimation_repositories_iml.dart'
@@ -57,6 +61,8 @@ import 'package:farmer_assistance/domain/repositories/crop_recommendation_reposi
     as _i434;
 import 'package:farmer_assistance/domain/repositories/fertilizer_tips_repository.dart'
     as _i421;
+import 'package:farmer_assistance/domain/repositories/price_prediction_repository.dart'
+    as _i999;
 import 'package:farmer_assistance/domain/repositories/smart_irrigation_repository.dart'
     as _i835;
 import 'package:farmer_assistance/domain/repositories/yield_estimation_repository.dart'
@@ -69,6 +75,8 @@ import 'package:farmer_assistance/domain/usecases/crop_recommendation_use_case.d
     as _i2;
 import 'package:farmer_assistance/domain/usecases/fertilizer_tips_use_case.dart'
     as _i624;
+import 'package:farmer_assistance/domain/usecases/price_prediction_use_case.dart'
+    as _i456;
 import 'package:farmer_assistance/domain/usecases/smart_irrigation_use_case.dart'
     as _i866;
 import 'package:farmer_assistance/domain/usecases/yield_estimation_use_case.dart'
@@ -178,6 +186,17 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i376.CropDiseaseBloc>(
       () => _i376.CropDiseaseBloc(gh<_i347.CropDiseaseUseCase>()),
+    );
+    gh.factory<_i999.PricePredictionRepository>(
+      () => _i888.PricePredictionRepositoryImpl(gh<_i991.ApiService>()),
+    );
+    gh.factory<_i456.PricePredictionUseCase>(
+      () => _i456.PricePredictionUseCase(gh<_i999.PricePredictionRepository>()),
+    );
+    gh.factory<_i777.PricePredictionBloc>(
+      () => _i777.PricePredictionBloc(
+        pricePredictionUseCase: gh<_i456.PricePredictionUseCase>(),
+      ),
     );
     return this;
   }
