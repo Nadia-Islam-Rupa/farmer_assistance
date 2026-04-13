@@ -2,13 +2,11 @@ import 'package:farmer_assistance/application/core/services/routing/app_router.d
 import 'package:farmer_assistance/application/pages/auth/text_container.dart';
 import 'package:farmer_assistance/application/pages/auth/wave_clip.dart';
 import 'package:farmer_assistance/di/di.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../utils/utils.dart';
 import '../../../core/services/routing/routing_utils.dart';
-
 import 'bloc/login_bloc.dart';
 
 class LoginPage extends StatelessWidget {
