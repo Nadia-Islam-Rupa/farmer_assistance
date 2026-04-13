@@ -1,11 +1,10 @@
 import 'package:farmer_assistance/application/pages/crop_recommendation/crop_recommendation_page.dart';
+import 'package:farmer_assistance/application/pages/fertilizer/fertilizer_page.dart';
 import 'package:farmer_assistance/application/pages/forcast/forecast_page.dart';
 import 'package:farmer_assistance/application/pages/home_page/widgets/feature_card.dart';
 import 'package:farmer_assistance/application/pages/home_page/widgets/weather_card.dart';
 import 'package:farmer_assistance/application/pages/water_prediction/prediction_water.dart';
 import 'package:farmer_assistance/application/pages/yield_prediction/yield_page.dart';
-import 'package:farmer_assistance/application/pages/fertilizer/fertilizer_page.dart';
-
 import 'package:flutter/material.dart';
 
 import '../crop_disease_detection/disease_upload.dart';
