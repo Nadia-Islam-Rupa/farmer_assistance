@@ -1,14 +1,9 @@
-import 'package:farmer_assistance/application/pages/crop_recommendation/crop_recommendation_page.dart';
-import 'package:farmer_assistance/application/pages/fertilizer/fertilizer_page.dart';
-import 'package:farmer_assistance/application/pages/forcast/forecast_page.dart';
+import 'package:farmer_assistance/application/core/services/routing/app_router.dart';
 import 'package:farmer_assistance/application/pages/home_page/widgets/feature_card.dart';
 import 'package:farmer_assistance/application/pages/home_page/widgets/weather_card.dart';
-import 'package:farmer_assistance/application/pages/market_trends/market_trends_page.dart';
-import 'package:farmer_assistance/application/pages/water_prediction/prediction_water.dart';
-import 'package:farmer_assistance/application/pages/yield_prediction/yield_page.dart';
 import 'package:flutter/material.dart';
 
-import '../crop_disease_detection/disease_upload.dart';
+import '../../core/services/routing/routing_utils.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -52,12 +47,15 @@ class HomePage extends StatelessWidget {
                   children: [
                     GestureDetector(
                       onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => UploadLeafScreen(),
-                          ),
+                        AppRouter.router.push(
+                          PAGES.cropDiseasePrediction.screenPath,
                         );
+                        // Navigator.push(
+                        //   context,
+                        //   MaterialPageRoute(
+                        //     builder: (context) => UploadLeafScreen(),
+                        //   ),
+                        // );
                       },
                       child: FeatureCard(
                         icon: Icons.local_florist,
@@ -68,11 +66,8 @@ class HomePage extends StatelessWidget {
                     ),
                     GestureDetector(
                       onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const IrrigationPage(),
-                          ),
+                        AppRouter.router.push(
+                          PAGES.smartIrrigationPage.screenPath,
                         );
                       },
                       child: FeatureCard(
@@ -84,12 +79,8 @@ class HomePage extends StatelessWidget {
                     ),
                     GestureDetector(
                       onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) =>
-                                const FertilizerRecommendationPage(),
-                          ),
+                        AppRouter.router.push(
+                          PAGES.fertilizerRecommendationPage.screenPath,
                         );
                       },
                       child: FeatureCard(
@@ -101,11 +92,8 @@ class HomePage extends StatelessWidget {
                     ),
                     GestureDetector(
                       onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const MarketTrendsPage(),
-                          ),
+                        AppRouter.router.push(
+                          PAGES.marketTrendsPage.screenPath,
                         );
                       },
                       child: FeatureCard(
@@ -117,12 +105,7 @@ class HomePage extends StatelessWidget {
                     ),
                     GestureDetector(
                       onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const ForecastPage(),
-                          ),
-                        );
+                        AppRouter.router.push(PAGES.forecastPage.screenPath);
                       },
                       child: FeatureCard(
                         icon: Icons.wb_cloudy_outlined,
@@ -133,11 +116,8 @@ class HomePage extends StatelessWidget {
                     ),
                     GestureDetector(
                       onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const YieldPredictionPage(),
-                          ),
+                        AppRouter.router.push(
+                          PAGES.yieldPredictionPage.screenPath,
                         );
                       },
                       child: FeatureCard(
@@ -150,12 +130,8 @@ class HomePage extends StatelessWidget {
 
                     GestureDetector(
                       onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) =>
-                                const CropRecommendationPage(),
-                          ),
+                        AppRouter.router.push(
+                          PAGES.cropRecommendationPage.screenPath,
                         );
                       },
                       child: FeatureCard(
