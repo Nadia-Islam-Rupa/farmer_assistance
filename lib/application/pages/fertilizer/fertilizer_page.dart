@@ -1,7 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:farmer_assistance/application/core/utils/validation_utils.dart';
-
 import 'package:farmer_assistance/application/pages/fertilizer/provider/fertilizer_provider.dart';
 import 'package:farmer_assistance/application/pages/fertilizer/widgets/fertilizer_form_card.dart';
 import 'package:farmer_assistance/application/pages/fertilizer/widgets/fertilizer_header_card.dart';
