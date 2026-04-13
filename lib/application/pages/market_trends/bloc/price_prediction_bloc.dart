@@ -1,8 +1,8 @@
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:farmer_assistance/domain/failures/failures.dart';
 import 'package:farmer_assistance/domain/models/price_prediction_request_model.dart';
 import 'package:farmer_assistance/domain/models/price_prediction_response_model.dart';
 import 'package:farmer_assistance/domain/usecases/price_prediction_use_case.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 
