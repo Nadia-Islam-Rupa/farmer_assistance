@@ -1,4 +1,4 @@
-import 'package:farmer_assistance/application/pages/crop_recommendation/models/crop_recommendation_result.dart';
+import 'package:farmer_assistance/domain/models/Crop_recommendation_response_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -85,15 +85,18 @@ class CropWeatherSourceLabelNotifier extends Notifier<String> {
 
 // Crop recommendation result notifier
 final cropRecommendationProvider =
-    NotifierProvider<CropRecommendationNotifier, CropRecommendationResult?>(
-      CropRecommendationNotifier.new,
-    );
+    NotifierProvider<
+      CropRecommendationNotifier,
+      CropRecommendationResponseModel?
+    >(CropRecommendationNotifier.new);
 
-class CropRecommendationNotifier extends Notifier<CropRecommendationResult?> {
+class CropRecommendationNotifier
+    extends Notifier<CropRecommendationResponseModel?> {
   @override
-  CropRecommendationResult? build() => null;
+  CropRecommendationResponseModel? build() => null;
 
-  void setRecommendation(CropRecommendationResult result) => state = result;
+  void setRecommendation(CropRecommendationResponseModel result) =>
+      state = result;
 
   void clear() => state = null;
 }
