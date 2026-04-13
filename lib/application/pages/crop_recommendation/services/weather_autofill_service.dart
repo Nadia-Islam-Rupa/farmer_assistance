@@ -1,6 +1,6 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:farmer_assistance/application/pages/crop_recommendation/providers/crop_recommendation_provider.dart';
 import 'package:farmer_assistance/application/pages/forcast/provider/weather_service.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 /// Service for handling automatic weather data filling in crop recommendation
 class WeatherAutofillService {
