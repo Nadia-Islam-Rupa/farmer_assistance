@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:dartz/dartz.dart';
-
 import 'package:farmer_assistance/domain/failures/failures.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:injectable/injectable.dart';
