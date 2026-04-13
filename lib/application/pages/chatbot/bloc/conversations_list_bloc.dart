@@ -2,14 +2,15 @@ import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
+
 import '../../../../domain/failures/dio_error.dart';
 import '../../../../domain/failures/failures.dart';
 import '../../../../domain/models/chat_models.dart';
 import '../../../../domain/usecases/chat_use_case.dart';
 
+part 'conversations_list_bloc.freezed.dart';
 part 'conversations_list_event.dart';
 part 'conversations_list_state.dart';
-part 'conversations_list_bloc.freezed.dart';
 
 @injectable
 class ConversationsListBloc
