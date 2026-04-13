@@ -6,9 +6,9 @@ import 'package:injectable/injectable.dart';
 import '../../../../../domain/failures/failures.dart';
 import '../../../../../domain/usecases/auth_use_case.dart';
 
+part 'login_bloc.freezed.dart';
 part 'login_event.dart';
 part 'login_state.dart';
-part 'login_bloc.freezed.dart';
 
 @injectable
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
