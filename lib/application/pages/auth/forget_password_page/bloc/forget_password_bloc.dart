@@ -8,9 +8,9 @@ import 'package:injectable/injectable.dart';
 import '../../../../../domain/failures/failures.dart';
 import '../../../../../domain/usecases/auth_use_case.dart';
 
+part 'forget_password_bloc.freezed.dart';
 part 'forget_password_event.dart';
 part 'forget_password_state.dart';
-part 'forget_password_bloc.freezed.dart';
 
 @injectable
 class ForgetPasswordBloc

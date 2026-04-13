@@ -3,8 +3,8 @@ import 'dart:async';
 import 'package:farmer_assistance/application/core/services/routing/routing_utils.dart';
 import 'package:farmer_assistance/application/pages/auth/log_dash.dart';
 import 'package:farmer_assistance/application/pages/auth/login_page/login_page.dart';
-import 'package:farmer_assistance/domain/models/Crop_disease_model.dart';
 import 'package:farmer_assistance/application/pages/bottom_nav_page/main_scaffold.dart';
+import 'package:farmer_assistance/domain/models/Crop_disease_model.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -12,6 +12,13 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import '../../../pages/auth/create_account_page/create_account.dart';
 import '../../../pages/auth/forget_password_page/forgot_pass.dart';
 import '../../../pages/crop_disease_detection/crop_disease_result_screen.dart';
+import '../../../pages/crop_disease_detection/disease_upload.dart';
+import '../../../pages/crop_recommendation/crop_recommendation_page.dart';
+import '../../../pages/fertilizer/fertilizer_page.dart';
+import '../../../pages/forcast/forecast_page.dart';
+import '../../../pages/market_trends/market_trends_page.dart';
+import '../../../pages/water_prediction/prediction_water.dart';
+import '../../../pages/yield_prediction/yield_page.dart';
 
 class AppRouter {
   static final rootNavigatorKey = GlobalKey<NavigatorState>();
@@ -69,12 +76,48 @@ class AppRouter {
         builder: (context, state) => ForgotPasswordPage(),
       ),
       GoRoute(
+        path: PAGES.cropDiseasePrediction.screenPath,
+        name: PAGES.cropDiseasePrediction.screenName,
+        builder: (context, state) => const UploadLeafScreen(),
+      ),
+
+      GoRoute(
         path: PAGES.cropDiseaseDetectionResult.screenPath,
         name: PAGES.cropDiseaseDetectionResult.screenName,
         builder: (context, state) {
           final args = state.extra as CropDiseaseModel;
           return CropDiseaseResultScreen(cropDiseaseModel: args);
         },
+      ),
+      GoRoute(
+        path: PAGES.smartIrrigationPage.screenPath,
+        name: PAGES.smartIrrigationPage.screenName,
+        builder: (context, state) => const IrrigationPage(),
+      ),
+      GoRoute(
+        path: PAGES.fertilizerRecommendationPage.screenPath,
+        name: PAGES.fertilizerRecommendationPage.screenName,
+        builder: (context, state) => const FertilizerRecommendationPage(),
+      ),
+      GoRoute(
+        path: PAGES.marketTrendsPage.screenPath,
+        name: PAGES.marketTrendsPage.screenName,
+        builder: (context, state) => const MarketTrendsPage(),
+      ),
+      GoRoute(
+        path: PAGES.forecastPage.screenPath,
+        name: PAGES.forecastPage.screenName,
+        builder: (context, state) => const ForecastPage(),
+      ),
+      GoRoute(
+        path: PAGES.yieldPredictionPage.screenPath,
+        name: PAGES.yieldPredictionPage.screenName,
+        builder: (context, state) => const YieldPredictionPage(),
+      ),
+      GoRoute(
+        path: PAGES.cropRecommendationPage.screenPath,
+        name: PAGES.cropRecommendationPage.screenName,
+        builder: (context, state) => const CropRecommendationPage(),
       ),
     ],
   );

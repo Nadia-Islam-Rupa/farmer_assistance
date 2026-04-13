@@ -22,8 +22,12 @@ import 'package:farmer_assistance/application/pages/chatbot/bloc/conversations_l
     as _i539;
 import 'package:farmer_assistance/application/pages/crop_disease_detection/bloc/crop_disease_bloc.dart'
     as _i376;
+import 'package:farmer_assistance/application/pages/crop_recommendation/bloc/crop_recommendation_bloc.dart'
+    as _i582;
 import 'package:farmer_assistance/application/pages/fertilizer/bloc/fertilizer_bloc.dart'
     as _i993;
+import 'package:farmer_assistance/application/pages/market_trends/bloc/price_prediction_bloc.dart'
+    as _i777;
 import 'package:farmer_assistance/application/pages/water_prediction/bloc/water_prediction_bloc.dart'
     as _i20;
 import 'package:farmer_assistance/application/pages/yield_prediction/bloc/yield_prediction_bloc.dart'
@@ -36,8 +40,12 @@ import 'package:farmer_assistance/data/repositories/chat_repository_impl.dart'
     as _i830;
 import 'package:farmer_assistance/data/repositories/crop_disease_detection_repository_iml.dart'
     as _i607;
+import 'package:farmer_assistance/data/repositories/crop_recommendation_repositories_iml.dart'
+    as _i733;
 import 'package:farmer_assistance/data/repositories/fertilizer_tips_repositories_iml.dart'
     as _i674;
+import 'package:farmer_assistance/data/repositories/price_prediction_repository_impl.dart'
+    as _i888;
 import 'package:farmer_assistance/data/repositories/smart_irrigation_repositories_iml.dart'
     as _i537;
 import 'package:farmer_assistance/data/repositories/yield_estimation_repositories_iml.dart'
@@ -49,8 +57,12 @@ import 'package:farmer_assistance/domain/repositories/chat_repository.dart'
     as _i350;
 import 'package:farmer_assistance/domain/repositories/crop_disease_detection_repository.dart'
     as _i344;
+import 'package:farmer_assistance/domain/repositories/crop_recommendation_repository.dart'
+    as _i434;
 import 'package:farmer_assistance/domain/repositories/fertilizer_tips_repository.dart'
     as _i421;
+import 'package:farmer_assistance/domain/repositories/price_prediction_repository.dart'
+    as _i999;
 import 'package:farmer_assistance/domain/repositories/smart_irrigation_repository.dart'
     as _i835;
 import 'package:farmer_assistance/domain/repositories/yield_estimation_repository.dart'
@@ -59,8 +71,12 @@ import 'package:farmer_assistance/domain/usecases/auth_use_case.dart' as _i382;
 import 'package:farmer_assistance/domain/usecases/chat_use_case.dart' as _i735;
 import 'package:farmer_assistance/domain/usecases/crop_disease_use_case.dart'
     as _i347;
+import 'package:farmer_assistance/domain/usecases/crop_recommendation_use_case.dart'
+    as _i2;
 import 'package:farmer_assistance/domain/usecases/fertilizer_tips_use_case.dart'
     as _i624;
+import 'package:farmer_assistance/domain/usecases/price_prediction_use_case.dart'
+    as _i456;
 import 'package:farmer_assistance/domain/usecases/smart_irrigation_use_case.dart'
     as _i866;
 import 'package:farmer_assistance/domain/usecases/yield_estimation_use_case.dart'
@@ -108,6 +124,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i421.FertilizerTipsRepository>(
       () => _i674.FertilizerTipsRepositoriesIml(gh<_i991.ApiService>()),
     );
+    gh.factory<_i434.CropRecommendationRepository>(
+      () => _i733.CropRecommendationRepositoriesIml(gh<_i991.ApiService>()),
+    );
     gh.factory<_i612.YieldEstimationRepository>(
       () => _i158.YieldEstimationRepositoriesIml(gh<_i991.ApiService>()),
     );
@@ -141,6 +160,11 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i624.FertilizerTipsUseCase>(
       () => _i624.FertilizerTipsUseCase(gh<_i421.FertilizerTipsRepository>()),
     );
+    gh.factory<_i2.CropRecommendationUseCase>(
+      () => _i2.CropRecommendationUseCase(
+        gh<_i434.CropRecommendationRepository>(),
+      ),
+    );
     gh.factory<_i333.YieldPredictionBloc>(
       () => _i333.YieldPredictionBloc(
         yieldEstimationUseCase: gh<_i574.YieldEstimationUseCase>(),
@@ -151,12 +175,28 @@ extension GetItInjectableX on _i174.GetIt {
         fertilizerTipsUseCase: gh<_i624.FertilizerTipsUseCase>(),
       ),
     );
+    gh.factory<_i582.CropRecommendationBloc>(
+      () => _i582.CropRecommendationBloc(
+        cropRecommendationUseCase: gh<_i2.CropRecommendationUseCase>(),
+      ),
+    );
     gh.factory<_i347.CropDiseaseUseCase>(
       () =>
           _i347.CropDiseaseUseCase(gh<_i344.CropDiseaseDetectionRepository>()),
     );
     gh.factory<_i376.CropDiseaseBloc>(
       () => _i376.CropDiseaseBloc(gh<_i347.CropDiseaseUseCase>()),
+    );
+    gh.factory<_i999.PricePredictionRepository>(
+      () => _i888.PricePredictionRepositoryImpl(gh<_i991.ApiService>()),
+    );
+    gh.factory<_i456.PricePredictionUseCase>(
+      () => _i456.PricePredictionUseCase(gh<_i999.PricePredictionRepository>()),
+    );
+    gh.factory<_i777.PricePredictionBloc>(
+      () => _i777.PricePredictionBloc(
+        pricePredictionUseCase: gh<_i456.PricePredictionUseCase>(),
+      ),
     );
     return this;
   }

@@ -2,14 +2,15 @@ import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
+
 import '../../../../domain/failures/dio_error.dart';
 import '../../../../domain/failures/failures.dart';
 import '../../../../domain/models/chat_models.dart';
 import '../../../../domain/usecases/chat_use_case.dart';
 
+part 'chat_bloc.freezed.dart';
 part 'chat_event.dart';
 part 'chat_state.dart';
-part 'chat_bloc.freezed.dart';
 
 @injectable
 class ChatBloc extends Bloc<ChatEvent, ChatState> {

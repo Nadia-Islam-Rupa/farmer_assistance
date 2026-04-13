@@ -1,15 +1,15 @@
 import 'package:farmer_assistance/domain/failures/failures.dart';
+import 'package:farmer_assistance/domain/models/smart_irrigation_request_model.dart';
 import 'package:farmer_assistance/domain/usecases/smart_irrigation_use_case.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:farmer_assistance/domain/models/smart_irrigation_request_model.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../../domain/models/smart_irrigation_response_model.dart';
 
+part 'water_prediction_bloc.freezed.dart';
 part 'water_prediction_event.dart';
 part 'water_prediction_state.dart';
-part 'water_prediction_bloc.freezed.dart';
 
 @injectable
 class WaterPredictionBloc

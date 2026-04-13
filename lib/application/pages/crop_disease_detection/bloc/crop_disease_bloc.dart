@@ -5,14 +5,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 
+import '../../../../domain/failures/dio_error.dart';
 import '../../../../domain/failures/failures.dart';
 import '../../../../domain/models/Crop_disease_model.dart';
 import '../../../../domain/usecases/crop_disease_use_case.dart';
-import '../../../../domain/failures/dio_error.dart';
 
+part 'crop_disease_bloc.freezed.dart';
 part 'crop_disease_event.dart';
 part 'crop_disease_state.dart';
-part 'crop_disease_bloc.freezed.dart';
 
 @injectable
 class CropDiseaseBloc extends Bloc<CropDiseaseEvent, CropDiseaseState> {

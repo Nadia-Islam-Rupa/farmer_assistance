@@ -1,9 +1,9 @@
 import 'package:farmer_assistance/application/pages/crop_recommendation/constants/crop_constants.dart';
-import 'package:farmer_assistance/application/pages/crop_recommendation/models/crop_recommendation_result.dart';
+import 'package:farmer_assistance/domain/models/Crop_recommendation_response_model.dart';
 import 'package:flutter/material.dart';
 
 class CropResultCard extends StatelessWidget {
-  final CropRecommendationResult result;
+  final CropRecommendationResponseModel result;
 
   const CropResultCard({super.key, required this.result});
 
@@ -39,7 +39,7 @@ class CropResultCard extends StatelessWidget {
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Text(
-                  CropConstants.getCropEmoji(result.cropName),
+                  CropConstants.getCropEmoji(result.crop!),
                   style: const TextStyle(fontSize: 32),
                 ),
               ),
@@ -54,7 +54,7 @@ class CropResultCard extends StatelessWidget {
                     ),
                     const SizedBox(height: 4),
                     Text(
-                      result.cropName,
+                      result.crop!,
                       style: const TextStyle(
                         color: Colors.white,
                         fontSize: 26,
@@ -68,7 +68,7 @@ class CropResultCard extends StatelessWidget {
           ),
 
           // Confidence indicator
-          if (result.confidence > 0) ...[
+          if (result.confidence! > 0) ...[
             const SizedBox(height: 16),
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
@@ -86,7 +86,7 @@ class CropResultCard extends StatelessWidget {
                   ),
                   const SizedBox(width: 8),
                   Text(
-                    'Confidence: ${(result.confidence * 100).toStringAsFixed(1)}%',
+                    'Confidence: ${(result.confidence! * 100).toStringAsFixed(1)}%',
                     style: const TextStyle(
                       color: Colors.white,
                       fontSize: 14,
@@ -99,50 +99,50 @@ class CropResultCard extends StatelessWidget {
           ],
 
           // Tips section
-          if (result.tips.isNotEmpty) ...[
-            const SizedBox(height: 20),
-            const Divider(color: Colors.white38, thickness: 1),
-            const SizedBox(height: 12),
-            const Text(
-              'Growing Tips',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(height: 12),
-            ...result.tips.asMap().entries.map((entry) {
-              return Padding(
-                padding: const EdgeInsets.only(bottom: 10),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      margin: const EdgeInsets.only(top: 4),
-                      width: 6,
-                      height: 6,
-                      decoration: const BoxDecoration(
-                        color: Colors.lightGreenAccent,
-                        shape: BoxShape.circle,
-                      ),
-                    ),
-                    const SizedBox(width: 12),
-                    Expanded(
-                      child: Text(
-                        entry.value,
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 14,
-                          height: 1.5,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              );
-            }),
-          ],
+          // if (result.tips.isNotEmpty) ...[
+          //   const SizedBox(height: 20),
+          //   const Divider(color: Colors.white38, thickness: 1),
+          //   const SizedBox(height: 12),
+          //   const Text(
+          //     'Growing Tips',
+          //     style: TextStyle(
+          //       color: Colors.white,
+          //       fontSize: 16,
+          //       fontWeight: FontWeight.bold,
+          //     ),
+          //   ),
+          //   const SizedBox(height: 12),
+          //   ...result.tips.asMap().entries.map((entry) {
+          //     return Padding(
+          //       padding: const EdgeInsets.only(bottom: 10),
+          //       child: Row(
+          //         crossAxisAlignment: CrossAxisAlignment.start,
+          //         children: [
+          //           Container(
+          //             margin: const EdgeInsets.only(top: 4),
+          //             width: 6,
+          //             height: 6,
+          //             decoration: const BoxDecoration(
+          //               color: Colors.lightGreenAccent,
+          //               shape: BoxShape.circle,
+          //             ),
+          //           ),
+          //           const SizedBox(width: 12),
+          //           Expanded(
+          //             child: Text(
+          //               entry.value,
+          //               style: const TextStyle(
+          //                 color: Colors.white,
+          //                 fontSize: 14,
+          //                 height: 1.5,
+          //               ),
+          //             ),
+          //           ),
+          //         ],
+          //       ),
+          //     );
+          //   }),
+          // ],
         ],
       ),
     );

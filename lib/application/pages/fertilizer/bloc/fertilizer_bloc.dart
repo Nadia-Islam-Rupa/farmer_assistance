@@ -1,15 +1,15 @@
 import 'package:farmer_assistance/domain/failures/failures.dart';
+import 'package:farmer_assistance/domain/models/fertilizer_tips_request_model.dart';
 import 'package:farmer_assistance/domain/usecases/fertilizer_tips_use_case.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:farmer_assistance/domain/models/fertilizer_tips_request_model.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../../domain/models/fertilizer_tips_response_model.dart';
 
+part 'fertilizer_bloc.freezed.dart';
 part 'fertilizer_event.dart';
 part 'fertilizer_state.dart';
-part 'fertilizer_bloc.freezed.dart';
 
 @injectable
 class FertilizerBloc extends Bloc<FertilizerEvent, FertilizerState> {

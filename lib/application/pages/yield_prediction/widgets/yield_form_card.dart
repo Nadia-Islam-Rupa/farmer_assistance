@@ -1,5 +1,5 @@
-import 'package:farmer_assistance/application/pages/yield_prediction/widgets/yield_input_field.dart';
 import 'package:farmer_assistance/application/pages/yield_prediction/widgets/yield_dropdown_field.dart';
+import 'package:farmer_assistance/application/pages/yield_prediction/widgets/yield_input_field.dart';
 import 'package:flutter/material.dart';
 
 class YieldFormCard extends StatelessWidget {

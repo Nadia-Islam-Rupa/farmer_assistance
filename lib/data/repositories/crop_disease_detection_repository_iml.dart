@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
-
 import 'package:farmer_assistance/domain/failures/failures.dart';
 import 'package:farmer_assistance/domain/models/Crop_disease_model.dart';
 import 'package:injectable/injectable.dart';

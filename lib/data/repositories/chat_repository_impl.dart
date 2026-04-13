@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
+
 import '../../domain/failures/dio_error.dart';
 import '../../domain/failures/failures.dart';
 import '../../domain/models/chat_models.dart';

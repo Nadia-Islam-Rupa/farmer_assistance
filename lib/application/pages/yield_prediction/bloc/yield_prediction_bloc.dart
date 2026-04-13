@@ -7,9 +7,9 @@ import 'package:injectable/injectable.dart';
 
 import '../../../../domain/models/yield_estimation_request_model.dart';
 
+part 'yield_prediction_bloc.freezed.dart';
 part 'yield_prediction_event.dart';
 part 'yield_prediction_state.dart';
-part 'yield_prediction_bloc.freezed.dart';
 
 @injectable
 class YieldPredictionBloc
