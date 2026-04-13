@@ -62,17 +62,17 @@ class CropFormCard extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 16),
-          CropDropdownField(
-            value: selectedSoilType,
-            label: 'Soil Type',
-            hint: 'Select soil type',
-            icon: Icons.layers,
-            items: CropConstants.soilTypes,
-            onChanged: onSoilTypeChanged,
-            validator: (value) =>
-                ValidationUtils.requiredText(value, 'Soil Type'),
-          ),
-          const SizedBox(height: 12),
+          // CropDropdownField(
+          //   value: selectedSoilType,
+          //   label: 'Soil Type',
+          //   hint: 'Select soil type',
+          //   icon: Icons.layers,
+          //   items: CropConstants.soilTypes,
+          //   onChanged: onSoilTypeChanged,
+          //   validator: (value) =>
+          //       ValidationUtils.requiredText(value, 'Soil Type'),
+          // ),
+          // const SizedBox(height: 12),
           CropInputField(
             controller: nitrogenController,
             label: 'Nitrogen (N)',
