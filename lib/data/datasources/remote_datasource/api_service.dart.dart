@@ -1,6 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:farmer_assistance/domain/models/Crop_disease_model.dart';
 import 'package:farmer_assistance/domain/models/chat_models.dart';
+import 'package:farmer_assistance/domain/models/price_prediction_request_model.dart';
+import 'package:farmer_assistance/domain/models/price_prediction_response_model.dart';
 import 'package:farmer_assistance/domain/models/smart_irrigation_request_model.dart';
 import 'package:farmer_assistance/domain/models/smart_irrigation_response_model.dart';
 import 'package:injectable/injectable.dart';
@@ -183,6 +185,25 @@ class ApiService {
         throw Exception('Failed to send Request.');
       } else {
         return CropRecommendationResponseModel.fromJson(response.data);
+      }
+    } catch (e) {
+      throw Exception('Failed to send Request.');
+    }
+  }
+
+  Future<PricePredictionResponseModel> predictPrice({
+    required PricePredictionRequestModel pricePredictionRequestData,
+  }) async {
+    try {
+      final response = await dio.post(
+        '/price-prediction/predict',
+        data: pricePredictionRequestData.toJson(),
+        options: Options(headers: {'Content-Type': 'application/json'}),
+      );
+      if (response.statusCode != 200) {
+        throw Exception('Failed to send Request.');
+      } else {
+        return PricePredictionResponseModel.fromJson(response.data);
       }
     } catch (e) {
       throw Exception('Failed to send Request.');
