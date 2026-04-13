@@ -68,15 +68,15 @@ class CropConstants {
 
   // Validation ranges
   static const double minNitrogen = 0;
-  static const double maxNitrogen = 140;
-  static const double minPhosphorus = 5;
-  static const double maxPhosphorus = 145;
-  static const double minPotassium = 5;
-  static const double maxPotassium = 205;
-  static const double minPH = 3.5;
-  static const double maxPH = 10;
-  static const double minRainfall = 20;
-  static const double maxRainfall = 300;
+  static const double maxNitrogen = 14000;
+  static const double minPhosphorus = 00;
+  static const double maxPhosphorus = 1455;
+  static const double minPotassium = 0;
+  static const double maxPotassium = 2050;
+  static const double minPH = 00;
+  static const double maxPH = 100;
+  static const double minRainfall = 00;
+  static const double maxRainfall = 3000;
 
   // Helper method to get crop emoji
   static String getCropEmoji(String cropName) {
