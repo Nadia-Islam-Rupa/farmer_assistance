@@ -1,11 +1,8 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:farmer_assistance/data/datasources/remote_datasource/api_service.dart.dart';
-
 import 'package:farmer_assistance/domain/failures/failures.dart';
-
 import 'package:farmer_assistance/domain/models/fertilizer_tips_request_model.dart';
-
 import 'package:farmer_assistance/domain/models/fertilizer_tips_response_model.dart';
 import 'package:injectable/injectable.dart';
 
