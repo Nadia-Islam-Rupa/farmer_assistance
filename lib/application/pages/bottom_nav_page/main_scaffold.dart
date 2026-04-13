@@ -4,9 +4,9 @@ import 'package:farmer_assistance/application/pages/bottom_nav_page/providers/bo
 import 'package:farmer_assistance/application/pages/forcast/weekly_fore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../home_page/homepage.dart';
 
 import '../chatbot/chatbot_page.dart';
+import '../home_page/homepage.dart';
 import '../profile/profile_page.dart';
 
 /// Main navigation container that manages all bottom navigation pages
