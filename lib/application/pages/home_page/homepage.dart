@@ -3,6 +3,7 @@ import 'package:farmer_assistance/application/pages/fertilizer/fertilizer_page.d
 import 'package:farmer_assistance/application/pages/forcast/forecast_page.dart';
 import 'package:farmer_assistance/application/pages/home_page/widgets/feature_card.dart';
 import 'package:farmer_assistance/application/pages/home_page/widgets/weather_card.dart';
+import 'package:farmer_assistance/application/pages/market_trends/market_trends_page.dart';
 import 'package:farmer_assistance/application/pages/water_prediction/prediction_water.dart';
 import 'package:farmer_assistance/application/pages/yield_prediction/yield_page.dart';
 import 'package:flutter/material.dart';
@@ -98,11 +99,21 @@ class HomePage extends StatelessWidget {
                         color: Colors.amberAccent,
                       ),
                     ),
-                    FeatureCard(
-                      icon: Icons.trending_up,
-                      title: "Market trends",
-                      subtitle: "Price predictions",
-                      color: Colors.purpleAccent,
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const MarketTrendsPage(),
+                          ),
+                        );
+                      },
+                      child: FeatureCard(
+                        icon: Icons.trending_up,
+                        title: "Market trends",
+                        subtitle: "Price predictions",
+                        color: Colors.purpleAccent,
+                      ),
                     ),
                     GestureDetector(
                       onTap: () {
