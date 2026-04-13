@@ -1,7 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:farmer_assistance/application/pages/crop_recommendation/providers/crop_recommendation_provider.dart';
-import 'package:farmer_assistance/application/pages/crop_recommendation/services/crop_recommendation_service.dart';
 import 'package:farmer_assistance/application/pages/crop_recommendation/services/weather_autofill_service.dart';
 import 'package:farmer_assistance/application/pages/crop_recommendation/utils/crop_snackbar_utils.dart';
 import 'package:farmer_assistance/application/pages/crop_recommendation/widgets/crop_form_card.dart';
@@ -10,19 +9,34 @@ import 'package:farmer_assistance/application/pages/crop_recommendation/widgets/
 import 'package:farmer_assistance/application/pages/forcast/provider/weather_service.dart';
 import 'package:farmer_assistance/application/pages/water_prediction/water_prediction_theme.dart'
     show WaterPredictionTheme;
+import 'package:farmer_assistance/di/di.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class CropRecommendationPage extends ConsumerStatefulWidget {
+import '../../../domain/models/Crop_recommendation_request_model.dart';
+import 'bloc/crop_recommendation_bloc.dart';
+
+class CropRecommendationPage extends StatelessWidget {
   const CropRecommendationPage({super.key});
 
   @override
-  ConsumerState<CropRecommendationPage> createState() =>
-      _CropRecommendationPageState();
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (_) => getIt<CropRecommendationBloc>(),
+      child: const CropRecommendation(),
+    );
+  }
 }
 
-class _CropRecommendationPageState
-    extends ConsumerState<CropRecommendationPage> {
+class CropRecommendation extends ConsumerStatefulWidget {
+  const CropRecommendation({super.key});
+
+  @override
+  ConsumerState<CropRecommendation> createState() => _CropRecommendationState();
+}
+
+class _CropRecommendationState extends ConsumerState<CropRecommendation> {
   String? selectedSoilType;
   late WeatherAutofillService _weatherService;
 
@@ -81,23 +95,19 @@ class _CropRecommendationPageState
         ref.read(cropRainfallControllerProvider).text.trim(),
       );
 
-      // Get recommendation from service
-      final result = await CropRecommendationService.getRecommendation(
-        nitrogen: nitrogen,
-        phosphorus: phosphorus,
-        potassium: potassium,
-        ph: ph,
-        temperature: temperature,
-        humidity: humidity,
-        rainfall: rainfall,
-        soilType: selectedSoilType,
+      context.read<CropRecommendationBloc>().add(
+        CropRecommendationEvent.started(
+          cropRecommendationRequestModel: CropRecommendationRequestModel(
+            nitrogen: nitrogen,
+            phosphorus: phosphorus,
+            potassium: potassium,
+            ph: ph,
+            temperature: temperature,
+            humidity: humidity,
+            rainfall: rainfall,
+          ),
+        ),
       );
-
-      ref.read(cropRecommendationProvider.notifier).setRecommendation(result);
-
-      if (mounted) {
-        CropSnackbarUtils.showRecommendationSuccess(context);
-      }
     } catch (e) {
       if (mounted) {
         CropSnackbarUtils.showRecommendationError(context, e.toString());
@@ -110,7 +120,6 @@ class _CropRecommendationPageState
   @override
   Widget build(BuildContext context) {
     final formKey = ref.watch(cropRecommendationFormKeyProvider);
-    final result = ref.watch(cropRecommendationProvider);
     final weatherAsync = ref.watch(weatherProvider);
     final weatherSourceLabel = ref.watch(cropWeatherSourceLabelProvider);
     final isLoading = ref.watch(cropRecommendationLoadingProvider);
@@ -233,10 +242,37 @@ class _CropRecommendationPageState
                       ),
                     ),
                   ),
-                  if (result != null) ...[
-                    const SizedBox(height: 20),
-                    CropResultCard(result: result),
-                  ],
+                  BlocConsumer<CropRecommendationBloc, CropRecommendationState>(
+                    builder: (context, state) {
+                      if (state is LoadedCropRecommendationState) {
+                        return Column(
+                          children: [
+                            const SizedBox(height: 20),
+                            CropResultCard(result: state.data),
+                          ],
+                        );
+                      }
+                      return const SizedBox(height: 20);
+                    },
+                    listener: (context, state) {
+                      if (state is ErrorCropRecommendationState) {
+                        CropSnackbarUtils.showRecommendationError(
+                          context,
+                          state.message,
+                        );
+                      }
+                      if (state is LoadedCropRecommendationState) {
+                        CropSnackbarUtils.showRecommendationSuccess(context);
+                        ref
+                            .read(cropRecommendationProvider.notifier)
+                            .setRecommendation(state.data);
+                      }
+                    },
+                  ),
+                  // if (result != null) ...[
+                  //   const SizedBox(height: 20),
+                  //   CropResultCard(result: result),
+                  // ],
                 ],
               ),
             ),
