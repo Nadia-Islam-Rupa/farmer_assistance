@@ -5,6 +5,8 @@ import 'package:farmer_assistance/domain/models/smart_irrigation_request_model.d
 import 'package:farmer_assistance/domain/models/smart_irrigation_response_model.dart';
 import 'package:injectable/injectable.dart';
 
+import '../../../domain/models/Crop_recommendation_request_model.dart';
+import '../../../domain/models/Crop_recommendation_response_model.dart';
 import '../../../domain/models/fertilizer_tips_request_model.dart';
 import '../../../domain/models/fertilizer_tips_response_model.dart';
 import '../../../domain/models/yield_estimation_request_model.dart';
@@ -162,6 +164,25 @@ class ApiService {
         throw Exception('Failed to send Request.');
       } else {
         return YieldEstimationResponseModel.fromJson(response.data);
+      }
+    } catch (e) {
+      throw Exception('Failed to send Request.');
+    }
+  }
+
+  Future<CropRecommendationResponseModel> getCropRecommendation({
+    required CropRecommendationRequestModel cropRecommendationRequestModel,
+  }) async {
+    try {
+      final response = await dio.post(
+        '/crop-recommendation/predict',
+        data: cropRecommendationRequestModel.toJson(),
+        options: Options(headers: {'Content-Type': 'application/json'}),
+      );
+      if (response.statusCode != 200) {
+        throw Exception('Failed to send Request.');
+      } else {
+        return CropRecommendationResponseModel.fromJson(response.data);
       }
     } catch (e) {
       throw Exception('Failed to send Request.');
