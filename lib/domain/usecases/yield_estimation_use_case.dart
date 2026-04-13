@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:injectable/injectable.dart';
+
 import '../failures/failures.dart';
 import '../models/yield_estimation_request_model.dart';
 import '../models/yield_estimation_response_model.dart';
