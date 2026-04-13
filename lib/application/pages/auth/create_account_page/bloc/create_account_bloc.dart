@@ -6,9 +6,9 @@ import 'package:injectable/injectable.dart';
 import '../../../../../domain/failures/failures.dart';
 import '../../../../../domain/usecases/auth_use_case.dart';
 
+part 'create_account_bloc.freezed.dart';
 part 'create_account_event.dart';
 part 'create_account_state.dart';
-part 'create_account_bloc.freezed.dart';
 
 @injectable
 class CreateAccountBloc extends Bloc<CreateAccountEvent, CreateAccountState> {
