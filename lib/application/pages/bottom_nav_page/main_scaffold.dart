@@ -22,6 +22,21 @@ class MainScaffold extends ConsumerWidget {
     ProfilePage(), // index 3
   ];
 
+  Widget _buildPage(int index) {
+    switch (index) {
+      case 0:
+        return const HomePage();
+      case 1:
+        return const WeeklyForecastPage();
+      case 2:
+        return const ChatbotPage();
+      case 3:
+        return const ProfilePage();
+      default:
+        return const SizedBox();
+    }
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final currentIndex = ref.watch(bottomNavProvider);
@@ -35,7 +50,7 @@ class MainScaffold extends ConsumerWidget {
         }
       },
       child: Scaffold(
-        body: IndexedStack(index: currentIndex, children: _pages),
+        body: _buildPage(currentIndex),
         bottomNavigationBar: BottomNavigationBar(
           currentIndex: currentIndex,
           selectedItemColor: Color(0xff00796B),
