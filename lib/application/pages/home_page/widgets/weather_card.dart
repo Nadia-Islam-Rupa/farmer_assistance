@@ -59,81 +59,84 @@ class WeatherCard extends ConsumerWidget {
           final windSpeed = (current?['wind_speed_10m'] as num?)?.round() ?? 0;
           final weatherCode = (current?['weather_code'] as num?)?.toInt() ?? 0;
 
-          return Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // Greeting
-              Text(
-                Utils.getGreeting(),
-                style: const TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                ),
-              ),
-              const SizedBox(height: 4),
-              Text(
-                DateFormat('MMMM dd, yyyy').format(DateTime.now()),
-                style: const TextStyle(color: Colors.white),
-              ),
-              const SizedBox(height: 18),
-
-              // Weather row
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  // Temperature box
-                  Expanded(
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Colors.teal.shade200,
-                        borderRadius: BorderRadius.circular(14),
-                      ),
-                      padding: const EdgeInsets.all(10),
-                      child: Row(
-                        children: [
-                          Icon(
-                            _getWeatherIcon(weatherCode),
-                            color: Colors.white,
-                            size: 26,
-                          ),
-                          const SizedBox(width: 6),
-                          Text(
-                            '$temperature°C\n${_getWeatherDescription(weatherCode)}',
-                            style: const TextStyle(
-                              fontSize: 16,
-                              color: Colors.white,
-                              height: 1.2,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
+          return Padding(
+            padding: const EdgeInsets.only(top: 24.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Greeting
+                Text(
+                  Utils.getGreeting(),
+                  style: const TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
                   ),
-                  const SizedBox(width: 12),
-                  // Humidity box
-                  Expanded(
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Colors.teal.shade200,
-                        borderRadius: BorderRadius.circular(14),
-                      ),
-                      padding: const EdgeInsets.all(10),
-                      child: Text(
-                        'Humidity: $humidity%\nWind: $windSpeed km/h',
-                        textAlign: TextAlign.right,
-                        style: const TextStyle(
-                          color: Colors.white,
-                          height: 1.2,
-                          fontSize: 16,
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  DateFormat('MMMM dd, yyyy').format(DateTime.now()),
+                  style: const TextStyle(color: Colors.white),
+                ),
+                const SizedBox(height: 18),
+
+                // Weather row
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    // Temperature box
+                    Expanded(
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.teal.shade200,
+                          borderRadius: BorderRadius.circular(14),
+                        ),
+                        padding: const EdgeInsets.all(10),
+                        child: Row(
+                          children: [
+                            Icon(
+                              _getWeatherIcon(weatherCode),
+                              color: Colors.white,
+                              size: 26,
+                            ),
+                            const SizedBox(width: 6),
+                            Text(
+                              '$temperature°C\n${_getWeatherDescription(weatherCode)}',
+                              style: const TextStyle(
+                                fontSize: 16,
+                                color: Colors.white,
+                                height: 1.2,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 12),
-            ],
+                    const SizedBox(width: 12),
+                    // Humidity box
+                    Expanded(
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.teal.shade200,
+                          borderRadius: BorderRadius.circular(14),
+                        ),
+                        padding: const EdgeInsets.all(10),
+                        child: Text(
+                          'Humidity: $humidity%\nWind: $windSpeed km/h',
+                          textAlign: TextAlign.right,
+                          style: const TextStyle(
+                            color: Colors.white,
+                            height: 1.2,
+                            fontSize: 16,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 12),
+              ],
+            ),
           );
         },
         loading: () => Column(
