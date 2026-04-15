@@ -1,3 +1,4 @@
+import 'package:farmer_assistance/application/core/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 
 class ForecastLoadingState extends StatelessWidget {
@@ -23,7 +24,7 @@ class ForecastLoadingState extends StatelessWidget {
               ],
             ),
             child: const CircularProgressIndicator(
-              color: Color(0xff26A69A),
+              color: AppTheme.lightTeal,
               strokeWidth: 3,
             ),
           ),
