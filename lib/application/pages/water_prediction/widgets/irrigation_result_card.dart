@@ -1,4 +1,4 @@
-import 'package:farmer_assistance/application/pages/water_prediction/water_prediction_theme.dart';
+import 'package:farmer_assistance/application/core/theme/app_theme.dart';
 import 'package:farmer_assistance/domain/models/smart_irrigation_response_model.dart';
 import 'package:flutter/material.dart';
 
@@ -78,7 +78,7 @@ class _IrrigationResultCardState extends State<IrrigationResultCard>
             elevation: 4,
             shadowColor: isNeeded
                 ? const Color(0xffF57C00).withValues(alpha: 0.3)
-                : WaterPredictionTheme.primaryTeal.withValues(alpha: 0.3),
+                : AppTheme.primaryTeal.withValues(alpha: 0.3),
             color: Colors.white,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(20),
@@ -120,7 +120,7 @@ class _IrrigationResultCardState extends State<IrrigationResultCard>
                                 '🎯 Prediction Result',
                                 style: widget.textTheme.titleMedium?.copyWith(
                                   fontWeight: FontWeight.w800,
-                                  color: WaterPredictionTheme.deepTeal,
+                                  color: AppTheme.deepTeal,
                                   fontSize: 18,
                                 ),
                               ),
@@ -215,7 +215,7 @@ class _IrrigationResultCardState extends State<IrrigationResultCard>
                         label: 'Prediction Confidence',
                         value: '$confidencePercent%',
                         icon: Icons.analytics_outlined,
-                        color: WaterPredictionTheme.primaryTeal,
+                        color: AppTheme.primaryTeal,
                         textTheme: widget.textTheme,
                       ),
                     ),
@@ -242,14 +242,14 @@ class _IrrigationResultCardState extends State<IrrigationResultCard>
                                 Icon(
                                   Icons.bar_chart_rounded,
                                   size: 18,
-                                  color: WaterPredictionTheme.primaryTeal,
+                                  color: AppTheme.primaryTeal,
                                 ),
                                 const SizedBox(width: 8),
                                 Text(
                                   'Feature Importance',
                                   style: widget.textTheme.titleSmall?.copyWith(
                                     fontWeight: FontWeight.w700,
-                                    color: WaterPredictionTheme.deepTeal,
+                                    color: AppTheme.deepTeal,
                                   ),
                                 ),
                               ],
@@ -290,8 +290,7 @@ class _IrrigationResultCardState extends State<IrrigationResultCard>
                                                     vertical: 3,
                                                   ),
                                               decoration: BoxDecoration(
-                                                color: WaterPredictionTheme
-                                                    .primaryTeal
+                                                color: AppTheme.primaryTeal
                                                     .withValues(alpha: 0.15),
                                                 borderRadius:
                                                     BorderRadius.circular(8),
@@ -305,8 +304,7 @@ class _IrrigationResultCardState extends State<IrrigationResultCard>
                                                       fontWeight:
                                                           FontWeight.w800,
                                                       color:
-                                                          WaterPredictionTheme
-                                                              .primaryTeal,
+                                                          AppTheme.primaryTeal,
                                                     ),
                                               ),
                                             ),
@@ -331,10 +329,8 @@ class _IrrigationResultCardState extends State<IrrigationResultCard>
                                                 decoration: BoxDecoration(
                                                   gradient: LinearGradient(
                                                     colors: [
-                                                      WaterPredictionTheme
-                                                          .primaryTeal,
-                                                      WaterPredictionTheme
-                                                          .deepTeal,
+                                                      AppTheme.primaryTeal,
+                                                      AppTheme.deepTeal,
                                                     ],
                                                   ),
                                                   borderRadius:
@@ -342,8 +338,7 @@ class _IrrigationResultCardState extends State<IrrigationResultCard>
                                                   boxShadow: [
                                                     BoxShadow(
                                                       color:
-                                                          WaterPredictionTheme
-                                                              .primaryTeal
+                                                          AppTheme.primaryTeal
                                                               .withValues(
                                                                 alpha: 0.4,
                                                               ),
