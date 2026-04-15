@@ -1,4 +1,4 @@
-import 'package:farmer_assistance/application/pages/water_prediction/water_prediction_theme.dart';
+import 'package:farmer_assistance/application/core/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../domain/models/yield_estimation_response_model.dart';
@@ -98,7 +98,7 @@ class _YieldResultCardState extends State<YieldResultCard>
 
     final isHighYield = yieldClass.toLowerCase().contains('high');
     final cardColor = isHighYield
-        ? WaterPredictionTheme.primaryTeal
+        ? AppTheme.primaryTeal
         : const Color(0xffF57C00);
 
     return FadeTransition(
@@ -155,7 +155,7 @@ class _YieldResultCardState extends State<YieldResultCard>
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'Prediction Result',
+                                'Estimated Yield Result',
                                 style: widget.textTheme.titleMedium?.copyWith(
                                   fontWeight: FontWeight.w700,
                                   color: const Color(0xff174A44),
@@ -190,7 +190,7 @@ class _YieldResultCardState extends State<YieldResultCard>
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                'Predicted Yield',
+                                'Estimated Yield',
                                 style: widget.textTheme.bodyMedium?.copyWith(
                                   color: const Color(0xff5D7D78),
                                   fontWeight: FontWeight.w600,
@@ -268,7 +268,7 @@ class _YieldResultCardState extends State<YieldResultCard>
                         children: [
                           Icon(
                             Icons.analytics_outlined,
-                            color: WaterPredictionTheme.deepTeal,
+                            color: AppTheme.deepTeal,
                             size: 22,
                           ),
                           const SizedBox(width: 10),
