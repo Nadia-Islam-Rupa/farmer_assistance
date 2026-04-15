@@ -1,3 +1,4 @@
+import 'package:farmer_assistance/application/core/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 
 class ForecastErrorState extends StatelessWidget {
@@ -43,13 +44,13 @@ class ForecastErrorState extends StatelessWidget {
               Text(
                 message,
                 textAlign: TextAlign.center,
-                style: const TextStyle(color: Color(0xff26A69A), fontSize: 13),
+                style: const TextStyle(color: AppTheme.primaryTeal, fontSize: 13),
               ),
               const SizedBox(height: 14),
               FilledButton.icon(
                 onPressed: onRetry,
                 style: FilledButton.styleFrom(
-                  backgroundColor: const Color(0xff26A69A),
+                  backgroundColor: AppTheme.primaryTeal,
                 ),
                 icon: const Icon(Icons.refresh),
                 label: const Text('Try Again'),
