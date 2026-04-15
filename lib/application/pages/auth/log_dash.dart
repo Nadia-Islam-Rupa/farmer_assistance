@@ -1,4 +1,5 @@
 import 'package:farmer_assistance/application/core/services/routing/app_router.dart';
+import 'package:farmer_assistance/application/core/theme/app_theme.dart';
 import 'package:farmer_assistance/application/pages/auth/wave_clip.dart';
 import 'package:farmer_assistance/di/di.dart';
 import 'package:flutter/material.dart';
@@ -29,13 +30,13 @@ class LoginScreenPage extends StatelessWidget {
       body: BlocListener<LoginBloc, LoginState>(
         listener: (context, state) {
           if (state is LoadingLoginState) {
-            return Utils.showSnackBar(context, "Logging in...",Color(0xff00796B));
+            return Utils.showSnackBar(context, "Logging in...",AppTheme.primaryTeal);
           }
           if (state is ErrorLoginState) {
-            return Utils.showSnackBar(context, state.message,Colors.red);
+            return Utils.showSnackBar(context, state.message,AppTheme.errorRed);
           }
           if (state is SuccessLoginState) {
-            return Utils.showSnackBar(context, "Welcome To FarmAI",Color(0xff00796B));
+            return Utils.showSnackBar(context, "Welcome To FarmAI",AppTheme.primaryTeal);
           }
         },
         child: SingleChildScrollView(
@@ -71,7 +72,7 @@ class LoginScreenPage extends StatelessWidget {
                         height: 50,
                         width: double.infinity,
                         decoration: BoxDecoration(
-                          color: Color(0xff00796B),
+                          color: AppTheme.primaryTeal,
                           borderRadius: BorderRadius.circular(30),
                         ),
                         child: Center(
@@ -92,7 +93,7 @@ class LoginScreenPage extends StatelessWidget {
                         width: double.infinity,
 
                         decoration: BoxDecoration(
-                          border: Border.all(color: Color(0xff00796B)),
+                          border: Border.all(color: AppTheme.primaryTeal),
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(30),
                         ),
@@ -100,7 +101,7 @@ class LoginScreenPage extends StatelessWidget {
                           child: Text(
                             "Login ",
                             style: TextStyle(
-                              color: Color(0xff00796B),
+                              color: AppTheme.primaryTeal,
                               fontSize: 18,
                               fontWeight: FontWeight.w600,
                             ),
