@@ -1,4 +1,5 @@
 import 'package:farmer_assistance/application/core/services/routing/app_router.dart';
+import 'package:farmer_assistance/application/core/theme/app_theme.dart';
 import 'package:farmer_assistance/application/pages/crop_disease_detection/tips_section.dart';
 import 'package:farmer_assistance/di/di.dart';
 import 'package:flutter/material.dart';
@@ -27,68 +28,19 @@ class UploadLeaf extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[100],
+      backgroundColor: AppTheme.backgroundColor,
+      appBar: AppBar(
+        title: const Text('Disease Detection'),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios_new_rounded),
+          onPressed: () => Navigator.pop(context),
+        ),
+      ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Gradient Header
-              Container(
-                width: double.infinity,
-                padding: const EdgeInsets.symmetric(
-                  vertical: 24,
-                  horizontal: 20,
-                ),
-                decoration: const BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [Color(0xff00796B), Color(0xff26A69A)],
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                  ),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        GestureDetector(
-                          onTap: () => Navigator.pop(context),
-                          child: const Icon(
-                            Icons.arrow_back_ios_new_rounded,
-                            color: Colors.white,
-                            size: 22,
-                          ),
-                        ),
-                        const Spacer(),
-                        const Text(
-                          'Disease Detection',
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                          ),
-                        ),
-                        const Spacer(),
-                        const SizedBox(width: 22),
-                      ],
-                    ),
-                    const SizedBox(height: 16),
-                    Center(
-                      child: Text(
-                        'Upload a leaf image to detect diseases\nand get treatment recommendations.',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Colors.white.withValues(alpha: .9),
-                          fontSize: 14,
-                          height: 1.4,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-
               const SizedBox(height: 20),
 
               // Upload Card
@@ -101,13 +53,13 @@ class UploadLeaf extends StatelessWidget {
                     );
                   }
                   if (state is ErrorCropDiseaseState) {
-                    Utils.showSnackBar(context, state.message, Colors.red);
+                    Utils.showSnackBar(context, state.message, AppTheme.errorRed);
                   }
                   if (state is LoadingCropDiseaseState) {
                     Utils.showSnackBar(
                       context,
                       "Loading...",
-                      Color(0xff00796B),
+                      AppTheme.primaryTeal,
                     );
                   }
                 },
@@ -117,7 +69,7 @@ class UploadLeaf extends StatelessWidget {
                       alignment: Alignment.bottomCenter,
                       child: const Center(
                         child: CircularProgressIndicator(
-                          color: Color(0xff00796B),
+                          color: AppTheme.primaryTeal,
                         ),
                       ),
                     );
@@ -144,13 +96,11 @@ class UploadLeaf extends StatelessWidget {
                               Row(
                                 children: [
                                   CircleAvatar(
-                                    backgroundColor: const Color(
-                                      0xff26A69A,
-                                    ).withValues(alpha: 0.15),
+                                    backgroundColor: AppTheme.lightTeal.withValues(alpha: 0.15),
                                     radius: 20,
                                     child: const Icon(
                                       Icons.local_florist,
-                                      color: Color(0xff00796B),
+                                      color: AppTheme.primaryTeal,
                                     ),
                                   ),
                                   const SizedBox(width: 12),
