@@ -35,7 +35,7 @@ class FeatureCard extends StatelessWidget {
           CircleAvatar(
             backgroundColor: color,
             radius: 25,
-            child: Icon(icon, color: Colors.black),
+            child: Icon(icon, color: Colors.white),
           ),
           const SizedBox(height: 12),
           Text(
