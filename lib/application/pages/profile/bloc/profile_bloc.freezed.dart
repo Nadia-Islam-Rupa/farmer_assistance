@@ -55,11 +55,12 @@ extension ProfileEventPatterns on ProfileEvent {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _FetchProfileInfo value)?  fetchProfileInfo,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _FetchProfileInfo value)?  fetchProfileInfo,TResult Function( _UpdateProfileInfo value)?  updateProfileInfo,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
 case _FetchProfileInfo() when fetchProfileInfo != null:
-return fetchProfileInfo(_that);case _:
+return fetchProfileInfo(_that);case _UpdateProfileInfo() when updateProfileInfo != null:
+return updateProfileInfo(_that);case _:
   return orElse();
 
 }
@@ -77,11 +78,12 @@ return fetchProfileInfo(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _FetchProfileInfo value)  fetchProfileInfo,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _FetchProfileInfo value)  fetchProfileInfo,required TResult Function( _UpdateProfileInfo value)  updateProfileInfo,}){
 final _that = this;
 switch (_that) {
 case _FetchProfileInfo():
-return fetchProfileInfo(_that);case _:
+return fetchProfileInfo(_that);case _UpdateProfileInfo():
+return updateProfileInfo(_that);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -98,11 +100,12 @@ return fetchProfileInfo(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _FetchProfileInfo value)?  fetchProfileInfo,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _FetchProfileInfo value)?  fetchProfileInfo,TResult? Function( _UpdateProfileInfo value)?  updateProfileInfo,}){
 final _that = this;
 switch (_that) {
 case _FetchProfileInfo() when fetchProfileInfo != null:
-return fetchProfileInfo(_that);case _:
+return fetchProfileInfo(_that);case _UpdateProfileInfo() when updateProfileInfo != null:
+return updateProfileInfo(_that);case _:
   return null;
 
 }
@@ -119,10 +122,11 @@ return fetchProfileInfo(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  fetchProfileInfo,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  fetchProfileInfo,TResult Function( File? file,  String name)?  updateProfileInfo,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _FetchProfileInfo() when fetchProfileInfo != null:
-return fetchProfileInfo();case _:
+return fetchProfileInfo();case _UpdateProfileInfo() when updateProfileInfo != null:
+return updateProfileInfo(_that.file,_that.name);case _:
   return orElse();
 
 }
@@ -140,10 +144,11 @@ return fetchProfileInfo();case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  fetchProfileInfo,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  fetchProfileInfo,required TResult Function( File? file,  String name)  updateProfileInfo,}) {final _that = this;
 switch (_that) {
 case _FetchProfileInfo():
-return fetchProfileInfo();case _:
+return fetchProfileInfo();case _UpdateProfileInfo():
+return updateProfileInfo(_that.file,_that.name);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -160,10 +165,11 @@ return fetchProfileInfo();case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  fetchProfileInfo,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  fetchProfileInfo,TResult? Function( File? file,  String name)?  updateProfileInfo,}) {final _that = this;
 switch (_that) {
 case _FetchProfileInfo() when fetchProfileInfo != null:
-return fetchProfileInfo();case _:
+return fetchProfileInfo();case _UpdateProfileInfo() when updateProfileInfo != null:
+return updateProfileInfo(_that.file,_that.name);case _:
   return null;
 
 }
@@ -202,6 +208,74 @@ String toString() {
 
 
 
+
+/// @nodoc
+
+
+class _UpdateProfileInfo implements ProfileEvent {
+  const _UpdateProfileInfo({required this.file, required this.name});
+  
+
+ final  File? file;
+ final  String name;
+
+/// Create a copy of ProfileEvent
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+_$UpdateProfileInfoCopyWith<_UpdateProfileInfo> get copyWith => __$UpdateProfileInfoCopyWithImpl<_UpdateProfileInfo>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _UpdateProfileInfo&&(identical(other.file, file) || other.file == file)&&(identical(other.name, name) || other.name == name));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,file,name);
+
+@override
+String toString() {
+  return 'ProfileEvent.updateProfileInfo(file: $file, name: $name)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class _$UpdateProfileInfoCopyWith<$Res> implements $ProfileEventCopyWith<$Res> {
+  factory _$UpdateProfileInfoCopyWith(_UpdateProfileInfo value, $Res Function(_UpdateProfileInfo) _then) = __$UpdateProfileInfoCopyWithImpl;
+@useResult
+$Res call({
+ File? file, String name
+});
+
+
+
+
+}
+/// @nodoc
+class __$UpdateProfileInfoCopyWithImpl<$Res>
+    implements _$UpdateProfileInfoCopyWith<$Res> {
+  __$UpdateProfileInfoCopyWithImpl(this._self, this._then);
+
+  final _UpdateProfileInfo _self;
+  final $Res Function(_UpdateProfileInfo) _then;
+
+/// Create a copy of ProfileEvent
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? file = freezed,Object? name = null,}) {
+  return _then(_UpdateProfileInfo(
+file: freezed == file ? _self.file : file // ignore: cast_nullable_to_non_nullable
+as File?,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
+
+}
 
 /// @nodoc
 mixin _$ProfileState {
@@ -247,14 +321,15 @@ extension ProfileStatePatterns on ProfileState {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _Initial value)?  initial,TResult Function( LoadingProfileInfoState value)?  loading,TResult Function( LoadedProfileInfoState value)?  loaded,TResult Function( ErrorProfileInfoState value)?  error,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( _Initial value)?  initial,TResult Function( LoadingProfileInfoState value)?  loading,TResult Function( LoadedProfileInfoState value)?  loaded,TResult Function( ErrorProfileInfoState value)?  error,TResult Function( UpdatedProfileInfoState value)?  updatedProfileInfo,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
 return initial(_that);case LoadingProfileInfoState() when loading != null:
 return loading(_that);case LoadedProfileInfoState() when loaded != null:
 return loaded(_that);case ErrorProfileInfoState() when error != null:
-return error(_that);case _:
+return error(_that);case UpdatedProfileInfoState() when updatedProfileInfo != null:
+return updatedProfileInfo(_that);case _:
   return orElse();
 
 }
@@ -272,14 +347,15 @@ return error(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _Initial value)  initial,required TResult Function( LoadingProfileInfoState value)  loading,required TResult Function( LoadedProfileInfoState value)  loaded,required TResult Function( ErrorProfileInfoState value)  error,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( _Initial value)  initial,required TResult Function( LoadingProfileInfoState value)  loading,required TResult Function( LoadedProfileInfoState value)  loaded,required TResult Function( ErrorProfileInfoState value)  error,required TResult Function( UpdatedProfileInfoState value)  updatedProfileInfo,}){
 final _that = this;
 switch (_that) {
 case _Initial():
 return initial(_that);case LoadingProfileInfoState():
 return loading(_that);case LoadedProfileInfoState():
 return loaded(_that);case ErrorProfileInfoState():
-return error(_that);case _:
+return error(_that);case UpdatedProfileInfoState():
+return updatedProfileInfo(_that);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -296,14 +372,15 @@ return error(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _Initial value)?  initial,TResult? Function( LoadingProfileInfoState value)?  loading,TResult? Function( LoadedProfileInfoState value)?  loaded,TResult? Function( ErrorProfileInfoState value)?  error,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( _Initial value)?  initial,TResult? Function( LoadingProfileInfoState value)?  loading,TResult? Function( LoadedProfileInfoState value)?  loaded,TResult? Function( ErrorProfileInfoState value)?  error,TResult? Function( UpdatedProfileInfoState value)?  updatedProfileInfo,}){
 final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
 return initial(_that);case LoadingProfileInfoState() when loading != null:
 return loading(_that);case LoadedProfileInfoState() when loaded != null:
 return loaded(_that);case ErrorProfileInfoState() when error != null:
-return error(_that);case _:
+return error(_that);case UpdatedProfileInfoState() when updatedProfileInfo != null:
+return updatedProfileInfo(_that);case _:
   return null;
 
 }
@@ -320,13 +397,14 @@ return error(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  loading,TResult Function( UserModel userModel)?  loaded,TResult Function( String message)?  error,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function()?  initial,TResult Function()?  loading,TResult Function( UserModel userModel)?  loaded,TResult Function( String message)?  error,TResult Function()?  updatedProfileInfo,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
 return initial();case LoadingProfileInfoState() when loading != null:
 return loading();case LoadedProfileInfoState() when loaded != null:
 return loaded(_that.userModel);case ErrorProfileInfoState() when error != null:
-return error(_that.message);case _:
+return error(_that.message);case UpdatedProfileInfoState() when updatedProfileInfo != null:
+return updatedProfileInfo();case _:
   return orElse();
 
 }
@@ -344,13 +422,14 @@ return error(_that.message);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  loading,required TResult Function( UserModel userModel)  loaded,required TResult Function( String message)  error,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function()  initial,required TResult Function()  loading,required TResult Function( UserModel userModel)  loaded,required TResult Function( String message)  error,required TResult Function()  updatedProfileInfo,}) {final _that = this;
 switch (_that) {
 case _Initial():
 return initial();case LoadingProfileInfoState():
 return loading();case LoadedProfileInfoState():
 return loaded(_that.userModel);case ErrorProfileInfoState():
-return error(_that.message);case _:
+return error(_that.message);case UpdatedProfileInfoState():
+return updatedProfileInfo();case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -367,13 +446,14 @@ return error(_that.message);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  loading,TResult? Function( UserModel userModel)?  loaded,TResult? Function( String message)?  error,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function()?  initial,TResult? Function()?  loading,TResult? Function( UserModel userModel)?  loaded,TResult? Function( String message)?  error,TResult? Function()?  updatedProfileInfo,}) {final _that = this;
 switch (_that) {
 case _Initial() when initial != null:
 return initial();case LoadingProfileInfoState() when loading != null:
 return loading();case LoadedProfileInfoState() when loaded != null:
 return loaded(_that.userModel);case ErrorProfileInfoState() when error != null:
-return error(_that.message);case _:
+return error(_that.message);case UpdatedProfileInfoState() when updatedProfileInfo != null:
+return updatedProfileInfo();case _:
   return null;
 
 }
@@ -576,5 +656,37 @@ as String,
 
 
 }
+
+/// @nodoc
+
+
+class UpdatedProfileInfoState implements ProfileState {
+  const UpdatedProfileInfoState();
+  
+
+
+
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is UpdatedProfileInfoState);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'ProfileState.updatedProfileInfo()';
+}
+
+
+}
+
+
+
 
 // dart format on
