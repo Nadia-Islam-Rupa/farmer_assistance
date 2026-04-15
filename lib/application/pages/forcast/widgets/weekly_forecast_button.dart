@@ -1,3 +1,4 @@
+import 'package:farmer_assistance/application/core/theme/app_theme.dart';
 import 'package:farmer_assistance/application/pages/forcast/weekly_fore.dart';
 import 'package:flutter/material.dart';
 
@@ -29,7 +30,7 @@ class WeeklyForecastButton extends StatelessWidget {
         style: ElevatedButton.styleFrom(
           minimumSize: const Size(double.infinity, 52),
           elevation: 0,
-          backgroundColor: const Color(0xff26A69A),
+          backgroundColor: AppTheme.primaryTeal,
           foregroundColor: Colors.white,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16),
