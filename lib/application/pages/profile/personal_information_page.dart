@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:farmer_assistance/application/core/theme/app_theme.dart';
 import 'package:farmer_assistance/application/pages/profile/bloc/profile_bloc.dart';
-import 'package:farmer_assistance/application/pages/profile/profile_page.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -190,7 +189,7 @@ class _PersonalInformationState extends State<PersonalInformation> {
                   children: [
                     const Icon(
                       Icons.cloud_upload_rounded,
-                      color: Color(0xff00796B),
+                      color: AppTheme.primaryTeal,
                       size: 48,
                     ),
                     const SizedBox(height: 10),
@@ -233,7 +232,7 @@ class _PersonalInformationState extends State<PersonalInformation> {
                 _profileImage == null ? 'Select Image' : 'Change Image',
               ),
               style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xff00796B),
+                backgroundColor: AppTheme.primaryTeal,
                 foregroundColor: Colors.white,
                 padding: const EdgeInsets.symmetric(
                   horizontal: 20,
