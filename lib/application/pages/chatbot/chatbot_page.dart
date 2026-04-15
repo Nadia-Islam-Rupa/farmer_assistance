@@ -1,5 +1,6 @@
 // ignore_for_file: deprecated_member_use
 
+import 'package:farmer_assistance/application/core/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -204,8 +205,8 @@ class _ChatbotState extends State<Chatbot> {
           if (message.isBot) ...[
             CircleAvatar(
               backgroundColor: message.isError
-                  ? Colors.red
-                  : const Color(0xff00796B),
+                  ? AppTheme.errorRed
+                  : AppTheme.primaryTeal,
               radius: 16,
               child: Icon(
                 message.isError ? Icons.error_outline : Icons.smart_toy,
@@ -231,7 +232,7 @@ class _ChatbotState extends State<Chatbot> {
                         ? Colors.red.shade50
                         : message.isBot
                         ? Colors.white
-                        : const Color(0xff00796B),
+                        : AppTheme.primaryTeal,
                     borderRadius: BorderRadius.circular(20).copyWith(
                       topLeft: message.isBot
                           ? Radius.zero
@@ -313,7 +314,7 @@ class _ChatbotState extends State<Chatbot> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const CircleAvatar(
-            backgroundColor: Color(0xff00796B),
+            backgroundColor: AppTheme.primaryTeal,
             radius: 16,
             child: Icon(Icons.smart_toy, color: Colors.white, size: 18),
           ),
@@ -363,10 +364,10 @@ class _ChatbotState extends State<Chatbot> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      backgroundColor: Colors.grey[100],
+      backgroundColor: AppTheme.backgroundColor,
       appBar: AppBar(
         title: const Text('Farm Assistant'),
-        backgroundColor: Color(0xff26A69A),
+        backgroundColor: AppTheme.primaryTeal,
         elevation: 0,
         leading: IconButton(
           icon: const Icon(Icons.menu),
@@ -517,7 +518,7 @@ class _ChatbotState extends State<Chatbot> {
                             ),
                           ),
                           orElse: () => CircleAvatar(
-                            backgroundColor: const Color(0xff00796B),
+                            backgroundColor: AppTheme.primaryTeal,
                             child: IconButton(
                               icon: const Icon(
                                 Icons.send,
