@@ -1,3 +1,4 @@
+import 'package:farmer_assistance/application/core/theme/app_theme.dart';
 import 'package:farmer_assistance/application/pages/forcast/provider/weather_service.dart';
 import 'package:farmer_assistance/application/pages/forcast/widgets/current_weather_summary_card.dart';
 import 'package:farmer_assistance/application/pages/forcast/widgets/forecast_error_state.dart';
@@ -51,10 +52,10 @@ class ForecastPage extends ConsumerWidget {
     final coordinateLabel = _coordinatesText(weatherData);
 
     return Scaffold(
-      backgroundColor: const Color(0xffF1FAF8),
+      backgroundColor: AppTheme.backgroundColor,
       appBar: AppBar(
         centerTitle: true,
-        backgroundColor: Color(0xff26A69A),
+        backgroundColor: AppTheme.primaryTeal,
         foregroundColor: Colors.white,
         elevation: 0,
         titleSpacing: 0,
@@ -68,7 +69,7 @@ class ForecastPage extends ConsumerWidget {
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
-            colors: [Color(0xffD7F2EE), Color(0xffF3FBF9)],
+            colors: [AppTheme.pageTopTint, AppTheme.pageBottomTint],
             stops: [0.0, 0.45],
           ),
         ),
@@ -89,7 +90,7 @@ class ForecastPage extends ConsumerWidget {
                   (hourly['temperature_2m'] as List<dynamic>? ?? <dynamic>[]);
 
               return RefreshIndicator(
-                color: Color(0xff26A69A),
+                color: AppTheme.primaryTeal,
                 onRefresh: () => _refreshWeather(ref),
                 child: SingleChildScrollView(
                   physics: const AlwaysScrollableScrollPhysics(),
