@@ -1,15 +1,15 @@
 import 'dart:io';
 
 import 'package:farmer_assistance/domain/failures/failures.dart';
+import 'package:farmer_assistance/domain/models/user_model.dart';
 import 'package:farmer_assistance/domain/usecases/profile_use_case.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:farmer_assistance/domain/models/user_model.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 
+part 'profile_bloc.freezed.dart';
 part 'profile_event.dart';
 part 'profile_state.dart';
-part 'profile_bloc.freezed.dart';
 
 @injectable
 class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
