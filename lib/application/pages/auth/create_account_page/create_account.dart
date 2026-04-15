@@ -1,4 +1,5 @@
 import 'package:farmer_assistance/application/core/services/routing/app_router.dart';
+import 'package:farmer_assistance/application/core/theme/app_theme.dart';
 import 'package:farmer_assistance/application/pages/auth/create_account_page/bloc/create_account_bloc.dart';
 import 'package:farmer_assistance/application/pages/auth/text_container.dart';
 import 'package:farmer_assistance/application/pages/auth/wave_clip.dart';
@@ -36,15 +37,15 @@ class CreateAccount extends StatelessWidget {
       body: BlocListener<CreateAccountBloc, CreateAccountState>(
         listener: (context, state) {
           if (state is LoadingCreateAccountState) {
-            Utils.showSnackBar(context, "Creating account...",Color(0xff00796B));
+            Utils.showSnackBar(context, "Creating account...",AppTheme.primaryTeal);
           }
 
           if (state is ErrorAccountCreateState) {
-            Utils.showSnackBar(context, state.message,Colors.red);
+            Utils.showSnackBar(context, state.message,AppTheme.errorRed);
           }
 
           if (state is SuccessCreateAccountState) {
-            Utils.showSnackBar(context, "Successfully created account! Please check your email to verify your account.",Color(0xff00796B));
+            Utils.showSnackBar(context, "Successfully created account! Please check your email to verify your account.",AppTheme.primaryTeal);
             Navigator.pop(context);
           }
 
@@ -110,8 +111,8 @@ class CreateAccount extends StatelessWidget {
                           width: double.infinity,
 
                           decoration: BoxDecoration(
-                            border: Border.all(color: Color(0xff00796B)),
-                            color: Color(0xff00796B),
+                            border: Border.all(color: AppTheme.primaryTeal),
+                            color: AppTheme.primaryTeal,
                             borderRadius: BorderRadius.circular(30),
                           ),
                           child: Center(
@@ -140,7 +141,7 @@ class CreateAccount extends StatelessWidget {
                             child: Text(
                               "Log In Here",
                               style: TextStyle(
-                                color: Color(0xff00796B),
+                                color: AppTheme.primaryTeal,
                                 fontWeight: FontWeight.w600,
                               ),
                             ),
