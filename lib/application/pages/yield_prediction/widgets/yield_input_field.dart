@@ -1,4 +1,4 @@
-import 'package:farmer_assistance/application/pages/water_prediction/water_prediction_theme.dart';
+import 'package:farmer_assistance/application/core/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -35,7 +35,7 @@ class YieldInputField extends StatelessWidget {
         labelStyle: TextStyle(color: Colors.grey.shade700, fontSize: 14),
         prefixIcon: Icon(
           icon,
-          color: WaterPredictionTheme.primaryTeal,
+          color: AppTheme.primaryTeal,
           size: 22,
         ),
         filled: true,
@@ -51,7 +51,7 @@ class YieldInputField extends StatelessWidget {
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
           borderSide: const BorderSide(
-            color: WaterPredictionTheme.primaryTeal,
+            color: AppTheme.primaryTeal,
             width: 2,
           ),
         ),
