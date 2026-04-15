@@ -1,3 +1,4 @@
+import 'package:farmer_assistance/application/core/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 
 class TextContainer extends StatefulWidget {
@@ -32,7 +33,7 @@ class _TextContainerState extends State<TextContainer> {
   Widget build(BuildContext context) {
     final outline = OutlineInputBorder(
       borderRadius: BorderRadius.circular(30),
-      borderSide: const BorderSide(color: Color(0xff00796B), width: 1.4),
+      borderSide: const BorderSide(color: AppTheme.primaryTeal, width: 1.4),
     );
 
     return SizedBox(
@@ -40,7 +41,7 @@ class _TextContainerState extends State<TextContainer> {
       width: double.infinity,
       child: TextField(
         controller: widget.controller,
-        cursorColor: const Color(0xff00796B),
+        cursorColor: AppTheme.primaryTeal,
         obscureText: _isPasswordField ? _obscureText : false,
         textAlignVertical: TextAlignVertical.center,
         decoration: InputDecoration(
@@ -50,9 +51,9 @@ class _TextContainerState extends State<TextContainer> {
           border: outline,
           enabledBorder: outline,
           focusedBorder: outline.copyWith(
-            borderSide: const BorderSide(color: Color(0xff00796B), width: 1.7),
+            borderSide: const BorderSide(color: AppTheme.primaryTeal, width: 1.7),
           ),
-          prefixIcon: Icon(widget.icon, color: const Color(0xff00796B)),
+          prefixIcon: Icon(widget.icon, color: AppTheme.primaryTeal),
           hintText: widget.text,
           hintStyle: const TextStyle(color: Colors.black54),
           suffixIcon: _isPasswordField
@@ -65,7 +66,7 @@ class _TextContainerState extends State<TextContainer> {
                   },
                   icon: Icon(
                     _obscureText ? Icons.visibility_off : Icons.visibility,
-                    color: const Color(0xff00796B),
+                    color: AppTheme.primaryTeal,
                   ),
                 )
               : null,
