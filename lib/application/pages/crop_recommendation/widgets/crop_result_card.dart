@@ -1,3 +1,4 @@
+import 'package:farmer_assistance/application/core/theme/app_theme.dart';
 import 'package:farmer_assistance/application/pages/crop_recommendation/constants/crop_constants.dart';
 import 'package:farmer_assistance/domain/models/Crop_recommendation_response_model.dart';
 import 'package:flutter/material.dart';
@@ -12,15 +13,11 @@ class CropResultCard extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        gradient: const LinearGradient(
-          colors: [Color(0xff00796B), Color(0xff26A69A)],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
+        gradient: AppTheme.primaryGradient,
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
-            color: const Color(0xff00796B).withValues(alpha: 0.3),
+            color: AppTheme.primaryTeal.withValues(alpha: 0.3),
             blurRadius: 12,
             offset: const Offset(0, 4),
           ),

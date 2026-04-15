@@ -1,12 +1,12 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'package:farmer_assistance/application/core/theme/app_theme.dart';
 import 'package:farmer_assistance/application/core/utils/validation_utils.dart';
 import 'package:farmer_assistance/application/pages/fertilizer/provider/fertilizer_provider.dart';
 import 'package:farmer_assistance/application/pages/fertilizer/widgets/fertilizer_form_card.dart';
 import 'package:farmer_assistance/application/pages/fertilizer/widgets/fertilizer_header_card.dart';
 import 'package:farmer_assistance/application/pages/fertilizer/widgets/fertilizer_result_card.dart';
 import 'package:farmer_assistance/application/pages/forcast/provider/weather_service.dart';
-import 'package:farmer_assistance/application/pages/water_prediction/water_prediction_theme.dart';
 import 'package:farmer_assistance/domain/models/fertilizer_tips_request_model.dart';
 import 'package:farmer_assistance/domain/models/fertilizer_tips_response_model.dart';
 import 'package:flutter/material.dart';
@@ -93,14 +93,14 @@ class _FertilizerRecommendationState
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text('Temperature and rainfall updated from live weather.'),
-          backgroundColor: WaterPredictionTheme.primaryTeal,
+          backgroundColor: AppTheme.primaryTeal,
         ),
       );
     } catch (_) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           content: Text('Unable to fetch weather right now.'),
-          backgroundColor: Colors.redAccent,
+          backgroundColor: AppTheme.errorRed,
         ),
       );
     }
@@ -188,7 +188,7 @@ class _FertilizerRecommendationState
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(
                 content: Text('Fertilizer recommendation received!'),
-                backgroundColor: WaterPredictionTheme.primaryTeal,
+                backgroundColor: AppTheme.primaryTeal,
                 duration: Duration(seconds: 2),
               ),
             );
@@ -199,16 +199,16 @@ class _FertilizerRecommendationState
               ..showSnackBar(
                 SnackBar(
                   content: Text(message),
-                  backgroundColor: Colors.red.shade700,
+                  backgroundColor: AppTheme.errorRed,
                 ),
               );
           },
         );
       },
       child: Scaffold(
-        backgroundColor: const Color(0xffF1FAF8),
+        backgroundColor: AppTheme.backgroundColor,
         appBar: AppBar(
-          backgroundColor: WaterPredictionTheme.primaryTeal,
+          backgroundColor: AppTheme.primaryTeal,
           foregroundColor: Colors.white,
           elevation: 0,
           title: const Text(
@@ -223,8 +223,8 @@ class _FertilizerRecommendationState
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
               colors: [
-                WaterPredictionTheme.pageTopTint,
-                WaterPredictionTheme.pageBottomTint,
+                AppTheme.pageTopTint,
+                AppTheme.pageBottomTint,
               ],
               stops: [0, 0.55],
             ),
@@ -284,9 +284,9 @@ class _FertilizerRecommendationState
                         label: const Text('Refresh From Weather'),
                         style: OutlinedButton.styleFrom(
                           minimumSize: const Size(double.infinity, 48),
-                          foregroundColor: WaterPredictionTheme.deepTeal,
+                          foregroundColor: AppTheme.deepTeal,
                           side: const BorderSide(
-                            color: WaterPredictionTheme.primaryTeal,
+                            color: AppTheme.primaryTeal,
                           ),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(14),
@@ -309,7 +309,7 @@ class _FertilizerRecommendationState
                         ),
                         style: ElevatedButton.styleFrom(
                           minimumSize: const Size(double.infinity, 54),
-                          backgroundColor: WaterPredictionTheme.primaryTeal,
+                          backgroundColor: AppTheme.primaryTeal,
                           foregroundColor: Colors.white,
                           elevation: 0,
                           shape: RoundedRectangleBorder(

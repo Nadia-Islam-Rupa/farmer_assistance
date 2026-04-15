@@ -1,11 +1,11 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'package:farmer_assistance/application/core/theme/app_theme.dart';
 import 'package:farmer_assistance/application/pages/market_trends/bloc/price_prediction_bloc.dart';
 import 'package:farmer_assistance/application/pages/market_trends/constants/price_prediction_constants.dart';
 import 'package:farmer_assistance/application/pages/market_trends/widgets/price_prediction_form_card.dart';
 import 'package:farmer_assistance/application/pages/market_trends/widgets/price_prediction_header_card.dart';
 import 'package:farmer_assistance/application/pages/market_trends/widgets/price_prediction_result_card.dart';
-import 'package:farmer_assistance/application/pages/water_prediction/water_prediction_theme.dart';
 import 'package:farmer_assistance/di/di.dart';
 import 'package:farmer_assistance/domain/models/price_prediction_request_model.dart';
 import 'package:flutter/material.dart';
@@ -108,7 +108,7 @@ class _MarketTrendsContentState extends State<_MarketTrendsContent> {
         return Theme(
           data: Theme.of(context).copyWith(
             colorScheme: const ColorScheme.light(
-              primary: WaterPredictionTheme.primaryTeal,
+              primary: AppTheme.primaryTeal,
               onPrimary: Colors.white,
               surface: Colors.white,
             ),
@@ -130,7 +130,7 @@ class _MarketTrendsContentState extends State<_MarketTrendsContent> {
       ..showSnackBar(
         SnackBar(
           content: Text(message),
-          backgroundColor: Colors.red.shade700,
+          backgroundColor: AppTheme.errorRed,
           behavior: SnackBarBehavior.floating,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
         ),
@@ -200,9 +200,9 @@ class _MarketTrendsContentState extends State<_MarketTrendsContent> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xffF1FAF8),
+      backgroundColor: AppTheme.backgroundColor,
       appBar: AppBar(
-        backgroundColor: WaterPredictionTheme.primaryTeal,
+        backgroundColor: AppTheme.primaryTeal,
         foregroundColor: Colors.white,
         elevation: 0,
         centerTitle: true,
@@ -217,8 +217,8 @@ class _MarketTrendsContentState extends State<_MarketTrendsContent> {
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
             colors: [
-              WaterPredictionTheme.pageTopTint,
-              WaterPredictionTheme.pageBottomTint,
+              AppTheme.pageTopTint,
+              AppTheme.pageBottomTint,
             ],
             stops: [0, 0.55],
           ),
@@ -270,7 +270,7 @@ class _MarketTrendsContentState extends State<_MarketTrendsContent> {
                           ..showSnackBar(
                             SnackBar(
                               content: Text(state.message),
-                              backgroundColor: Colors.red.shade700,
+                              backgroundColor: AppTheme.errorRed,
                             ),
                           );
                       }
@@ -278,7 +278,7 @@ class _MarketTrendsContentState extends State<_MarketTrendsContent> {
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
                             content: Text('Price prediction ready!'),
-                            backgroundColor: WaterPredictionTheme.primaryTeal,
+                            backgroundColor: AppTheme.primaryTeal,
                             duration: Duration(seconds: 2),
                           ),
                         );
@@ -317,11 +317,11 @@ class _MarketTrendsContentState extends State<_MarketTrendsContent> {
                               ),
                               style: ElevatedButton.styleFrom(
                                 minimumSize: const Size(double.infinity, 54),
-                                backgroundColor: WaterPredictionTheme.primaryTeal,
+                                backgroundColor: AppTheme.primaryTeal,
                                 foregroundColor: Colors.white,
                                 elevation: 0,
                                 disabledBackgroundColor:
-                                    WaterPredictionTheme.primaryTeal
+                                    AppTheme.primaryTeal
                                         .withValues(alpha: 0.6),
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(14),

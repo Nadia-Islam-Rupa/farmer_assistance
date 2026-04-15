@@ -1,4 +1,4 @@
-import 'package:farmer_assistance/application/pages/water_prediction/water_prediction_theme.dart';
+import 'package:farmer_assistance/application/core/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 
 class IrrigationPageHeader extends StatelessWidget {
@@ -20,7 +20,7 @@ class IrrigationPageHeader extends StatelessWidget {
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
             colors: [
-              WaterPredictionTheme.primaryTeal.withValues(alpha: 0.08),
+              AppTheme.primaryTeal.withValues(alpha: 0.08),
               Colors.white,
             ],
           ),
@@ -30,12 +30,12 @@ class IrrigationPageHeader extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(14),
               decoration: BoxDecoration(
-                color: WaterPredictionTheme.primaryTeal.withValues(alpha: 0.15),
+                color: AppTheme.primaryTeal.withValues(alpha: 0.15),
                 borderRadius: BorderRadius.circular(14),
               ),
               child: const Icon(
                 Icons.water_drop_outlined,
-                color: WaterPredictionTheme.deepTeal,
+                color: AppTheme.deepTeal,
                 size: 32,
               ),
             ),
@@ -49,7 +49,7 @@ class IrrigationPageHeader extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
-                      color: WaterPredictionTheme.deepTeal,
+                      color: AppTheme.deepTeal,
                     ),
                   ),
                   const SizedBox(height: 6),

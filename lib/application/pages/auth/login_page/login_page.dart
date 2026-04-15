@@ -1,4 +1,5 @@
 import 'package:farmer_assistance/application/core/services/routing/app_router.dart';
+import 'package:farmer_assistance/application/core/theme/app_theme.dart';
 import 'package:farmer_assistance/application/pages/auth/text_container.dart';
 import 'package:farmer_assistance/application/pages/auth/wave_clip.dart';
 import 'package:farmer_assistance/di/di.dart';
@@ -30,15 +31,15 @@ class LoginPages extends StatelessWidget {
       body: BlocListener<LoginBloc, LoginState>(
         listener: (context, state) {
           if (state is LoadingLoginState) {
-            Utils.showSnackBar(context, "Logging in...", Color(0xff00796B));
+            Utils.showSnackBar(context, "Logging in...", AppTheme.primaryTeal);
           }
 
           if (state is ErrorLoginState) {
-            Utils.showSnackBar(context, state.message, Colors.red);
+            Utils.showSnackBar(context, state.message, AppTheme.errorRed);
           }
 
           if (state is SuccessLoginState) {
-            Utils.showSnackBar(context, "Welcome To FarmAI", Color(0xff00796B));
+            Utils.showSnackBar(context, "Welcome To FarmAI", AppTheme.primaryTeal);
             Navigator.pop(context);
           }
         },
@@ -82,7 +83,7 @@ class LoginPages extends StatelessWidget {
                         child: Text(
                           " Forgot Password?",
                           style: TextStyle(
-                            color: Color(0xff00796B),
+                            color: AppTheme.primaryTeal,
                             fontWeight: FontWeight.w600,
                           ),
                         ),
@@ -101,8 +102,8 @@ class LoginPages extends StatelessWidget {
                           height: 50,
                           width: double.infinity,
                           decoration: BoxDecoration(
-                            border: Border.all(color: Color(0xff00796B)),
-                            color: Color(0xff00796B),
+                            border: Border.all(color: AppTheme.primaryTeal),
+                            color: AppTheme.primaryTeal,
                             borderRadius: BorderRadius.circular(30),
                           ),
                           child: Center(
@@ -131,7 +132,7 @@ class LoginPages extends StatelessWidget {
                             child: Text(
                               "Create Account Here",
                               style: TextStyle(
-                                color: Color(0xff00796B),
+                                color: AppTheme.primaryTeal,
                                 fontWeight: FontWeight.w600,
                               ),
                             ),

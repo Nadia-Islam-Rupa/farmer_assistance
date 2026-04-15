@@ -1,5 +1,6 @@
 // ignore_for_file: deprecated_member_use
 
+import 'package:farmer_assistance/application/core/theme/app_theme.dart';
 import 'package:farmer_assistance/application/pages/bottom_nav_page/providers/bottom_nav_provider.dart';
 import 'package:farmer_assistance/application/pages/forcast/weekly_fore.dart';
 import 'package:flutter/material.dart';
@@ -15,12 +16,21 @@ class MainScaffold extends ConsumerWidget {
   const MainScaffold({super.key});
 
   /// List of all pages corresponding to bottom nav tabs
-  static final List<Widget> _pages = [
-    HomePage(), // index 0
-    WeeklyForecastPage(), // index 1
-    ChatbotPage(), // index 2
-    ProfilePage(), // index 3
-  ];
+
+  Widget _buildPage(int index) {
+    switch (index) {
+      case 0:
+        return const HomePage();
+      case 1:
+        return const WeeklyForecastPage();
+      case 2:
+        return const ChatbotPage();
+      case 3:
+        return const ProfilePage();
+      default:
+        return const SizedBox();
+    }
+  }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -35,10 +45,10 @@ class MainScaffold extends ConsumerWidget {
         }
       },
       child: Scaffold(
-        body: IndexedStack(index: currentIndex, children: _pages),
+        body: _buildPage(currentIndex),
         bottomNavigationBar: BottomNavigationBar(
           currentIndex: currentIndex,
-          selectedItemColor: Color(0xff00796B),
+          selectedItemColor: AppTheme.primaryTeal,
           unselectedItemColor: Colors.grey,
           showUnselectedLabels: true,
           type: BottomNavigationBarType.fixed,

@@ -1,4 +1,4 @@
-import 'package:farmer_assistance/application/pages/water_prediction/water_prediction_theme.dart';
+import 'package:farmer_assistance/application/core/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 
 class YieldResultCard extends StatelessWidget {
@@ -20,7 +20,7 @@ class YieldResultCard extends StatelessWidget {
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
             colors: [
-              WaterPredictionTheme.primaryTeal.withValues(alpha: 0.12),
+              AppTheme.primaryTeal.withValues(alpha: 0.12),
               Colors.white,
             ],
           ),
@@ -32,7 +32,7 @@ class YieldResultCard extends StatelessWidget {
                 Container(
                   padding: const EdgeInsets.all(12),
                   decoration: BoxDecoration(
-                    color: WaterPredictionTheme.primaryTeal,
+                    color: AppTheme.primaryTeal,
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: const Icon(
@@ -60,7 +60,7 @@ class YieldResultCard extends StatelessWidget {
                         style: const TextStyle(
                           fontSize: 24,
                           fontWeight: FontWeight.bold,
-                          color: WaterPredictionTheme.deepTeal,
+                          color: AppTheme.deepTeal,
                         ),
                       ),
                     ],
@@ -81,7 +81,7 @@ class YieldResultCard extends StatelessWidget {
                   const Icon(
                     Icons.info_outline,
                     size: 20,
-                    color: WaterPredictionTheme.primaryTeal,
+                    color: AppTheme.primaryTeal,
                   ),
                   const SizedBox(width: 10),
                   Expanded(

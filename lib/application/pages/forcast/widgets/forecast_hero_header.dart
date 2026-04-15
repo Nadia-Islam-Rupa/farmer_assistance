@@ -1,4 +1,4 @@
-import 'package:farmer_assistance/application/pages/water_prediction/water_prediction_theme.dart';
+import 'package:farmer_assistance/application/core/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 
 class ForecastHeroHeader extends StatelessWidget {
@@ -25,7 +25,7 @@ class ForecastHeroHeader extends StatelessWidget {
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
             colors: [
-              WaterPredictionTheme.primaryTeal.withValues(alpha: 0.08),
+              AppTheme.primaryTeal.withValues(alpha: 0.08),
               Colors.white,
             ],
           ),
@@ -35,7 +35,7 @@ class ForecastHeroHeader extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(14),
               decoration: BoxDecoration(
-                color: WaterPredictionTheme.primaryTeal.withValues(alpha: 0.15),
+                color: AppTheme.primaryTeal.withValues(alpha: 0.15),
                 borderRadius: BorderRadius.circular(14),
               ),
               child: const Icon(
@@ -54,7 +54,7 @@ class ForecastHeroHeader extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
-                      color: WaterPredictionTheme.deepTeal,
+                      color: AppTheme.deepTeal,
                     ),
                   ),
                   const SizedBox(height: 6),
@@ -68,7 +68,7 @@ class ForecastHeroHeader extends StatelessWidget {
                       const Icon(
                         Icons.location_on_outlined,
                         size: 14,
-                        color: WaterPredictionTheme.primaryTeal,
+                        color: AppTheme.primaryTeal,
                       ),
                       const SizedBox(width: 6),
                       Expanded(
@@ -76,7 +76,7 @@ class ForecastHeroHeader extends StatelessWidget {
                           locationLabel,
                           style: const TextStyle(
                             fontSize: 11,
-                            color: WaterPredictionTheme.primaryTeal,
+                            color: AppTheme.primaryTeal,
                             fontWeight: FontWeight.w600,
                           ),
                           overflow: TextOverflow.ellipsis,

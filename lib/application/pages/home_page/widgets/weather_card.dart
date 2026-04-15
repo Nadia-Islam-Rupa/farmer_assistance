@@ -1,3 +1,4 @@
+import 'package:farmer_assistance/application/core/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
@@ -42,8 +43,8 @@ class WeatherCard extends ConsumerWidget {
       decoration: const BoxDecoration(
         gradient: LinearGradient(
           colors: [
-            Color(0xff00796B), // Deep Teal
-            Color(0xff26A69A),
+            AppTheme.primaryTeal, // Deep Teal
+            AppTheme.lightTeal,
           ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
@@ -192,10 +193,25 @@ class WeatherCard extends ConsumerWidget {
                       borderRadius: BorderRadius.circular(14),
                     ),
                     padding: const EdgeInsets.all(10),
-                    child: const Text(
-                      'Loading...',
-                      textAlign: TextAlign.right,
-                      style: TextStyle(color: Colors.white, height: 1.2),
+                    child: Row(
+                      children: [
+                        SizedBox(
+                          width: 24,
+                          height: 24,
+                          child: CircularProgressIndicator(
+                            strokeWidth: 2,
+                            valueColor: AlwaysStoppedAnimation<Color>(
+                              Colors.white,
+                            ),
+                          ),
+                        ),
+                        SizedBox(width: 6),
+                        const Text(
+                          'Loading...',
+                          textAlign: TextAlign.right,
+                          style: TextStyle(color: Colors.white, height: 1.2),
+                        ),
+                      ],
                     ),
                   ),
                 ),

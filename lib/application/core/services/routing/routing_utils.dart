@@ -12,6 +12,7 @@ enum PAGES {
   forecastPage,
   yieldPredictionPage,
   cropRecommendationPage,
+  updateProfilePage
 }
 
 extension AppPageExtention on PAGES {
@@ -43,6 +44,8 @@ extension AppPageExtention on PAGES {
         return '/yieldPredictionPage';
       case PAGES.cropRecommendationPage:
         return '/cropRecommendationPage';
+      case PAGES.updateProfilePage:
+        return '/updateProfilePage';
     }
   }
 
@@ -74,6 +77,8 @@ extension AppPageExtention on PAGES {
         return 'Yield Prediction';
       case PAGES.cropRecommendationPage:
         return 'Crop Recommendation';
+      case PAGES.updateProfilePage:
+        return 'Update Profile';
     }
   }
 }

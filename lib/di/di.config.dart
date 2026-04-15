@@ -27,7 +27,9 @@ import 'package:farmer_assistance/application/pages/crop_recommendation/bloc/cro
 import 'package:farmer_assistance/application/pages/fertilizer/bloc/fertilizer_bloc.dart'
     as _i993;
 import 'package:farmer_assistance/application/pages/market_trends/bloc/price_prediction_bloc.dart'
-    as _i777;
+    as _i552;
+import 'package:farmer_assistance/application/pages/profile/bloc/profile_bloc.dart'
+    as _i201;
 import 'package:farmer_assistance/application/pages/water_prediction/bloc/water_prediction_bloc.dart'
     as _i20;
 import 'package:farmer_assistance/application/pages/yield_prediction/bloc/yield_prediction_bloc.dart'
@@ -45,7 +47,9 @@ import 'package:farmer_assistance/data/repositories/crop_recommendation_reposito
 import 'package:farmer_assistance/data/repositories/fertilizer_tips_repositories_iml.dart'
     as _i674;
 import 'package:farmer_assistance/data/repositories/price_prediction_repository_impl.dart'
-    as _i888;
+    as _i670;
+import 'package:farmer_assistance/data/repositories/profile_repositories_iml.dart'
+    as _i217;
 import 'package:farmer_assistance/data/repositories/smart_irrigation_repositories_iml.dart'
     as _i537;
 import 'package:farmer_assistance/data/repositories/yield_estimation_repositories_iml.dart'
@@ -62,7 +66,9 @@ import 'package:farmer_assistance/domain/repositories/crop_recommendation_reposi
 import 'package:farmer_assistance/domain/repositories/fertilizer_tips_repository.dart'
     as _i421;
 import 'package:farmer_assistance/domain/repositories/price_prediction_repository.dart'
-    as _i999;
+    as _i773;
+import 'package:farmer_assistance/domain/repositories/profile_repository.dart'
+    as _i160;
 import 'package:farmer_assistance/domain/repositories/smart_irrigation_repository.dart'
     as _i835;
 import 'package:farmer_assistance/domain/repositories/yield_estimation_repository.dart'
@@ -76,7 +82,9 @@ import 'package:farmer_assistance/domain/usecases/crop_recommendation_use_case.d
 import 'package:farmer_assistance/domain/usecases/fertilizer_tips_use_case.dart'
     as _i624;
 import 'package:farmer_assistance/domain/usecases/price_prediction_use_case.dart'
-    as _i456;
+    as _i471;
+import 'package:farmer_assistance/domain/usecases/profile_use_case.dart'
+    as _i868;
 import 'package:farmer_assistance/domain/usecases/smart_irrigation_use_case.dart'
     as _i866;
 import 'package:farmer_assistance/domain/usecases/yield_estimation_use_case.dart'
@@ -120,7 +128,13 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i430.ForgetPasswordBloc(gh<_i382.AuthUseCase>()),
     );
     gh.factory<_i860.LoginBloc>(() => _i860.LoginBloc(gh<_i382.AuthUseCase>()));
+    gh.lazySingleton<_i160.ProfileRepository>(
+      () => _i217.ProfileRepositoriesIml(gh<_i454.SupabaseClient>()),
+    );
     gh.factory<_i991.ApiService>(() => _i991.ApiService(gh<_i361.Dio>()));
+    gh.factory<_i773.PricePredictionRepository>(
+      () => _i670.PricePredictionRepositoryImpl(gh<_i991.ApiService>()),
+    );
     gh.factory<_i421.FertilizerTipsRepository>(
       () => _i674.FertilizerTipsRepositoriesIml(gh<_i991.ApiService>()),
     );
@@ -145,6 +159,15 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i866.SmartIrrigationUseCase>(
       () => _i866.SmartIrrigationUseCase(gh<_i835.SmartIrrigationRepository>()),
     );
+    gh.factory<_i471.PricePredictionUseCase>(
+      () => _i471.PricePredictionUseCase(gh<_i773.PricePredictionRepository>()),
+    );
+    gh.factory<_i868.ProfileUseCase>(
+      () => _i868.ProfileUseCase(gh<_i160.ProfileRepository>()),
+    );
+    gh.factory<_i201.ProfileBloc>(
+      () => _i201.ProfileBloc(profileUseCase: gh<_i868.ProfileUseCase>()),
+    );
     gh.factory<_i344.CropDiseaseDetectionRepository>(
       () => _i607.CropDiseaseDetectionRepositoryIml(gh<_i991.ApiService>()),
     );
@@ -163,6 +186,11 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i2.CropRecommendationUseCase>(
       () => _i2.CropRecommendationUseCase(
         gh<_i434.CropRecommendationRepository>(),
+      ),
+    );
+    gh.factory<_i552.PricePredictionBloc>(
+      () => _i552.PricePredictionBloc(
+        pricePredictionUseCase: gh<_i471.PricePredictionUseCase>(),
       ),
     );
     gh.factory<_i333.YieldPredictionBloc>(
@@ -186,17 +214,6 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i376.CropDiseaseBloc>(
       () => _i376.CropDiseaseBloc(gh<_i347.CropDiseaseUseCase>()),
-    );
-    gh.factory<_i999.PricePredictionRepository>(
-      () => _i888.PricePredictionRepositoryImpl(gh<_i991.ApiService>()),
-    );
-    gh.factory<_i456.PricePredictionUseCase>(
-      () => _i456.PricePredictionUseCase(gh<_i999.PricePredictionRepository>()),
-    );
-    gh.factory<_i777.PricePredictionBloc>(
-      () => _i777.PricePredictionBloc(
-        pricePredictionUseCase: gh<_i456.PricePredictionUseCase>(),
-      ),
     );
     return this;
   }

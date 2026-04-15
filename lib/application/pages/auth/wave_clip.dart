@@ -1,3 +1,4 @@
+import 'package:farmer_assistance/application/core/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 
 class WaveClipper extends CustomClipper<Path> {
@@ -42,14 +43,7 @@ class Logdash extends StatelessWidget {
         height: size.height * 0.42,
         width: double.infinity,
         decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              Color(0xff00796B), // Deep Teal
-              Color(0xff26A69A), // Teal Accent
-            ],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-          ),
+          gradient: AppTheme.primaryGradient,
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

@@ -1,3 +1,4 @@
+import 'package:farmer_assistance/application/core/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -36,7 +37,7 @@ class CropInputField extends StatelessWidget {
       decoration: InputDecoration(
         labelText: label,
         hintText: hint,
-        prefixIcon: Icon(icon, color: const Color(0xff00796B)),
+        prefixIcon: Icon(icon, color: AppTheme.primaryTeal),
         suffixIcon: suffixIcon,
         filled: true,
         fillColor: Colors.white,
@@ -50,7 +51,7 @@ class CropInputField extends StatelessWidget {
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: const BorderSide(color: Color(0xff00796B), width: 2),
+          borderSide: const BorderSide(color: AppTheme.primaryTeal, width: 2),
         ),
         errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
@@ -92,7 +93,7 @@ class CropDropdownField extends StatelessWidget {
       decoration: InputDecoration(
         labelText: label,
         hintText: hint,
-        prefixIcon: Icon(icon, color: const Color(0xff00796B)),
+        prefixIcon: Icon(icon, color: AppTheme.primaryTeal),
         filled: true,
         fillColor: Colors.white,
         border: OutlineInputBorder(
@@ -105,7 +106,7 @@ class CropDropdownField extends StatelessWidget {
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: const BorderSide(color: Color(0xff00796B), width: 2),
+          borderSide: const BorderSide(color: AppTheme.primaryTeal, width: 2),
         ),
         errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),

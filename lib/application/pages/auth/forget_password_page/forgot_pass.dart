@@ -1,3 +1,4 @@
+import 'package:farmer_assistance/application/core/theme/app_theme.dart';
 import 'package:farmer_assistance/application/pages/auth/forget_password_page/bloc/forget_password_bloc.dart';
 import 'package:farmer_assistance/application/pages/auth/text_container.dart';
 import 'package:farmer_assistance/application/pages/auth/wave_clip.dart';
@@ -30,12 +31,12 @@ class ForgotPass extends StatelessWidget {
       body: BlocListener<ForgetPasswordBloc, ForgetPasswordState>(
         listener: (context, state) {
           if (state is ErrorForgetPasswordState) {
-            return Utils.showSnackBar(context, state.message,Colors.red);
+            return Utils.showSnackBar(context, state.message,AppTheme.errorRed);
           } else if (state is LoadingForgetPasswordState) {
-            return Utils.showSnackBar(context, "Sending reset link...",Color(0xff00796B));
+            return Utils.showSnackBar(context, "Sending reset link...",AppTheme.primaryTeal);
           } else if (state is SuccessForgetPasswordState) {
             Navigator.of(context).pop();
-            return Utils.showSnackBar(context, state.message,Color(0xff00796B));
+            return Utils.showSnackBar(context, state.message,AppTheme.primaryTeal);
           }
         },
         child: Column(
@@ -63,8 +64,8 @@ class ForgotPass extends StatelessWidget {
                       height: 50,
                       width: double.infinity,
                       decoration: BoxDecoration(
-                        border: Border.all(color: Color(0xff00796B)),
-                        color: Color(0xff00796B),
+                        border: Border.all(color: AppTheme.primaryTeal),
+                        color: AppTheme.primaryTeal,
                         borderRadius: BorderRadius.circular(30),
                       ),
                       child: Center(
@@ -92,7 +93,7 @@ class ForgotPass extends StatelessWidget {
                       children: [
                         Row(
                           children: [
-                            Icon(Icons.info_outline, color: Color(0xff00796B), size: 20),
+                            Icon(Icons.info_outline, color: AppTheme.primaryTeal, size: 20),
                             SizedBox(width: 8),
                             Text(
                               "Important Notes",

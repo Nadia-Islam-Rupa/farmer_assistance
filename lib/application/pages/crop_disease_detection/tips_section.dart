@@ -1,3 +1,4 @@
+import 'package:farmer_assistance/application/core/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 
 class TipsSection extends StatelessWidget {
@@ -31,7 +32,7 @@ class TipsSection extends StatelessWidget {
                 radius: 20,
                 child: const Icon(
                   Icons.lightbulb_outline_rounded,
-                  color: Color(0xff00796B),
+                  color: AppTheme.primaryTeal,
                 ),
               ),
               const SizedBox(width: 12),
@@ -91,10 +92,10 @@ class TipItem extends StatelessWidget {
         Container(
           padding: const EdgeInsets.all(10),
           decoration: BoxDecoration(
-            color: const Color(0xff26A69A).withValues(alpha: 0.12),
+            color: AppTheme.lightTeal.withValues(alpha: 0.12),
             borderRadius: BorderRadius.circular(12),
           ),
-          child: Icon(icon, color: const Color(0xff00796B), size: 24),
+          child: Icon(icon, color: AppTheme.primaryTeal, size: 24),
         ),
         const SizedBox(width: 12),
         Expanded(

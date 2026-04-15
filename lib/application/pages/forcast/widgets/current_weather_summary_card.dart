@@ -1,3 +1,4 @@
+import 'package:farmer_assistance/application/core/theme/app_theme.dart';
 import 'package:farmer_assistance/application/pages/forcast/forecast_ui_helpers.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -17,7 +18,7 @@ class CurrentWeatherSummaryCard extends StatelessWidget {
         gradient: const LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: [Color(0xff1F8E84), Color(0xff26A69A)],
+          colors: [AppTheme.deepTeal, AppTheme.lightTeal],
         ),
         borderRadius: BorderRadius.circular(20),
       ),

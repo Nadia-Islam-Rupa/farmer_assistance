@@ -1,11 +1,12 @@
+import 'package:farmer_assistance/application/core/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 
 /// Utility class for showing snackbars in crop recommendation feature
 class CropSnackbarUtils {
   CropSnackbarUtils._();
 
-  static const _primaryColor = Color(0xff00796B);
-  static const _errorColor = Colors.redAccent;
+  static const _primaryColor = AppTheme.primaryTeal;
+  static const _errorColor = AppTheme.errorRed;
 
   /// Show success message when weather data is updated
   static void showWeatherUpdateSuccess(BuildContext context) {

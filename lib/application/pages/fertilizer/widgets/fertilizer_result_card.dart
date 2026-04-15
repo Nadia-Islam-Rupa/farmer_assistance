@@ -1,4 +1,4 @@
-import 'package:farmer_assistance/application/pages/water_prediction/water_prediction_theme.dart';
+import 'package:farmer_assistance/application/core/theme/app_theme.dart';
 import 'package:farmer_assistance/domain/models/fertilizer_tips_response_model.dart';
 import 'package:flutter/material.dart';
 
@@ -110,7 +110,7 @@ class _FertilizerResultCardState extends State<FertilizerResultCard>
                                 '🎯 Fertilizer Recommendation',
                                 style: widget.textTheme.titleMedium?.copyWith(
                                   fontWeight: FontWeight.w800,
-                                  color: WaterPredictionTheme.deepTeal,
+                                  color: AppTheme.deepTeal,
                                   fontSize: 18,
                                 ),
                               ),
@@ -189,7 +189,7 @@ class _FertilizerResultCardState extends State<FertilizerResultCard>
                         label: 'Prediction Confidence',
                         value: '$confidencePercent%',
                         icon: Icons.analytics_outlined,
-                        color: WaterPredictionTheme.primaryTeal,
+                        color: AppTheme.primaryTeal,
                         textTheme: widget.textTheme,
                       ),
                     ),
@@ -216,14 +216,14 @@ class _FertilizerResultCardState extends State<FertilizerResultCard>
                                 Icon(
                                   Icons.bar_chart_rounded,
                                   size: 18,
-                                  color: WaterPredictionTheme.primaryTeal,
+                                  color: AppTheme.primaryTeal,
                                 ),
                                 const SizedBox(width: 8),
                                 Text(
                                   'Feature Importance',
                                   style: widget.textTheme.titleSmall?.copyWith(
                                     fontWeight: FontWeight.w700,
-                                    color: WaterPredictionTheme.deepTeal,
+                                    color: AppTheme.deepTeal,
                                   ),
                                 ),
                               ],
@@ -264,8 +264,7 @@ class _FertilizerResultCardState extends State<FertilizerResultCard>
                                                     vertical: 3,
                                                   ),
                                               decoration: BoxDecoration(
-                                                color: WaterPredictionTheme
-                                                    .primaryTeal
+                                                color: AppTheme.primaryTeal
                                                     .withValues(alpha: 0.15),
                                                 borderRadius:
                                                     BorderRadius.circular(8),
@@ -279,8 +278,7 @@ class _FertilizerResultCardState extends State<FertilizerResultCard>
                                                       fontWeight:
                                                           FontWeight.w800,
                                                       color:
-                                                          WaterPredictionTheme
-                                                              .primaryTeal,
+                                                          AppTheme.primaryTeal,
                                                     ),
                                               ),
                                             ),
@@ -305,10 +303,8 @@ class _FertilizerResultCardState extends State<FertilizerResultCard>
                                                 decoration: BoxDecoration(
                                                   gradient: LinearGradient(
                                                     colors: [
-                                                      WaterPredictionTheme
-                                                          .primaryTeal,
-                                                      WaterPredictionTheme
-                                                          .deepTeal,
+                                                      AppTheme.primaryTeal,
+                                                      AppTheme.deepTeal,
                                                     ],
                                                   ),
                                                   borderRadius:
@@ -316,8 +312,7 @@ class _FertilizerResultCardState extends State<FertilizerResultCard>
                                                   boxShadow: [
                                                     BoxShadow(
                                                       color:
-                                                          WaterPredictionTheme
-                                                              .primaryTeal
+                                                          AppTheme.primaryTeal
                                                               .withValues(
                                                                 alpha: 0.4,
                                                               ),

@@ -1,3 +1,4 @@
+import 'package:farmer_assistance/application/core/theme/app_theme.dart';
 import 'package:farmer_assistance/application/core/utils/validation_utils.dart';
 import 'package:farmer_assistance/application/pages/crop_recommendation/constants/crop_constants.dart';
 import 'package:farmer_assistance/application/pages/crop_recommendation/widgets/crop_input_field.dart';
@@ -49,14 +50,14 @@ class CropFormCard extends StatelessWidget {
           // Soil Data Section
           const Row(
             children: [
-              Icon(Icons.terrain, color: Color(0xff00796B), size: 24),
+              Icon(Icons.terrain, color: AppTheme.primaryTeal, size: 24),
               SizedBox(width: 8),
               Text(
                 'Soil Information',
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
-                  color: Color(0xff00796B),
+                  color: AppTheme.primaryTeal,
                 ),
               ),
             ],
@@ -141,14 +142,14 @@ class CropFormCard extends StatelessWidget {
           // Weather Data Section
           const Row(
             children: [
-              Icon(Icons.wb_sunny, color: Color(0xff00796B), size: 24),
+              Icon(Icons.wb_sunny, color: AppTheme.primaryTeal, size: 24),
               SizedBox(width: 8),
               Text(
                 'Weather Conditions',
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
-                  color: Color(0xff00796B),
+                  color: AppTheme.primaryTeal,
                 ),
               ),
             ],

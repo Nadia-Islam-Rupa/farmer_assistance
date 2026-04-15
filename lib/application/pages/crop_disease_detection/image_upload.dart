@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:farmer_assistance/application/core/theme/app_theme.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -76,7 +77,7 @@ class _ImageUploadBoxState extends State<ImageUploadBox> {
                     children: [
                       const Icon(
                         Icons.cloud_upload_rounded,
-                        color: Color(0xff00796B),
+                        color: AppTheme.primaryTeal,
                         size: 48,
                       ),
                       const SizedBox(height: 10),
@@ -117,7 +118,7 @@ class _ImageUploadBoxState extends State<ImageUploadBox> {
                     icon: const Icon(Icons.folder_open_rounded),
                     label: const Text('Select Image'),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xff00796B),
+                      backgroundColor: AppTheme.primaryTeal,
                       foregroundColor: Colors.white,
                       padding: const EdgeInsets.symmetric(
                         horizontal: 20,
@@ -137,7 +138,7 @@ class _ImageUploadBoxState extends State<ImageUploadBox> {
                     icon: const Icon(Icons.auto_awesome),
                     label: const Text('Predict Disease'),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xff00796B),
+                      backgroundColor: AppTheme.primaryTeal,
                       foregroundColor: Colors.white,
                       padding: const EdgeInsets.symmetric(
                         horizontal: 20,

@@ -17,6 +17,7 @@ import '../../../pages/crop_recommendation/crop_recommendation_page.dart';
 import '../../../pages/fertilizer/fertilizer_page.dart';
 import '../../../pages/forcast/forecast_page.dart';
 import '../../../pages/market_trends/market_trends_page.dart';
+import '../../../pages/profile/personal_information_page.dart';
 import '../../../pages/water_prediction/prediction_water.dart';
 import '../../../pages/yield_prediction/yield_page.dart';
 
@@ -118,6 +119,11 @@ class AppRouter {
         path: PAGES.cropRecommendationPage.screenPath,
         name: PAGES.cropRecommendationPage.screenName,
         builder: (context, state) => const CropRecommendationPage(),
+      ),
+      GoRoute(
+        path: PAGES.updateProfilePage.screenPath,
+        name: PAGES.updateProfilePage.screenName,
+        builder: (context, state) => const PersonalInformationPage(),
       ),
     ],
   );

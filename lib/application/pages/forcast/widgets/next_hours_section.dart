@@ -1,5 +1,6 @@
 import 'dart:math' as math;
 
+import 'package:farmer_assistance/application/core/theme/app_theme.dart';
 import 'package:farmer_assistance/application/pages/forcast/forecast_ui_helpers.dart';
 import 'package:flutter/material.dart';
 
@@ -23,7 +24,7 @@ class NextHoursSection extends StatelessWidget {
       children: [
         const Row(
           children: [
-            Icon(Icons.schedule, color: Color(0xff26A69A)),
+            Icon(Icons.schedule, color: AppTheme.primaryTeal),
             SizedBox(width: 8),
             Text(
               'Next Hours',
