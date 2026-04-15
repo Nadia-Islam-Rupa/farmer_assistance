@@ -1,4 +1,4 @@
-import 'package:farmer_assistance/application/pages/water_prediction/water_prediction_theme.dart';
+import 'package:farmer_assistance/application/core/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 
 class IrrigationSummaryCard extends StatelessWidget {
@@ -31,14 +31,14 @@ class IrrigationSummaryCard extends StatelessWidget {
                 Container(
                   padding: const EdgeInsets.all(8),
                   decoration: BoxDecoration(
-                    color: WaterPredictionTheme.primaryTeal.withValues(
+                    color: AppTheme.primaryTeal.withValues(
                       alpha: 0.15,
                     ),
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: const Icon(
                     Icons.summarize_outlined,
-                    color: WaterPredictionTheme.deepTeal,
+                    color: AppTheme.deepTeal,
                     size: 20,
                   ),
                 ),
@@ -47,7 +47,7 @@ class IrrigationSummaryCard extends StatelessWidget {
                   'Selected Parameters',
                   style: textTheme.titleMedium?.copyWith(
                     fontWeight: FontWeight.w700,
-                    color: WaterPredictionTheme.deepTeal,
+                    color: AppTheme.deepTeal,
                   ),
                 ),
               ],
@@ -83,7 +83,7 @@ class IrrigationSummaryCard extends StatelessWidget {
                   Icon(
                     Icons.info_outline,
                     size: 18,
-                    color: WaterPredictionTheme.primaryTeal,
+                    color: AppTheme.primaryTeal,
                   ),
                   const SizedBox(width: 10),
                   Expanded(
@@ -126,7 +126,7 @@ class _SummaryRow extends StatelessWidget {
       ),
       child: Row(
         children: [
-          Icon(icon, size: 18, color: WaterPredictionTheme.primaryTeal),
+          Icon(icon, size: 18, color: AppTheme.primaryTeal),
           const SizedBox(width: 10),
           Expanded(
             child: Text(
@@ -142,7 +142,7 @@ class _SummaryRow extends StatelessWidget {
             value ?? 'Not selected',
             style: TextStyle(
               color: value != null
-                  ? WaterPredictionTheme.deepTeal
+                  ? AppTheme.deepTeal
                   : Colors.grey.shade500,
               fontWeight: FontWeight.w700,
               fontSize: 14,
