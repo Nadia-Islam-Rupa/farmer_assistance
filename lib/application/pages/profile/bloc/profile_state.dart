@@ -8,4 +8,6 @@ class ProfileState with _$ProfileState {
       LoadedProfileInfoState;
   const factory ProfileState.error({required String message}) =
       ErrorProfileInfoState;
+  const factory ProfileState.updatedProfileInfo() = UpdatedProfileInfoState;
+
 }
