@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dartz/dartz.dart';
 import 'package:farmer_assistance/domain/failures/failures.dart';
 import 'package:farmer_assistance/domain/models/user_model.dart';
@@ -13,6 +15,6 @@ class ProfileUseCase {
   Future<Either<Failures, UserModel>> getProfile() async =>
       await _profileRepository.getProfile();
 
-  Future<Either<Failures, void>> updateProfile(UserModel user) async =>
-      await _profileRepository.updateProfile(user);
+  Future<Either<Failures, void>> updateProfile(File? file, String name) async =>
+      await _profileRepository.updateProfile(file, name);
 }
