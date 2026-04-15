@@ -1,5 +1,5 @@
+import 'package:farmer_assistance/application/core/theme/app_theme.dart';
 import 'package:farmer_assistance/application/pages/forcast/provider/weather_service.dart';
-import 'package:farmer_assistance/application/pages/water_prediction/water_prediction_theme.dart';
 import 'package:farmer_assistance/application/pages/yield_prediction/bloc/yield_prediction_bloc.dart';
 import 'package:farmer_assistance/application/pages/yield_prediction/widgets/yield_form_card.dart';
 import 'package:farmer_assistance/application/pages/yield_prediction/widgets/yield_header_card.dart';
@@ -301,8 +301,8 @@ class _YieldPredictionState extends ConsumerState<YieldPrediction> {
             });
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(
-                content: Text('Prediction completed!'),
-                backgroundColor: WaterPredictionTheme.primaryTeal,
+                content: Text('Estimation completed!'),
+                backgroundColor: AppTheme.primaryTeal,
                 duration: Duration(seconds: 2),
               ),
             );
@@ -313,19 +313,19 @@ class _YieldPredictionState extends ConsumerState<YieldPrediction> {
               ..showSnackBar(
                 SnackBar(
                   content: Text(message),
-                  backgroundColor: Colors.red.shade700,
+                  backgroundColor: AppTheme.errorRed,
                 ),
               );
           },
         );
       },
       child: Scaffold(
-      backgroundColor: const Color(0xffF1FAF8),
+      backgroundColor: AppTheme.backgroundColor,
       appBar: AppBar(
-        backgroundColor: WaterPredictionTheme.primaryTeal,
+        backgroundColor: AppTheme.primaryTeal,
         foregroundColor: Colors.white,
         elevation: 0,
-        title: const Text('Yield Prediction'),
+        title: const Text('Yield Estimate'),
         centerTitle: true,
       ),
       body: Container(
@@ -334,8 +334,8 @@ class _YieldPredictionState extends ConsumerState<YieldPrediction> {
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
             colors: [
-              WaterPredictionTheme.pageTopTint,
-              WaterPredictionTheme.pageBottomTint,
+              AppTheme.pageTopTint,
+              AppTheme.pageBottomTint,
             ],
             stops: [0, 0.55],
           ),
@@ -383,9 +383,9 @@ class _YieldPredictionState extends ConsumerState<YieldPrediction> {
                       label: const Text('Refresh From Weather'),
                       style: OutlinedButton.styleFrom(
                         minimumSize: const Size(double.infinity, 48),
-                        foregroundColor: WaterPredictionTheme.deepTeal,
+                        foregroundColor: AppTheme.deepTeal,
                         side: const BorderSide(
-                          color: WaterPredictionTheme.primaryTeal,
+                          color: AppTheme.primaryTeal,
                         ),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(14),
@@ -400,12 +400,12 @@ class _YieldPredictionState extends ConsumerState<YieldPrediction> {
                       onPressed: _predictYield,
                       icon: const Icon(Icons.check_circle_outline),
                       label: const Text(
-                        'Predict Yield',
+                        'Estimate Yield',
                         style: TextStyle(fontWeight: FontWeight.w700),
                       ),
                       style: ElevatedButton.styleFrom(
                         minimumSize: const Size(double.infinity, 52),
-                        backgroundColor: WaterPredictionTheme.primaryTeal,
+                        backgroundColor: AppTheme.primaryTeal,
                         foregroundColor: Colors.white,
                         elevation: 0,
                         shape: RoundedRectangleBorder(
