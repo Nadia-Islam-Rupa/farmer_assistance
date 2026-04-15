@@ -1,3 +1,4 @@
+import 'package:farmer_assistance/application/core/theme/app_theme.dart';
 import 'package:farmer_assistance/domain/models/Crop_disease_model.dart';
 import 'package:flutter/material.dart';
 
@@ -28,71 +29,19 @@ class CropDiseaseResultScreen extends StatelessWidget {
         : Colors.red;
 
     return Scaffold(
-      backgroundColor: Colors.grey[50],
+      backgroundColor: AppTheme.backgroundColor,
+      appBar: AppBar(
+        title: const Text('Detection Result'),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios_new_rounded),
+          onPressed: () => Navigator.pop(context),
+        ),
+      ),
       body: SafeArea(
-        child: Column(
-          children: [
-            // Header Section with Gradient
-            Container(
-              width: double.infinity,
-              padding: const EdgeInsets.all(20),
-              decoration: const BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [
-                    Color(0xff00796B), // Deep Teal
-                    Color(0xff26A69A), // Teal Accent
-                  ],
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                ),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      GestureDetector(
-                        onTap: () => Navigator.pop(context),
-                        child: const Icon(
-                          Icons.arrow_back_ios_new_rounded,
-                          color: Colors.white,
-                          size: 22,
-                        ),
-                      ),
-                      const Spacer(),
-                      const Text(
-                        'Detection Result',
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                        ),
-                      ),
-                      const Spacer(),
-                      const SizedBox(width: 22),
-                    ],
-                  ),
-                  const SizedBox(height: 16),
-                  Center(
-                    child: Text(
-                      'Analysis Complete',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: Colors.white.withValues(alpha: .9),
-                        fontSize: 14,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-
-            // Content Section
-            Expanded(
-              child: SingleChildScrollView(
-                padding: const EdgeInsets.all(20),
-                child: Column(
-                  children: [
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(20),
+          child: Column(
+            children: [
                     // Disease Name Card
                     Container(
                       width: double.infinity,
@@ -111,13 +60,11 @@ class CropDiseaseResultScreen extends StatelessWidget {
                       child: Column(
                         children: [
                           CircleAvatar(
-                            backgroundColor: const Color(
-                              0xff26A69A,
-                            ).withValues(alpha: 0.15),
+                            backgroundColor: AppTheme.lightTeal.withValues(alpha: 0.15),
                             radius: 30,
                             child: const Icon(
                               Icons.biotech_rounded,
-                              color: Color(0xff00796B),
+                              color: AppTheme.primaryTeal,
                               size: 32,
                             ),
                           ),
@@ -137,7 +84,7 @@ class CropDiseaseResultScreen extends StatelessWidget {
                             style: const TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
-                              color: Color(0xff00796B),
+                              color: AppTheme.primaryTeal,
                             ),
                           ),
                         ],
@@ -261,13 +208,11 @@ class CropDiseaseResultScreen extends StatelessWidget {
                               child: Row(
                                 children: [
                                   CircleAvatar(
-                                    backgroundColor: const Color(
-                                      0xff26A69A,
-                                    ).withValues(alpha: 0.15),
+                                    backgroundColor: AppTheme.lightTeal.withValues(alpha: 0.15),
                                     radius: 20,
                                     child: const Icon(
                                       Icons.analytics_outlined,
-                                      color: Color(0xff00796B),
+                                      color: AppTheme.primaryTeal,
                                       size: 20,
                                     ),
                                   ),
@@ -307,7 +252,7 @@ class CropDiseaseResultScreen extends StatelessWidget {
                                                     loadingProgress
                                                         .expectedTotalBytes!
                                               : null,
-                                          color: const Color(0xff00796B),
+                                          color: AppTheme.primaryTeal,
                                         ),
                                       );
                                     },
@@ -357,7 +302,7 @@ class CropDiseaseResultScreen extends StatelessWidget {
                         children: [
                           const Icon(
                             Icons.info_outline,
-                            color: Color(0xff00796B),
+                            color: AppTheme.primaryTeal,
                             size: 20,
                           ),
                           const SizedBox(width: 12),
@@ -377,10 +322,8 @@ class CropDiseaseResultScreen extends StatelessWidget {
                   ],
                 ),
               ),
-            ),
-          ],
-        ),
       ),
     );
   }
 }
+
