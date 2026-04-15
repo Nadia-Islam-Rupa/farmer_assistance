@@ -1,5 +1,5 @@
+import 'package:farmer_assistance/application/core/theme/app_theme.dart';
 import 'package:farmer_assistance/application/pages/forcast/provider/weather_service.dart';
-import 'package:farmer_assistance/application/pages/water_prediction/water_prediction_theme.dart';
 import 'package:farmer_assistance/application/pages/water_prediction/widgets/irrigation_input_card.dart';
 import 'package:farmer_assistance/application/pages/water_prediction/widgets/irrigation_page_header.dart';
 import 'package:farmer_assistance/application/pages/water_prediction/widgets/irrigation_result_card.dart';
@@ -128,7 +128,7 @@ class _IrrigationState extends ConsumerState<Irrigation> {
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(
                 content: Text('Prediction completed!'),
-                backgroundColor: WaterPredictionTheme.primaryTeal,
+                backgroundColor: AppTheme.primaryTeal,
                 duration: Duration(seconds: 2),
               ),
             );
@@ -139,17 +139,17 @@ class _IrrigationState extends ConsumerState<Irrigation> {
               ..showSnackBar(
                 SnackBar(
                   content: Text(message),
-                  backgroundColor: Colors.red.shade700,
+                  backgroundColor: AppTheme.errorRed,
                 ),
               );
           },
         );
       },
       child: Scaffold(
-        backgroundColor: const Color(0xffF1FAF8),
+        backgroundColor: AppTheme.backgroundColor,
         appBar: AppBar(
           centerTitle: true,
-          backgroundColor: WaterPredictionTheme.primaryTeal,
+          backgroundColor: AppTheme.primaryTeal,
           foregroundColor: Colors.white,
           elevation: 0,
           title: const Text(
@@ -163,8 +163,8 @@ class _IrrigationState extends ConsumerState<Irrigation> {
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
               colors: [
-                WaterPredictionTheme.pageTopTint,
-                WaterPredictionTheme.pageBottomTint,
+                AppTheme.pageTopTint,
+                AppTheme.pageBottomTint,
               ],
               stops: [0, 0.48],
             ),
@@ -205,7 +205,7 @@ class _IrrigationState extends ConsumerState<Irrigation> {
                       ),
                       child: const Center(
                         child: CircularProgressIndicator(
-                          color: WaterPredictionTheme.primaryTeal,
+                          color: AppTheme.primaryTeal,
                         ),
                       ),
                     ),
@@ -277,7 +277,7 @@ class _IrrigationState extends ConsumerState<Irrigation> {
         style: ElevatedButton.styleFrom(
           minimumSize: const Size(double.infinity, 52),
           elevation: 0,
-          backgroundColor: WaterPredictionTheme.primaryTeal,
+          backgroundColor: AppTheme.primaryTeal,
           foregroundColor: Colors.white,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16),
