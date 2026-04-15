@@ -1,4 +1,4 @@
-import 'package:farmer_assistance/application/pages/water_prediction/water_prediction_theme.dart';
+import 'package:farmer_assistance/application/core/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 
 class IrrigationWeatherCard extends StatelessWidget {
@@ -46,7 +46,7 @@ class IrrigationWeatherCard extends StatelessWidget {
                 ),
                 child: const Icon(
                   Icons.cloud_outlined,
-                  color: WaterPredictionTheme.deepTeal,
+                  color: AppTheme.deepTeal,
                 ),
               ),
               const SizedBox(width: 10),
@@ -115,7 +115,7 @@ class _MetricTile extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Icon(icon, size: 18, color: WaterPredictionTheme.deepTeal),
+          Icon(icon, size: 18, color: AppTheme.deepTeal),
           const SizedBox(height: 6),
           Text(
             label,
