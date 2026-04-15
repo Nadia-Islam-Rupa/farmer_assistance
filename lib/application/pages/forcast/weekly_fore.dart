@@ -1,3 +1,4 @@
+import 'package:farmer_assistance/application/core/theme/app_theme.dart';
 import 'package:farmer_assistance/application/pages/forcast/provider/weather_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -22,9 +23,9 @@ class WeeklyForecastPage extends ConsumerWidget {
           "7-Day Forecast",
           style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
         ),
-        backgroundColor: Color(0xff26A69A),
+        backgroundColor: AppTheme.primaryTeal,
       ),
-      backgroundColor: Colors.grey[100],
+      backgroundColor: AppTheme.backgroundColor,
 
       body: weatherAsync.when(
         loading: () => const Center(child: CircularProgressIndicator()),
