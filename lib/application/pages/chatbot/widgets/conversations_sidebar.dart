@@ -1,5 +1,6 @@
 // ignore_for_file: deprecated_member_use
 
+import 'package:farmer_assistance/application/core/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
@@ -44,7 +45,7 @@ class ConversationsSidebar extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
-                color: const Color(0xff00796B),
+                color: AppTheme.primaryTeal,
                 boxShadow: [
                   BoxShadow(
                     color: Colors.black.withOpacity(0.1),
@@ -75,7 +76,7 @@ class ConversationsSidebar extends StatelessWidget {
                         label: const Text('New Chat'),
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.white,
-                          foregroundColor: const Color(0xff00796B),
+                          foregroundColor: AppTheme.primaryTeal,
                           padding: const EdgeInsets.symmetric(vertical: 12),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8),
@@ -243,7 +244,7 @@ class _ConversationItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Material(
       color: isSelected
-          ? const Color(0xff00796B).withOpacity(0.1)
+          ? AppTheme.primaryTeal.withOpacity(0.1)
           : Colors.transparent,
       child: InkWell(
         onTap: onTap,
@@ -253,7 +254,7 @@ class _ConversationItem extends StatelessWidget {
             border: Border(
               left: BorderSide(
                 color: isSelected
-                    ? const Color(0xff00796B)
+                    ? AppTheme.primaryTeal
                     : Colors.transparent,
                 width: 3,
               ),
