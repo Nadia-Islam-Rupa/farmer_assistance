@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dartz/dartz.dart';
 import 'package:farmer_assistance/domain/failures/failures.dart';
 import 'package:farmer_assistance/domain/models/user_model.dart';
@@ -39,8 +41,49 @@ class ProfileRepositoriesIml extends ProfileRepository {
   }
 
   @override
-  Future<Either<Failures, void>> updateProfile(UserModel user) {
-    // TODO: implement updateProfile
-    throw UnimplementedError();
+  Future<Either<Failures, void>> updateProfile(File? file, String name) async {
+    try {
+      // final supabase = Supabase.instance.client;
+      final user = _supabaseClient.auth.currentUser;
+
+      if (user == null) {
+        return Left(GeneralFailure("User not logged in"));
+      }
+
+      final userId = user.id;
+
+      String? imageUrl;
+      if (file != null) {
+        // 👉 File info
+        final fileExt = file.path.split('.').last;
+        final fileName = '$userId.$fileExt';
+        final filePath = 'profile/$fileName';
+
+        // 👉 Upload image
+        await _supabaseClient.storage
+            .from('users_profile_pic')
+            .upload(
+              filePath,
+              file,
+              fileOptions: const FileOptions(
+                upsert: true,
+              ), // overwrite old image
+            );
+
+        // 👉 Get public URL
+        imageUrl = _supabaseClient.storage
+            .from('users_profile_pic')
+            .getPublicUrl(filePath);
+      }
+      // 👉 Update database
+      await _supabaseClient
+          .from('users')
+          .update({if (name.isNotEmpty) 'name': name, 'avatar_url': ?imageUrl})
+          .eq('uuid', userId);
+
+      return Right(null);
+    } catch (e) {
+      return Left(GeneralFailure(e.toString()));
+    }
   }
 }
