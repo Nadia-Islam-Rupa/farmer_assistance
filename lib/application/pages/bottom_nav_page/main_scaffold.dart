@@ -16,12 +16,6 @@ class MainScaffold extends ConsumerWidget {
   const MainScaffold({super.key});
 
   /// List of all pages corresponding to bottom nav tabs
-  static final List<Widget> _pages = [
-    HomePage(), // index 0
-    WeeklyForecastPage(), // index 1
-    ChatbotPage(), // index 2
-    ProfilePage(), // index 3
-  ];
 
   Widget _buildPage(int index) {
     switch (index) {
