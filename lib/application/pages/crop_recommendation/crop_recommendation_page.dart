@@ -1,5 +1,6 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'package:farmer_assistance/application/core/theme/app_theme.dart';
 import 'package:farmer_assistance/application/pages/crop_recommendation/providers/crop_recommendation_provider.dart';
 import 'package:farmer_assistance/application/pages/crop_recommendation/services/weather_autofill_service.dart';
 import 'package:farmer_assistance/application/pages/crop_recommendation/utils/crop_snackbar_utils.dart';
@@ -7,8 +8,6 @@ import 'package:farmer_assistance/application/pages/crop_recommendation/widgets/
 import 'package:farmer_assistance/application/pages/crop_recommendation/widgets/crop_header_card.dart';
 import 'package:farmer_assistance/application/pages/crop_recommendation/widgets/crop_result_card.dart';
 import 'package:farmer_assistance/application/pages/forcast/provider/weather_service.dart';
-import 'package:farmer_assistance/application/pages/water_prediction/water_prediction_theme.dart'
-    show WaterPredictionTheme;
 import 'package:farmer_assistance/di/di.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -126,9 +125,9 @@ class _CropRecommendationState extends ConsumerState<CropRecommendation> {
     final textTheme = Theme.of(context).textTheme;
 
     return Scaffold(
-      backgroundColor: const Color(0xffF1FAF8),
+      backgroundColor: AppTheme.backgroundColor,
       appBar: AppBar(
-        backgroundColor: WaterPredictionTheme.primaryTeal,
+        backgroundColor: AppTheme.primaryTeal,
         foregroundColor: Colors.white,
         elevation: 0,
         title: const Text(
@@ -143,8 +142,8 @@ class _CropRecommendationState extends ConsumerState<CropRecommendation> {
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
             colors: [
-              WaterPredictionTheme.pageTopTint,
-              WaterPredictionTheme.pageBottomTint,
+              AppTheme.pageTopTint,
+              AppTheme.pageBottomTint,
             ],
             stops: const [0, 0.3],
           ),
@@ -196,8 +195,8 @@ class _CropRecommendationState extends ConsumerState<CropRecommendation> {
                       label: const Text('Refresh Weather Data'),
                       style: OutlinedButton.styleFrom(
                         minimumSize: const Size(double.infinity, 48),
-                        foregroundColor: const Color(0xff00796B),
-                        side: const BorderSide(color: Color(0xff00796B)),
+                        foregroundColor: AppTheme.primaryTeal,
+                        side: const BorderSide(color: AppTheme.primaryTeal),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(14),
                         ),
@@ -230,12 +229,10 @@ class _CropRecommendationState extends ConsumerState<CropRecommendation> {
                       ),
                       style: ElevatedButton.styleFrom(
                         minimumSize: const Size(double.infinity, 54),
-                        backgroundColor: const Color(0xff00796B),
+                        backgroundColor: AppTheme.primaryTeal,
                         foregroundColor: Colors.white,
                         elevation: 0,
-                        disabledBackgroundColor: const Color(
-                          0xff00796B,
-                        ).withValues(alpha: 0.6),
+                        disabledBackgroundColor: AppTheme.primaryTeal.withValues(alpha: 0.6),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(14),
                         ),
