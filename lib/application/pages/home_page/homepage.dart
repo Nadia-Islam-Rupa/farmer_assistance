@@ -53,18 +53,12 @@ class HomePage extends StatelessWidget {
                           AppRouter.router.push(
                             PAGES.cropDiseasePrediction.screenPath,
                           );
-                          // Navigator.push(
-                          //   context,
-                          //   MaterialPageRoute(
-                          //     builder: (context) => UploadLeafScreen(),
-                          //   ),
-                          // );
                         },
                         child: FeatureCard(
-                          icon: Icons.local_florist,
-                          title: "Disease Prediction",
+                          icon: Icons.biotech,
+                          title: "Disease Detection",
                           subtitle: "Detect crop diseases",
-                          color: Colors.greenAccent,
+                          color: AppTheme.errorRed,
                         ),
                       ),
                       GestureDetector(
@@ -77,7 +71,7 @@ class HomePage extends StatelessWidget {
                           icon: Icons.water_drop,
                           title: "Smart Irrigation",
                           subtitle: "Water crops smartly",
-                          color: Colors.tealAccent,
+                          color: AppTheme.infoBlue,
                         ),
                       ),
                       GestureDetector(
@@ -88,9 +82,9 @@ class HomePage extends StatelessWidget {
                         },
                         child: FeatureCard(
                           icon: Icons.science_outlined,
-                          title: "Fertilizer tips",
+                          title: "Fertilizer Tips",
                           subtitle: "Best fertilizer advice",
-                          color: Colors.amberAccent,
+                          color: AppTheme.warningOrange,
                         ),
                       ),
                       GestureDetector(
@@ -101,9 +95,9 @@ class HomePage extends StatelessWidget {
                         },
                         child: FeatureCard(
                           icon: Icons.trending_up,
-                          title: "Market trends",
+                          title: "Market Trends",
                           subtitle: "Price predictions",
-                          color: Colors.purpleAccent,
+                          color: AppTheme.primaryTeal,
                         ),
                       ),
                       GestureDetector(
@@ -114,7 +108,7 @@ class HomePage extends StatelessWidget {
                           icon: Icons.wb_cloudy_outlined,
                           title: "Weather Insights",
                           subtitle: "See weather impact",
-                          color: Colors.lightBlueAccent,
+                          color: AppTheme.lightTeal,
                         ),
                       ),
                       GestureDetector(
@@ -127,10 +121,9 @@ class HomePage extends StatelessWidget {
                           icon: Icons.agriculture,
                           title: "Yield Estimate",
                           subtitle: "Predict crop yields",
-                          color: Colors.pinkAccent,
+                          color: AppTheme.successGreen,
                         ),
                       ),
-
                       GestureDetector(
                         onTap: () {
                           AppRouter.router.push(
@@ -139,9 +132,9 @@ class HomePage extends StatelessWidget {
                         },
                         child: FeatureCard(
                           icon: Icons.eco_outlined,
-                          title: "Crop Recom..",
+                          title: "Crop Recommendation",
                           subtitle: "Best crop advice",
-                          color: Colors.green,
+                          color: AppTheme.deepTeal,
                         ),
                       ),
                     ],
