@@ -28,26 +28,25 @@ class UploadLeaf extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[100],
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Gradient Header
-            Container(
-              width: double.infinity,
-              padding: const EdgeInsets.symmetric(
-                vertical: 24,
-                horizontal: 20,
-              ),
-              decoration: const BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [Color(0xff00796B), Color(0xff26A69A)],
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Gradient Header
+              Container(
+                width: double.infinity,
+                padding: const EdgeInsets.symmetric(
+                  vertical: 24,
+                  horizontal: 20,
                 ),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.only(top: 24.0),
+                decoration: const BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [Color(0xff00796B), Color(0xff26A69A)],
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                  ),
+                ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -89,111 +88,111 @@ class UploadLeaf extends StatelessWidget {
                   ],
                 ),
               ),
-            ),
 
-            const SizedBox(height: 20),
+              const SizedBox(height: 20),
 
-            // Upload Card
-            BlocConsumer<CropDiseaseBloc, CropDiseaseState>(
-              listener: (context, state) {
-                if (state is LoadedCropDiseaseState) {
-                  AppRouter.router.push(
-                    PAGES.cropDiseaseDetectionResult.screenPath,
-                    extra: state.cropDiseaseModel,
-                  );
-                }
-                if (state is ErrorCropDiseaseState) {
-                  Utils.showSnackBar(context, state.message, Colors.red);
-                }
-                if (state is LoadingCropDiseaseState) {
-                  Utils.showSnackBar(
-                    context,
-                    "Loading...",
-                    Color(0xff00796B),
-                  );
-                }
-              },
-              builder: (context, state) {
-                if (state is LoadingCropDiseaseState) {
-                  return Align(
-                    alignment: Alignment.bottomCenter,
-                    child: const Center(
-                      child: CircularProgressIndicator(
-                        color: Color(0xff00796B),
-                      ),
-                    ),
-                  );
-                }
-                return Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
-                      child: Container(
-                        padding: const EdgeInsets.all(20),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(16),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.shade300,
-                              blurRadius: 4,
-                              offset: const Offset(0, 2),
-                            ),
-                          ],
+              // Upload Card
+              BlocConsumer<CropDiseaseBloc, CropDiseaseState>(
+                listener: (context, state) {
+                  if (state is LoadedCropDiseaseState) {
+                    AppRouter.router.push(
+                      PAGES.cropDiseaseDetectionResult.screenPath,
+                      extra: state.cropDiseaseModel,
+                    );
+                  }
+                  if (state is ErrorCropDiseaseState) {
+                    Utils.showSnackBar(context, state.message, Colors.red);
+                  }
+                  if (state is LoadingCropDiseaseState) {
+                    Utils.showSnackBar(
+                      context,
+                      "Loading...",
+                      Color(0xff00796B),
+                    );
+                  }
+                },
+                builder: (context, state) {
+                  if (state is LoadingCropDiseaseState) {
+                    return Align(
+                      alignment: Alignment.bottomCenter,
+                      child: const Center(
+                        child: CircularProgressIndicator(
+                          color: Color(0xff00796B),
                         ),
-                        child: Column(
-                          children: [
-                            Row(
-                              children: [
-                                CircleAvatar(
-                                  backgroundColor: const Color(
-                                    0xff26A69A,
-                                  ).withValues(alpha: 0.15),
-                                  radius: 20,
-                                  child: const Icon(
-                                    Icons.local_florist,
-                                    color: Color(0xff00796B),
-                                  ),
-                                ),
-                                const SizedBox(width: 12),
-                                const Text(
-                                  'Upload Leaf Image',
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            const SizedBox(height: 6),
-                            Text(
-                              'Take a clear photo of the affected leaf or browse from your device.',
-                              style: TextStyle(
-                                color: Colors.grey.shade600,
-                                fontSize: 13,
+                      ),
+                    );
+                  }
+                  return Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        child: Container(
+                          padding: const EdgeInsets.all(20),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(16),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.shade300,
+                                blurRadius: 4,
+                                offset: const Offset(0, 2),
                               ),
-                            ),
-                            const SizedBox(height: 20),
-                            ImageUploadBox(),
-                          ],
+                            ],
+                          ),
+                          child: Column(
+                            children: [
+                              Row(
+                                children: [
+                                  CircleAvatar(
+                                    backgroundColor: const Color(
+                                      0xff26A69A,
+                                    ).withValues(alpha: 0.15),
+                                    radius: 20,
+                                    child: const Icon(
+                                      Icons.local_florist,
+                                      color: Color(0xff00796B),
+                                    ),
+                                  ),
+                                  const SizedBox(width: 12),
+                                  const Text(
+                                    'Upload Leaf Image',
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: 6),
+                              Text(
+                                'Take a clear photo of the affected leaf or browse from your device.',
+                                style: TextStyle(
+                                  color: Colors.grey.shade600,
+                                  fontSize: 13,
+                                ),
+                              ),
+                              const SizedBox(height: 20),
+                              ImageUploadBox(),
+                            ],
+                          ),
                         ),
                       ),
-                    ),
 
-                    const SizedBox(height: 16),
+                      const SizedBox(height: 16),
 
-                    // Tips Section
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
-                      child: const TipsSection(),
-                    ),
-                  ],
-                );
-              },
-            ),
+                      // Tips Section
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        child: const TipsSection(),
+                      ),
+                    ],
+                  );
+                },
+              ),
 
-            const SizedBox(height: 20),
-          ],
+              const SizedBox(height: 20),
+            ],
+          ),
         ),
       ),
     );
