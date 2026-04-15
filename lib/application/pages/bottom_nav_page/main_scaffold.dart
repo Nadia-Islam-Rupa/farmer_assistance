@@ -1,5 +1,6 @@
 // ignore_for_file: deprecated_member_use
 
+import 'package:farmer_assistance/application/core/theme/app_theme.dart';
 import 'package:farmer_assistance/application/pages/bottom_nav_page/providers/bottom_nav_provider.dart';
 import 'package:farmer_assistance/application/pages/forcast/weekly_fore.dart';
 import 'package:flutter/material.dart';
@@ -53,7 +54,7 @@ class MainScaffold extends ConsumerWidget {
         body: _buildPage(currentIndex),
         bottomNavigationBar: BottomNavigationBar(
           currentIndex: currentIndex,
-          selectedItemColor: Color(0xff00796B),
+          selectedItemColor: AppTheme.primaryTeal,
           unselectedItemColor: Colors.grey,
           showUnselectedLabels: true,
           type: BottomNavigationBarType.fixed,
