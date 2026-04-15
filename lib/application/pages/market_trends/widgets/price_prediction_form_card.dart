@@ -1,5 +1,5 @@
+import 'package:farmer_assistance/application/core/theme/app_theme.dart';
 import 'package:farmer_assistance/application/pages/market_trends/constants/price_prediction_constants.dart';
-import 'package:farmer_assistance/application/pages/water_prediction/water_prediction_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -67,7 +67,7 @@ class PricePredictionFormCard extends StatelessWidget {
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
-                color: WaterPredictionTheme.deepTeal,
+                color: AppTheme.deepTeal,
               ),
             ),
             const SizedBox(height: 16),
@@ -135,7 +135,7 @@ class PricePredictionFormCard extends StatelessWidget {
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
-                color: WaterPredictionTheme.deepTeal,
+                color: AppTheme.deepTeal,
               ),
             ),
             const SizedBox(height: 16),
@@ -177,7 +177,7 @@ class PricePredictionFormCard extends StatelessWidget {
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
-                color: WaterPredictionTheme.deepTeal,
+                color: AppTheme.deepTeal,
               ),
             ),
             const SizedBox(height: 16),
@@ -207,7 +207,7 @@ class PricePredictionFormCard extends StatelessWidget {
               style: TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
-                color: WaterPredictionTheme.deepTeal,
+                color: AppTheme.deepTeal,
               ),
             ),
             const SizedBox(height: 16),
@@ -225,12 +225,12 @@ class PricePredictionFormCard extends StatelessWidget {
                     TextStyle(color: Colors.grey.shade700, fontSize: 14),
                 prefixIcon: const Icon(
                   Icons.event_outlined,
-                  color: WaterPredictionTheme.primaryTeal,
+                  color: AppTheme.primaryTeal,
                   size: 22,
                 ),
                 suffixIcon: const Icon(
                   Icons.calendar_month_outlined,
-                  color: WaterPredictionTheme.primaryTeal,
+                  color: AppTheme.primaryTeal,
                   size: 22,
                 ),
                 filled: true,
@@ -247,7 +247,7 @@ class PricePredictionFormCard extends StatelessWidget {
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
                   borderSide: const BorderSide(
-                    color: WaterPredictionTheme.primaryTeal,
+                    color: AppTheme.primaryTeal,
                     width: 2,
                   ),
                 ),
@@ -293,7 +293,7 @@ class PricePredictionFormCard extends StatelessWidget {
         labelStyle: TextStyle(color: Colors.grey.shade700, fontSize: 14),
         prefixIcon: Icon(
           icon,
-          color: WaterPredictionTheme.primaryTeal,
+          color: AppTheme.primaryTeal,
           size: 22,
         ),
         filled: true,
@@ -309,7 +309,7 @@ class PricePredictionFormCard extends StatelessWidget {
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
           borderSide: const BorderSide(
-            color: WaterPredictionTheme.primaryTeal,
+            color: AppTheme.primaryTeal,
             width: 2,
           ),
         ),
@@ -371,7 +371,7 @@ class _DropdownField extends StatelessWidget {
         decoration: InputDecoration(
           labelText: label,
           labelStyle: TextStyle(color: Colors.grey.shade700, fontSize: 14),
-          prefixIcon: Icon(icon, color: WaterPredictionTheme.deepTeal),
+          prefixIcon: Icon(icon, color: AppTheme.deepTeal),
           suffixIcon: const Icon(
             Icons.expand_more_rounded,
             color: Color(0xff4C736D),
@@ -391,7 +391,7 @@ class _DropdownField extends StatelessWidget {
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12),
             borderSide: const BorderSide(
-              color: WaterPredictionTheme.primaryTeal,
+              color: AppTheme.primaryTeal,
               width: 1.4,
             ),
           ),
@@ -491,7 +491,7 @@ class _SearchPickerSheetState extends State<_SearchPickerSheet> {
                 padding: const EdgeInsets.fromLTRB(16, 14, 16, 8),
                 child: Row(
                   children: [
-                    Icon(widget.icon, color: WaterPredictionTheme.deepTeal),
+                    Icon(widget.icon, color: AppTheme.deepTeal),
                     const SizedBox(width: 10),
                     Expanded(
                       child: Text(
@@ -534,7 +534,7 @@ class _SearchPickerSheetState extends State<_SearchPickerSheet> {
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
                       borderSide: const BorderSide(
-                        color: WaterPredictionTheme.primaryTeal,
+                        color: AppTheme.primaryTeal,
                         width: 1.4,
                       ),
                     ),
@@ -582,7 +582,7 @@ class _SearchPickerSheetState extends State<_SearchPickerSheet> {
                               trailing: isSelected
                                   ? const Icon(
                                       Icons.check_circle,
-                                      color: WaterPredictionTheme.primaryTeal,
+                                      color: AppTheme.primaryTeal,
                                     )
                                   : const Icon(
                                       Icons.chevron_right,
