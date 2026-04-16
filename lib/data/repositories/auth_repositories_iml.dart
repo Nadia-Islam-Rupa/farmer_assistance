@@ -77,15 +77,16 @@ class AuthRepositoriesIml extends AuthRepository {
   Future<Either<Failures, void>> loginWithGoogle() async {
     try {
       final serverClientId =
-          "744766965367-4gnqhtedh8min2qu6gra9nv4o7te1r33.apps.googleusercontent.com";
+          "744766965367-3orv5tk4hngc9koq3mrbga3n64uaegr8.apps.googleusercontent.com";
       final clientId =
-          "744766965367-b6h0ce8nm5k7abre9qpg5hhequba99q7.apps.googleusercontent.com";
+          "744766965367-h12okk6bjv2m13qd93774nsskvlvge38.apps.googleusercontent.com";
       unawaited(
         _googleSignIn.initialize(
           serverClientId: serverClientId,
           clientId: clientId,
         ),
       );
+
 
       GoogleSignInAccount account = await _googleSignIn.authenticate();
       final authorization = await account.authorizationClient
@@ -126,7 +127,7 @@ class AuthRepositoriesIml extends AuthRepository {
       await _supabaseClient.from('users').upsert(user.toJson());
       return right(null);
     } catch (e) {
-      //print(e.toString());
+      print("Kawser ${e.toString()}");
       return left(GeneralFailure(mapSupabaseAuthError(e)));
     }
   }
