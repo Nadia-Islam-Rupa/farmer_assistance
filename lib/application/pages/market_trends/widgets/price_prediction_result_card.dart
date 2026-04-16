@@ -110,13 +110,13 @@ class PricePredictionResultCard extends StatelessWidget {
           const SizedBox(height: 10),
           Row(
             children: [
-              Expanded(
-                child: _infoChip(
-                  Icons.sell_outlined,
-                  'Price Type',
-                  pricetype.isEmpty ? '—' : pricetype,
-                ),
-              ),
+              // Expanded(
+              //   child: _infoChip(
+              //     Icons.sell_outlined,
+              //     'Price Type',
+              //     pricetype.isEmpty ? '—' : pricetype,
+              //   ),
+              // ),
               if (confidence != null) ...[
                 const SizedBox(width: 10),
                 Expanded(
