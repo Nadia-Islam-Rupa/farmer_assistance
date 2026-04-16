@@ -73,25 +73,25 @@ class CropResultCard extends StatelessWidget {
                 color: Colors.white.withValues(alpha: 0.2),
                 borderRadius: BorderRadius.circular(8),
               ),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  const Icon(
-                    Icons.check_circle,
-                    color: Colors.lightGreenAccent,
-                    size: 18,
-                  ),
-                  const SizedBox(width: 8),
-                  Text(
-                    'Confidence: ${(result.confidence! * 100).toStringAsFixed(1)}%',
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 14,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ],
-              ),
+              // child: Row(
+              //   mainAxisSize: MainAxisSize.min,
+              //   children: [
+              //     const Icon(
+              //       Icons.check_circle,
+              //       color: Colors.lightGreenAccent,
+              //       size: 18,
+              //     ),
+              //     const SizedBox(width: 8),
+              //     // Text(
+              //     //   'Confidence: ${(result.confidence! * 100).toStringAsFixed(1)}%',
+              //     //   style: const TextStyle(
+              //     //     color: Colors.white,
+              //     //     fontSize: 14,
+              //     //     fontWeight: FontWeight.w600,
+              //     //   ),
+              //     // ),
+              //   ],
+              // ),
             ),
           ],
 
