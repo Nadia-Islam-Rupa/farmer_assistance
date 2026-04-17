@@ -1,0 +1,463 @@
+Farmer Assistance - Feature Test Cases
+Date: 2026-04-17
+Scope: All implemented features except Disease Prediction
+
+Format per feature:
+1) Input Test Table
+2) Output Test Table
+
+=================================================================
+FEATURE 1: LOGIN
+=================================================================
+INPUT TEST TABLE
+| Test ID | Input Field(s) | Test Data | Expected Validation Result |
+|---|---|---|---|
+| LG-01 | Email, Password | valid@email.com, ValidPass1! | Pass |
+| LG-02 | Email empty | "", ValidPass1! | Error: All fields are required |
+| LG-03 | Password empty | valid@email.com, "" | Error: All fields are required |
+| LG-04 | Invalid email format | user@@mail, ValidPass1! | Error: Invalid email format |
+| LG-05 | Short password | valid@email.com, Ab1! | Error: Password must be at least 8 characters |
+| LG-06 | Email with spaces | " user@mail.com ", ValidPass1! | Should trim and pass if valid |
+| LG-07 | Uppercase email | USER@MAIL.COM, ValidPass1! | Should lowercase/normalize and pass |
+
+OUTPUT TEST TABLE
+| Test ID | Trigger Scenario | Expected UI Output |
+|---|---|---|
+| LGO-01 | Submit valid credentials | Snack: Logging in..., then Snack: Welcome To FarmAI, navigate back |
+| LGO-02 | User not found | Error snack: No user found for that email |
+| LGO-03 | Wrong password | Error snack: Incorrect password |
+| LGO-04 | Invalid credential | Error snack: The email or password is incorrect. Please try again |
+| LGO-05 | Disabled account | Error snack: This user account has been disabled... |
+| LGO-06 | Unknown/general failure | Error snack with backend/general message |
+| LGO-07 | Exception thrown | Error snack with exception text |
+
+=================================================================
+FEATURE 2: CREATE ACCOUNT
+=================================================================
+INPUT TEST TABLE
+| Test ID | Input Field(s) | Test Data | Expected Validation Result |
+|---|---|---|---|
+| CA-01 | Name, Email, Password, Confirm | Nadia, n@a.com, StrongPass1!, StrongPass1! | Pass |
+| CA-02 | Any field empty | Name missing or other missing | Error: All fields are required |
+| CA-03 | Invalid email | n@a, StrongPass1!, StrongPass1! | Error: Please enter a valid email address |
+| CA-04 | Weak password | Password1 (missing special) | Error: password complexity message |
+| CA-05 | Password mismatch | StrongPass1!, StrongPass2! | Error: Passwords do not match |
+| CA-06 | Leading/trailing spaces | " Nadia ", " n@a.com " | Should trim and validate |
+
+OUTPUT TEST TABLE
+| Test ID | Trigger Scenario | Expected UI Output |
+|---|---|---|
+| CAO-01 | Valid submit | Snack: Creating account..., then success snack and navigate back |
+| CAO-02 | Email already used | Error snack: This email is already in use |
+| CAO-03 | Weak password from backend | Error snack: The password is too weak |
+| CAO-04 | Unknown auth failure | Error snack: Authentication failed due to unknown error |
+| CAO-05 | General failure | Error snack with backend failure message |
+| CAO-06 | Exception | Error snack: Failed to create account: ... |
+
+=================================================================
+FEATURE 3: FORGOT PASSWORD
+=================================================================
+INPUT TEST TABLE
+| Test ID | Input Field(s) | Test Data | Expected Validation Result |
+|---|---|---|---|
+| FP-01 | Email | user@mail.com | Pass |
+| FP-02 | Email empty | "" | Error: Please enter your email |
+| FP-03 | Invalid email format | usermail.com | Error: Invalid email format |
+| FP-04 | Email with spaces | " user@mail.com " | Should trim and pass |
+
+OUTPUT TEST TABLE
+| Test ID | Trigger Scenario | Expected UI Output |
+|---|---|---|
+| FPO-01 | Valid submit | Snack: Sending reset link..., then success snack with email text, then pop page |
+| FPO-02 | User not found | Error snack: No user found for that email |
+| FPO-03 | Invalid credential | Error snack: The email is incorrect. Please try again |
+| FPO-04 | Disabled user | Error snack: account disabled message |
+| FPO-05 | General failure | Error snack with backend message |
+| FPO-06 | Exception | Error snack with exception text |
+
+=================================================================
+FEATURE 4: CHATBOT
+=================================================================
+INPUT TEST TABLE
+| Test ID | Input Field(s) | Test Data | Expected Validation Result |
+|---|---|---|---|
+| CB-01 | Query text | "How to treat leaf curl?" | Pass, send event |
+| CB-02 | Empty query | "   " | No send action |
+| CB-03 | Query with existing conversation id | Normal text + conversation context | Pass, append to thread |
+| CB-04 | New chat action | Tap refresh/new chat | Clears local messages, resets conversation id/history |
+| CB-05 | Select previous conversation | Tap item from sidebar | Loads historical pairs |
+
+OUTPUT TEST TABLE
+| Test ID | Trigger Scenario | Expected UI Output |
+|---|---|---|
+| CBO-01 | Initial load | Bot greeting shown |
+| CBO-02 | Sending message | User bubble appears immediately |
+| CBO-03 | Loading state | Thinking indicator and disabled send state icon |
+| CBO-04 | Response success | Bot markdown response bubble added; conversation id/history updated |
+| CBO-05 | Response error | Bot error bubble added in error style |
+| CBO-06 | Load old conversation success | Full Q/A history rendered as alternating user/bot bubbles |
+| CBO-07 | Load old conversation failure | Error bubble: Failed to load conversation... |
+| CBO-08 | Sidebar no conversations | Empty-state text shown |
+| CBO-09 | Sidebar load failure | Error panel with retry action |
+
+=================================================================
+FEATURE 5: CROP RECOMMENDATION
+=================================================================
+INPUT TEST TABLE
+| Test ID | Input Field(s) | Test Data | Expected Validation Result |
+|---|---|---|---|
+| CR-01 | N, P, K, pH, Temp, Humidity, Rainfall | all valid numeric | Pass |
+| CR-02 | Nitrogen empty | "" | Error: Nitrogen is required |
+| CR-03 | Nitrogen non-numeric | abc | Error: Enter a valid number for Nitrogen |
+| CR-04 | Humidity out of range | 120 | Error: Humidity must be between 0 and 100 |
+| CR-05 | pH out of configured range | negative value | Error range message |
+| CR-06 | Rainfall empty | "" | Error: Rainfall is required |
+| CR-07 | Weather autofill button | Tap refresh weather | Temp/humidity/rainfall auto-updated if weather available |
+
+OUTPUT TEST TABLE
+| Test ID | Trigger Scenario | Expected UI Output |
+|---|---|---|
+| CRO-01 | Valid submit | Button shows Analyzing..., then result card appears |
+| CRO-02 | Loaded state | Result card shows recommended crop and confidence |
+| CRO-03 | Error state | Error snack with state message |
+| CRO-04 | Weather refresh success | Success snack: weather updated |
+| CRO-05 | Weather refresh failure | Error snack: unable to update weather |
+| CRO-06 | Invalid form | No API call, field-level validation errors shown |
+
+ADDITIONAL OUTPUT TEST TABLE CR-1
+| Test ID | Trigger Scenario | Expected UI Output |
+|---|---|---|
+| CRO-A1-01 | Confidence = 1.0 | Result shows 100.0% confidence (or equivalent full confidence view) |
+| CRO-A1-02 | Confidence = 0.0 | Result still renders with 0% confidence, no crash |
+
+ADDITIONAL OUTPUT TEST TABLE CR-2
+| Test ID | Trigger Scenario | Expected UI Output |
+|---|---|---|
+| CRO-A2-01 | crop value is null from API | Result card should not crash; fallback text shown |
+| CRO-A2-02 | crop value is empty string | Result card renders safely with fallback/empty-safe display |
+
+ADDITIONAL OUTPUT TEST TABLE CR-3
+| Test ID | Trigger Scenario | Expected UI Output |
+|---|---|---|
+| CRO-A3-01 | Very long crop name in response | Text wraps/clips properly without layout overflow |
+| CRO-A3-02 | Special characters in crop name | Characters display correctly in result card |
+
+ADDITIONAL OUTPUT TEST TABLE CR-4
+| Test ID | Trigger Scenario | Expected UI Output |
+|---|---|---|
+| CRO-A4-01 | Submit twice quickly | Latest successful response is shown; no duplicate broken UI |
+| CRO-A4-02 | First error then second success | Error snack shown first, then success snack + result card |
+
+ADDITIONAL OUTPUT TEST TABLE CR-5
+| Test ID | Trigger Scenario | Expected UI Output |
+|---|---|---|
+| CRO-A5-01 | First success then second error | Old result remains stable or updates consistently; error snack shown |
+| CRO-A5-02 | Repeated error responses | Error snack appears each time without app freeze |
+
+ADDITIONAL OUTPUT TEST TABLE CR-6
+| Test ID | Trigger Scenario | Expected UI Output |
+|---|---|---|
+| CRO-A6-01 | Navigate away immediately after submit | No crash; if response returns, no invalid context usage |
+| CRO-A6-02 | Return to page after navigation | Page renders clean initial state |
+
+ADDITIONAL OUTPUT TEST TABLE CR-7
+| Test ID | Trigger Scenario | Expected UI Output |
+|---|---|---|
+| CRO-A7-01 | Weather unavailable + submit valid manual data | Recommendation still works; no weather dependency error |
+| CRO-A7-02 | Weather source label changes after refresh | Header reflects updated weather source label |
+
+ADDITIONAL OUTPUT TEST TABLE CR-8
+| Test ID | Trigger Scenario | Expected UI Output |
+|---|---|---|
+| CRO-A8-01 | Keyboard open when result appears | Result appears correctly and page remains scrollable |
+| CRO-A8-02 | Small screen device | Result card remains readable without overflow |
+
+ADDITIONAL OUTPUT TEST TABLE CR-9
+| Test ID | Trigger Scenario | Expected UI Output |
+|---|---|---|
+| CRO-A9-01 | Network timeout error | Error snack shows meaningful timeout-related message |
+| CRO-A9-02 | Generic server error | Error snack shows fallback error message |
+
+ADDITIONAL OUTPUT TEST TABLE CR-10
+| Test ID | Trigger Scenario | Expected UI Output |
+|---|---|---|
+| CRO-A10-01 | Fresh app launch then first recommendation | Loading, success snack, and result card sequence is correct |
+| CRO-A10-02 | Multiple successful requests | Result updates to latest response each time |
+
+=================================================================
+FEATURE 6: FERTILIZER RECOMMENDATION
+=================================================================
+INPUT TEST TABLE
+| Test ID | Input Field(s) | Test Data | Expected Validation Result |
+|---|---|---|---|
+| FR-01 | Crop, Soil, N, P, K, pH, Rainfall, Temperature | all valid | Pass |
+| FR-02 | Crop not selected | null | Should fail at backend/logic level (UI has no explicit dropdown validator) |
+| FR-03 | Soil not selected | null | Should fail at backend/logic level |
+| FR-04 | N empty | "" | Error: Nitrogen is required |
+| FR-05 | pH non-numeric | abc | Error: Enter a valid number for pH |
+| FR-06 | Rainfall empty | "" | Error: Rainfall is required |
+| FR-07 | Temperature empty | "" | Error: Temperature is required |
+| FR-08 | Refresh weather | Tap refresh weather | Temperature/rainfall auto-filled or overridden |
+
+OUTPUT TEST TABLE
+| Test ID | Trigger Scenario | Expected UI Output |
+|---|---|---|
+| FRO-01 | Valid submit | Success snack: Fertilizer recommendation received |
+| FRO-02 | Loaded state | Result card with fertilizer name + confidence |
+| FRO-03 | Feature importance present | Importance section rendered with percentages |
+| FRO-04 | Feature importance absent/empty | Importance section hidden |
+| FRO-05 | API error | Error snack with message |
+| FRO-06 | Weather refresh success | Snack: temperature and rainfall updated |
+| FRO-07 | Weather refresh failure | Snack: unable to fetch weather |
+
+ADDITIONAL OUTPUT TEST TABLE FR-1
+| Test ID | Trigger Scenario | Expected UI Output |
+|---|---|---|
+| FRO-A1-01 | fertilizer value is null | Result card shows fallback text safely |
+| FRO-A1-02 | fertilizer value very long | Text wraps/clips correctly with no overflow |
+
+ADDITIONAL OUTPUT TEST TABLE FR-2
+| Test ID | Trigger Scenario | Expected UI Output |
+|---|---|---|
+| FRO-A2-01 | confidence = 1.0 | Confidence displayed as 100% |
+| FRO-A2-02 | confidence = 0.0 | Confidence displayed as 0% and UI stays valid |
+
+ADDITIONAL OUTPUT TEST TABLE FR-3
+| Test ID | Trigger Scenario | Expected UI Output |
+|---|---|---|
+| FRO-A3-01 | featureImportance exists with many keys | Full list renders with percentages and progress bars |
+| FRO-A3-02 | featureImportance empty map | Feature importance section hidden or empty-safe |
+
+ADDITIONAL OUTPUT TEST TABLE FR-4
+| Test ID | Trigger Scenario | Expected UI Output |
+|---|---|---|
+| FRO-A4-01 | featureImportance has negative value | UI remains stable; value display is handled safely |
+| FRO-A4-02 | featureImportance has value > 1 | UI remains stable and value shown consistently |
+
+ADDITIONAL OUTPUT TEST TABLE FR-5
+| Test ID | Trigger Scenario | Expected UI Output |
+|---|---|---|
+| FRO-A5-01 | Two rapid submissions | Latest response displayed, no duplicate broken cards |
+| FRO-A5-02 | Success after prior error | Error snack first, then success snack + result card |
+
+ADDITIONAL OUTPUT TEST TABLE FR-6
+| Test ID | Trigger Scenario | Expected UI Output |
+|---|---|---|
+| FRO-A6-01 | Error after prior success | Error snack shown; old result behavior remains consistent |
+| FRO-A6-02 | Repeated identical success responses | No flicker/crash; card updates or remains stable |
+
+ADDITIONAL OUTPUT TEST TABLE FR-7
+| Test ID | Trigger Scenario | Expected UI Output |
+|---|---|---|
+| FRO-A7-01 | Weather refresh when weather API is slow | UI remains responsive until snackbar result |
+| FRO-A7-02 | Weather refresh when unavailable | Error snackbar appears once per action |
+
+ADDITIONAL OUTPUT TEST TABLE FR-8
+| Test ID | Trigger Scenario | Expected UI Output |
+|---|---|---|
+| FRO-A8-01 | Submit then navigate back quickly | No context crash; app remains stable |
+| FRO-A8-02 | Open page again after back | Form and result state initialize correctly |
+
+ADDITIONAL OUTPUT TEST TABLE FR-9
+| Test ID | Trigger Scenario | Expected UI Output |
+|---|---|---|
+| FRO-A9-01 | API returns special characters in fertilizer name | Characters display correctly |
+| FRO-A9-02 | API returns empty currency-like/extra fields | UI ignores irrelevant fields safely |
+
+ADDITIONAL OUTPUT TEST TABLE FR-10
+| Test ID | Trigger Scenario | Expected UI Output |
+|---|---|---|
+| FRO-A10-01 | First request after app cold start | Correct loading/error/success sequence |
+| FRO-A10-02 | Multiple successful recommendations in one session | Latest recommendation always visible |
+
+=================================================================
+FEATURE 7: SMART IRRIGATION (WATER PREDICTION)
+=================================================================
+INPUT TEST TABLE
+| Test ID | Input Field(s) | Test Data | Expected Validation Result |
+|---|---|---|---|
+| SI-01 | Crop, Soil Type, Growth Stage | all selected | Pass |
+| SI-02 | Missing crop | null | Error snack: Please fill all fields |
+| SI-03 | Missing soil | null | Error snack: Please fill all fields |
+| SI-04 | Missing stage | null | Error snack: Please fill all fields |
+| SI-05 | Weather available | auto temp/humidity/rain/moisture | Request includes parsed doubles |
+| SI-06 | Weather unavailable | empty weather values | Request may send null for numeric weather fields |
+
+OUTPUT TEST TABLE
+| Test ID | Trigger Scenario | Expected UI Output |
+|---|---|---|
+| SIO-01 | Valid submit | Success snack: Prediction completed |
+| SIO-02 | irrigation_needed = true | Result card shows Irrigation Needed with orange theme |
+| SIO-03 | irrigation_needed = false | Result card shows No Irrigation Needed with green theme |
+| SIO-04 | Confidence exists | Confidence percent displayed |
+| SIO-05 | Feature importance exists | Importance list rendered |
+| SIO-06 | API error | Error snack shown |
+| SIO-07 | Weather fetch error | Weather panel shows Unable to load weather data |
+
+ADDITIONAL OUTPUT TEST TABLE SI-1
+| Test ID | Trigger Scenario | Expected UI Output |
+|---|---|---|
+| SIO-A1-01 | irrigation_needed = true, recommendation present | Orange-themed card + recommendation text visible |
+| SIO-A1-02 | irrigation_needed = false, recommendation present | Green-themed card + recommendation text visible |
+
+ADDITIONAL OUTPUT TEST TABLE SI-2
+| Test ID | Trigger Scenario | Expected UI Output |
+|---|---|---|
+| SIO-A2-01 | irrigation_needed is null | Card renders safely with default/fallback decision display |
+| SIO-A2-02 | recommendation is null | UI does not crash; recommendation area fallback shown |
+
+ADDITIONAL OUTPUT TEST TABLE SI-3
+| Test ID | Trigger Scenario | Expected UI Output |
+|---|---|---|
+| SIO-A3-01 | confidence = 1.0 | Confidence metric shows 100% |
+| SIO-A3-02 | confidence = 0.0 | Confidence metric shows 0% |
+
+ADDITIONAL OUTPUT TEST TABLE SI-4
+| Test ID | Trigger Scenario | Expected UI Output |
+|---|---|---|
+| SIO-A4-01 | featureImportance has many keys | Importance rows render without overflow |
+| SIO-A4-02 | featureImportance empty | Importance section hidden/empty-safe |
+
+ADDITIONAL OUTPUT TEST TABLE SI-5
+| Test ID | Trigger Scenario | Expected UI Output |
+|---|---|---|
+| SIO-A5-01 | Submit multiple times quickly | Latest output shown and UI remains responsive |
+| SIO-A5-02 | First request fails, second succeeds | Error snack then success snack + result card |
+
+ADDITIONAL OUTPUT TEST TABLE SI-6
+| Test ID | Trigger Scenario | Expected UI Output |
+|---|---|---|
+| SIO-A6-01 | First request succeeds, second fails | Error snack shown; previous result handling remains stable |
+| SIO-A6-02 | Consecutive failures | Error snack appears each attempt, no freeze |
+
+ADDITIONAL OUTPUT TEST TABLE SI-7
+| Test ID | Trigger Scenario | Expected UI Output |
+|---|---|---|
+| SIO-A7-01 | Weather current map missing one key (e.g., rain) | Weather card still renders using available values |
+| SIO-A7-02 | Weather current map fully missing | Error panel shown (unable to load weather data) |
+
+ADDITIONAL OUTPUT TEST TABLE SI-8
+| Test ID | Trigger Scenario | Expected UI Output |
+|---|---|---|
+| SIO-A8-01 | Navigate away immediately after submit | No context exception/crash |
+| SIO-A8-02 | Return and submit again | Flow works normally with new result |
+
+ADDITIONAL OUTPUT TEST TABLE SI-9
+| Test ID | Trigger Scenario | Expected UI Output |
+|---|---|---|
+| SIO-A9-01 | Recommendation text is very long | Text wraps in card, layout remains intact |
+| SIO-A9-02 | Recommendation text contains emoji/symbols | Correct display of unicode content |
+
+ADDITIONAL OUTPUT TEST TABLE SI-10
+| Test ID | Trigger Scenario | Expected UI Output |
+|---|---|---|
+| SIO-A10-01 | Cold start first prediction | Correct state sequence: loading to success/error |
+| SIO-A10-02 | Extended session with repeated predictions | No memory/state corruption in result display |
+
+=================================================================
+FEATURE 8: YIELD ESTIMATION
+=================================================================
+INPUT TEST TABLE
+| Test ID | Input Field(s) | Test Data | Expected Validation Result |
+|---|---|---|---|
+| YL-01 | Crop, Location, Rainfall, Temperature, Pesticides | all valid | Pass |
+| YL-02 | Crop missing | null | Snack: Please select a crop |
+| YL-03 | Location missing | null | Snack: Please select a location |
+| YL-04 | Rainfall empty | "" | Error: Rainfall is required |
+| YL-05 | Temperature non-numeric | abc | Error: Enter a valid number for Temperature |
+| YL-06 | Pesticides empty | "" | Error: Pesticides is required |
+| YL-07 | Weather refresh | Tap refresh weather | Rainfall/temperature auto-filled |
+
+OUTPUT TEST TABLE
+| Test ID | Trigger Scenario | Expected UI Output |
+|---|---|---|
+| YLO-01 | Valid submit | Success snack: Estimation completed |
+| YLO-02 | Loaded state | Result card appears with predicted yield + yield unit |
+| YLO-03 | Confidence exists | Confidence percent shown |
+| YLO-04 | Feature importance exists | Importance section rendered |
+| YLO-05 | predicted_yield high | Yield class shown as High Yield |
+| YLO-06 | predicted_yield medium | Yield class shown as Medium Yield |
+| YLO-07 | predicted_yield low | Yield class shown as Low Yield |
+| YLO-08 | API error | Error snack with message |
+
+=================================================================
+FEATURE 9: MARKET TRENDS (PRICE PREDICTION)
+=================================================================
+INPUT TEST TABLE
+| Test ID | Input Field(s) | Test Data | Expected Validation Result |
+|---|---|---|---|
+| MT-01 | Division, District, Market, Category, Commodity, Unit, PriceType, PriceFlag, Date | all selected | Pass |
+| MT-02 | Division missing | null | Error snack: Please select a Division |
+| MT-03 | District missing | null | Error snack: Please select a District |
+| MT-04 | Market missing | null | Error snack: Please select a Market |
+| MT-05 | Category missing | null | Error snack: Please select a Category |
+| MT-06 | Commodity missing | null | Error snack: Please select a Commodity |
+| MT-07 | Unit missing | null | Error snack: Please select a Unit |
+| MT-08 | Price type missing | null | Error snack: Please select a Price Type |
+| MT-09 | Price flag missing | null | Error snack: Please select a Price Flag |
+| MT-10 | Date missing | "" | Field error: Please select a date |
+| MT-11 | Market selected | any valid market | Latitude/Longitude auto-filled (read-only) |
+
+OUTPUT TEST TABLE
+| Test ID | Trigger Scenario | Expected UI Output |
+|---|---|---|
+| MTO-01 | Predict click while loading | Button disabled, shows Predicting... |
+| MTO-02 | Loaded state | Result card with predicted price, currency, commodity, market, confidence |
+| MTO-03 | predicted_price null | Result shows N/A price |
+| MTO-04 | confidence null | Confidence chip hidden/omitted |
+| MTO-05 | API error | Error snack with state message |
+| MTO-06 | Success | Snack: Price prediction ready |
+
+=================================================================
+FEATURE 10: WEATHER FORECAST
+=================================================================
+INPUT/TRIGGER TEST TABLE
+| Test ID | Input/Action | Test Data | Expected Behavior |
+|---|---|---|---|
+| WF-01 | Open forecast page | normal | Load current + hourly + daily weather |
+| WF-02 | Pull to refresh | swipe down | Re-fetch provider data |
+| WF-03 | Retry from error state | tap retry | Re-fetch provider data |
+| WF-04 | Open weekly forecast | tap View 7-Day Forecast | Navigate to weekly page |
+| WF-05 | Location permission denied | deny | Fallback to Dhaka coordinates/label |
+| WF-06 | Location services off | off | Fallback to Dhaka |
+| WF-07 | Geocoding fails | exception | Use Current Location label or fallback label |
+
+OUTPUT TEST TABLE
+| Test ID | Trigger Scenario | Expected UI Output |
+|---|---|---|
+| WFO-01 | Loading | Forecast loading state with spinner/message |
+| WFO-02 | Error | Error state widget with retry |
+| WFO-03 | Success main page | Hero header with location and coordinates |
+| WFO-04 | Success main page | Current weather summary (temp, humidity, rain, etc.) |
+| WFO-05 | Success main page | Next-hours section shown; if no hourly data, shows no-hourly-data text |
+| WFO-06 | Weekly success | 7-day list with max/min temp and rain |
+| WFO-07 | Weekly missing daily data | Weekly unavailable text |
+| WFO-08 | Weekly error | Center error text |
+
+=================================================================
+FEATURE 11: PROFILE MANAGEMENT
+=================================================================
+INPUT TEST TABLE
+| Test ID | Input Field(s) | Test Data | Expected Validation Result |
+|---|---|---|---|
+| PF-01 | Fetch profile | open profile page | Fetch event triggered |
+| PF-02 | Update name only | name non-empty, no image | Pass |
+| PF-03 | Update image only | valid png/jpg/jpeg, empty name | Pass |
+| PF-04 | Update both | name + image | Pass |
+| PF-05 | Update none | empty name + null image | Error: Please fill at list one fields |
+| PF-06 | Unsupported file format | pdf/gif | File picker should block by extension config |
+| PF-07 | Logout confirm | tap logout then confirm | Logout event triggered |
+| PF-08 | Logout cancel | tap logout then cancel | No logout event |
+
+OUTPUT TEST TABLE
+| Test ID | Trigger Scenario | Expected UI Output |
+|---|---|---|
+| PFO-01 | Profile loading | Progress indicator/Loading feedback |
+| PFO-02 | Profile loaded | Name, email, avatar shown on profile header |
+| PFO-03 | Profile fetch error | Error text/message state |
+| PFO-04 | Update loading | Snack: Loading... |
+| PFO-05 | Update success | Snack: Profile updated successfully and returns to previous page |
+| PFO-06 | Update error | Error snack with message |
+| PFO-07 | Logout loading | Snack: Logging Out... |
+| PFO-08 | Logout success | Snack: Successfully Logged Out... and bottom nav reset |
+| PFO-09 | Logout error | Error snack with message |
