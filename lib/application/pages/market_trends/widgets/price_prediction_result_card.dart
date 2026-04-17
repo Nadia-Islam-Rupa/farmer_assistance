@@ -15,6 +15,7 @@ class PricePredictionResultCard extends StatelessWidget {
     final commodity = result.commodity ?? '';
     final unit = result.unit ?? '';
     final market = result.market ?? '';
+    // ignore: unused_local_variable
     final pricetype = result.pricetype ?? '';
     final confidence = result.confidence;
 
