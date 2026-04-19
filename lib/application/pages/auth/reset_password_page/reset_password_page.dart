@@ -1,3 +1,4 @@
+import 'package:farmer_assistance/application/core/services/routing/routing_utils.dart';
 import 'package:farmer_assistance/application/core/theme/app_theme.dart';
 import 'package:farmer_assistance/application/pages/auth/reset_password_page/bloc/reset_password_bloc.dart';
 import 'package:farmer_assistance/application/pages/auth/text_container.dart';
@@ -5,6 +6,8 @@ import 'package:farmer_assistance/application/pages/auth/wave_clip.dart';
 import 'package:farmer_assistance/di/di.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../../../../utils/utils.dart';
 
@@ -30,6 +33,20 @@ class _ResetPasswordView extends StatefulWidget {
 class _ResetPasswordViewState extends State<_ResetPasswordView> {
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    // Session guard: if the user lands here without a valid recovery session
+    // (e.g. navigated directly without an email link), send them to forgot-password.
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+      final session = Supabase.instance.client.auth.currentSession;
+      if (session == null) {
+        context.go(PAGES.forgetPage.screenPath);
+      }
+    });
+  }
 
   @override
   void dispose() {
