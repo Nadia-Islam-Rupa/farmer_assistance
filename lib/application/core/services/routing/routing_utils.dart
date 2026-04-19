@@ -14,6 +14,9 @@ enum PAGES {
   cropRecommendationPage,
   updateProfilePage,
   resetPasswordPage,
+  helpSupportPage,
+  aboutPage,
+  privacyPolicyPage,
 }
 
 extension AppPageExtention on PAGES {
@@ -49,6 +52,12 @@ extension AppPageExtention on PAGES {
         return '/updateProfilePage';
       case PAGES.resetPasswordPage:
         return '/resetPasswordPage';
+      case PAGES.helpSupportPage:
+        return '/helpSupportPage';
+      case PAGES.aboutPage:
+        return '/aboutPage';
+      case PAGES.privacyPolicyPage:
+        return '/privacyPolicyPage';
     }
   }
 
@@ -84,6 +93,12 @@ extension AppPageExtention on PAGES {
         return 'Update Profile';
       case PAGES.resetPasswordPage:
         return 'Reset Password';
+      case PAGES.helpSupportPage:
+        return 'Help & Support';
+      case PAGES.aboutPage:
+        return 'About';
+      case PAGES.privacyPolicyPage:
+        return 'Privacy Policy';
     }
   }
 }
