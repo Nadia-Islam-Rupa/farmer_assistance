@@ -252,7 +252,11 @@ class Profile extends ConsumerWidget {
                           icon: Icons.help_outline,
                           title: "Help & Support",
                           subtitle: "Get assistance",
-                          onTap: () {},
+                          onTap: () {
+                            AppRouter.router.push(
+                              PAGES.helpSupportPage.screenPath,
+                            );
+                          },
                         ),
                         const SizedBox(height: 12),
                         _buildProfileCard(
@@ -260,7 +264,29 @@ class Profile extends ConsumerWidget {
                           icon: Icons.info_outline,
                           title: "About",
                           subtitle: "App version 1.0.0",
-                          onTap: () {},
+                          onTap: () {
+                            AppRouter.router.push(PAGES.aboutPage.screenPath);
+                          },
+                        ),
+                        const SizedBox(height: 12),
+                        _buildProfileCard(
+                          context,
+                          icon: Icons.privacy_tip_outlined,
+                          title: "Privacy Policy",
+                          subtitle: "How we handle your data",
+                          onTap: () {
+                            AppRouter.router.push(
+                              PAGES.privacyPolicyPage.screenPath,
+                            );
+                          },
+                        ),
+                        const SizedBox(height: 12),
+                        _buildProfileCard(
+                          context,
+                          icon: Icons.description_outlined,
+                          title: "Terms of Service",
+                          subtitle: "App usage terms and conditions",
+                          onTap: () => _showTermsDialog(context),
                         ),
                         const SizedBox(height: 20),
 
@@ -412,6 +438,45 @@ class Profile extends ConsumerWidget {
             Icon(Icons.chevron_right, color: Colors.grey.shade400),
           ],
         ),
+      ),
+    );
+  }
+
+  void _showTermsDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        title: const Text(
+          "Terms of Service",
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+        content: const SingleChildScrollView(
+          child: Text(
+            "By using Farmer Assistance, you agree to use the app for lawful agricultural purposes only. "
+            "The AI predictions and recommendations are advisory in nature and should not replace professional "
+            "agronomist advice. We reserve the right to update these terms at any time with notice.\n\n"
+            "Unauthorized use, redistribution, or commercial exploitation of the app content is prohibited. "
+            "For full terms, contact us at support@farmerassistance.com.",
+            style: TextStyle(
+              color: AppTheme.textSecondary,
+              height: 1.6,
+              fontSize: 13,
+            ),
+          ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(),
+            child: const Text(
+              "Close",
+              style: TextStyle(
+                color: AppTheme.primaryTeal,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
