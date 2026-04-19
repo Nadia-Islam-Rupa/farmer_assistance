@@ -27,6 +27,19 @@ class AuthRepositoriesIml extends AuthRepository {
   }
 
   @override
+  Future<Either<Failures, void>> resetPassword(String newPassword) async {
+    try {
+      await _supabaseClient.auth.updateUser(
+        UserAttributes(password: newPassword),
+      );
+      await _supabaseClient.auth.signOut(scope: SignOutScope.local);
+      return right(null);
+    } catch (e) {
+      return left(GeneralFailure(mapSupabaseAuthError(e)));
+    }
+  }
+
+  @override
   Future<Either<Failures, void>> logOut() async {
     try {
       final user = _supabaseClient.auth.currentUser;
