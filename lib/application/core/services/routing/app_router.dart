@@ -1,8 +1,10 @@
 import 'dart:async';
 
+import 'package:farmer_assistance/application/core/services/deep_link/deep_link_service.dart';
 import 'package:farmer_assistance/application/core/services/routing/routing_utils.dart';
 import 'package:farmer_assistance/application/pages/auth/log_dash.dart';
 import 'package:farmer_assistance/application/pages/auth/login_page/login_page.dart';
+import 'package:farmer_assistance/application/pages/auth/reset_password_page/reset_password_page.dart';
 import 'package:farmer_assistance/application/pages/bottom_nav_page/main_scaffold.dart';
 import 'package:farmer_assistance/domain/models/Crop_disease_model.dart';
 import 'package:flutter/material.dart';
@@ -17,23 +19,58 @@ import '../../../pages/crop_recommendation/crop_recommendation_page.dart';
 import '../../../pages/fertilizer/fertilizer_page.dart';
 import '../../../pages/forcast/forecast_page.dart';
 import '../../../pages/market_trends/market_trends_page.dart';
+import '../../../pages/profile/about_page.dart';
+import '../../../pages/profile/help_support_page.dart';
 import '../../../pages/profile/personal_information_page.dart';
+import '../../../pages/profile/privacy_policy_page.dart';
 import '../../../pages/water_prediction/prediction_water.dart';
 import '../../../pages/yield_prediction/yield_page.dart';
 
 class AppRouter {
   static final rootNavigatorKey = GlobalKey<NavigatorState>();
+  static final _refreshListenable = GoRouterRefreshSupabase();
+
+  /// Exposed so DeepLinkService can trigger a router re-evaluation.
+  static GoRouterRefreshSupabase get refreshListenable => _refreshListenable;
 
   static final GoRouter _router = GoRouter(
     debugLogDiagnostics: true,
     navigatorKey: rootNavigatorKey,
 
-    // 🔹 Supabase auth listener
-    refreshListenable: GoRouterRefreshSupabase(),
+    refreshListenable: _refreshListenable,
 
     redirect: (context, state) {
       final session = Supabase.instance.client.auth.currentSession;
       final user = session?.user;
+
+      // Once we've landed on the reset-password page, clear the deep-link flag
+      // so normal auth guards take over from here.
+      if (state.fullPath == PAGES.resetPasswordPage.screenPath) {
+        DeepLinkService.consumePendingRecovery();
+      }
+
+      // Once we've landed on the login page after email verification, clear the
+      // flag so normal auth guards take over from here.
+      if (state.fullPath == PAGES.loginPage.screenPath) {
+        DeepLinkService.consumePendingEmailVerification();
+      }
+
+      // Recovery from either Supabase's built-in event (app was open) OR
+      // our deep-link handler (cold/background start).
+      final isRecovery =
+          _refreshListenable.lastEvent == AuthChangeEvent.passwordRecovery ||
+          DeepLinkService.hasPendingRecovery;
+
+      if (isRecovery && state.fullPath != PAGES.resetPasswordPage.screenPath) {
+        return PAGES.resetPasswordPage.screenPath;
+      }
+
+      // Email verification: send the user directly to the login page (not the
+      // login-dash) so they can sign in immediately after confirming their email.
+      if (DeepLinkService.hasPendingEmailVerification &&
+          state.fullPath != PAGES.loginPage.screenPath) {
+        return PAGES.loginPage.screenPath;
+      }
 
       final authRoutes = [
         PAGES.loginDash.screenPath,
@@ -42,15 +79,16 @@ class AppRouter {
         PAGES.forgetPage.screenPath,
       ];
 
-      final isLoggingIn = authRoutes.contains(state.fullPath);
+      final isAuthRoute = authRoutes.contains(state.fullPath);
 
       if (user == null) {
-        // Not logged in
-        return isLoggingIn ? null : PAGES.loginDash.screenPath;
+        // Unauthenticated: allow auth routes, redirect everything else (including
+        // resetPasswordPage when session is gone after sign-out) to login dash.
+        return isAuthRoute ? null : PAGES.loginDash.screenPath;
       }
 
-      // Logged in but accessing auth pages
-      if (isLoggingIn) return PAGES.homePage.screenPath;
+      // Authenticated but on an auth route → go to home.
+      if (isAuthRoute) return PAGES.homePage.screenPath;
 
       return null;
     },
@@ -75,6 +113,10 @@ class AppRouter {
       GoRoute(
         path: PAGES.forgetPage.screenPath,
         builder: (context, state) => ForgotPasswordPage(),
+      ),
+      GoRoute(
+        path: PAGES.resetPasswordPage.screenPath,
+        builder: (context, state) => const ResetPasswordPage(),
       ),
       GoRoute(
         path: PAGES.cropDiseasePrediction.screenPath,
@@ -125,6 +167,21 @@ class AppRouter {
         name: PAGES.updateProfilePage.screenName,
         builder: (context, state) => const PersonalInformationPage(),
       ),
+      GoRoute(
+        path: PAGES.helpSupportPage.screenPath,
+        name: PAGES.helpSupportPage.screenName,
+        builder: (context, state) => const HelpSupportPage(),
+      ),
+      GoRoute(
+        path: PAGES.aboutPage.screenPath,
+        name: PAGES.aboutPage.screenName,
+        builder: (context, state) => const AboutPage(),
+      ),
+      GoRoute(
+        path: PAGES.privacyPolicyPage.screenPath,
+        name: PAGES.privacyPolicyPage.screenName,
+        builder: (context, state) => const PrivacyPolicyPage(),
+      ),
     ],
   );
 
@@ -133,17 +190,24 @@ class AppRouter {
 
 class GoRouterRefreshSupabase extends ChangeNotifier {
   late final StreamSubscription _subscription;
+  AuthChangeEvent? _lastEvent;
+
+  AuthChangeEvent? get lastEvent => _lastEvent;
 
   GoRouterRefreshSupabase() {
     _subscription = Supabase.instance.client.auth.onAuthStateChange.listen((
       data,
     ) {
+      _lastEvent = data.event;
       WidgetsBinding.instance.addPostFrameCallback((_) {
-        // AppRouter.router.refresh();
         notifyListeners();
       });
     });
   }
+
+  /// Called by DeepLinkService on hot start to force an immediate redirect
+  /// re-evaluation without waiting for an auth-state-change event.
+  void triggerRefresh() => notifyListeners();
 
   @override
   void dispose() {

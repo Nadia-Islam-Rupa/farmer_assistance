@@ -16,6 +16,8 @@ import 'package:farmer_assistance/application/pages/auth/forget_password_page/bl
     as _i430;
 import 'package:farmer_assistance/application/pages/auth/login_page/bloc/login_bloc.dart'
     as _i860;
+import 'package:farmer_assistance/application/pages/auth/reset_password_page/bloc/reset_password_bloc.dart'
+    as _i233;
 import 'package:farmer_assistance/application/pages/chatbot/bloc/chat_bloc.dart'
     as _i1025;
 import 'package:farmer_assistance/application/pages/chatbot/bloc/conversations_list_bloc.dart'
@@ -128,6 +130,9 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i430.ForgetPasswordBloc(gh<_i382.AuthUseCase>()),
     );
     gh.factory<_i860.LoginBloc>(() => _i860.LoginBloc(gh<_i382.AuthUseCase>()));
+    gh.factory<_i233.ResetPasswordBloc>(
+      () => _i233.ResetPasswordBloc(gh<_i382.AuthUseCase>()),
+    );
     gh.lazySingleton<_i160.ProfileRepository>(
       () => _i217.ProfileRepositoriesIml(gh<_i454.SupabaseClient>()),
     );

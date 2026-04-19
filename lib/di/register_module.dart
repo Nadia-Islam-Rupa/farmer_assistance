@@ -34,8 +34,8 @@ abstract class RegisterModule {
       ) {
     final dio = Dio(
       BaseOptions(
-        baseUrl: "http://192.168.0.117:8000",
-        // baseUrl: 'http://10.42.0.1:8000',
+        // baseUrl: "http://192.168.0.117:8000",
+        baseUrl: 'http://20.6.88.5:8000/',
         // baseUrl: 'http://192.168.0.105:8000',
         // baseUrl: 'http://172.19.10.122:8000',
         connectTimeout: const Duration(seconds: 30),

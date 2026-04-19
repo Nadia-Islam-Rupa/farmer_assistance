@@ -76,7 +76,7 @@ class LoginPages extends StatelessWidget {
                       SizedBox(height: 10),
                       GestureDetector(
                         onTap: () {
-                          AppRouter.router.pushReplacement(
+                          AppRouter.router.push(
                             PAGES.forgetPage.screenPath,
                           );
                         },

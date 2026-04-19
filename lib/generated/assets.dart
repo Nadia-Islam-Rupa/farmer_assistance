@@ -6,12 +6,21 @@ import 'package:flutter_svg/flutter_svg.dart';
 class Assets {
   Assets._();
 
-  static const AssetGenImage agriculture = AssetGenImage(
+  static const AssetGenImage appIcon = AssetGenImage(
+    'assets/app icon/app_icon.png',
+  );
+  static const $AssetsAssetsGen assets = $AssetsAssetsGen();
+}
+
+class $AssetsAssetsGen {
+  const $AssetsAssetsGen();
+
+  final AssetGenImage agriculture = const AssetGenImage(
     'assets/agriculture.png',
   );
-  static const AssetGenImage facebook = AssetGenImage('assets/facebook.png');
-  static const AssetGenImage google = AssetGenImage('assets/google.png');
-  static const AssetGenImage linkedin = AssetGenImage('assets/linkedin.png');
+  final AssetGenImage facebook = const AssetGenImage('assets/facebook.png');
+  final AssetGenImage google = const AssetGenImage('assets/google.png');
+  final AssetGenImage linkedin = const AssetGenImage('assets/linkedin.png');
 }
 
 class AssetGenImage {
@@ -78,81 +87,6 @@ class AssetGenImage {
   ImageProvider provider({AssetBundle? bundle, String? package}) {
     return AssetImage(_assetName, bundle: bundle, package: package);
   }
-
-  Widget custom({
-    Key? key,
-    required Widget Function(BuildContext context, String assetPath) builder,
-  }) {
-    return Builder(
-      key: key,
-      builder: (context) => builder(context, _assetName),
-    );
-  }
-
-  String get path => _assetName;
-
-  String get keyName => _assetName;
-}
-
-class SvgGenImage {
-  const SvgGenImage(this._assetName);
-
-  final String _assetName;
-
-  SvgPicture svg({
-    Key? key,
-    bool matchTextDirection = false,
-    AssetBundle? bundle,
-    String? package,
-    double? width,
-    double? height,
-    BoxFit fit = BoxFit.contain,
-    AlignmentGeometry alignment = Alignment.center,
-    bool allowDrawingOutsideViewBox = false,
-    WidgetBuilder? placeholderBuilder,
-    String? semanticsLabel,
-    bool excludeFromSemantics = false,
-    SvgTheme? theme,
-    Clip clipBehavior = Clip.hardEdge,
-  }) {
-    return SvgPicture.asset(
-      _assetName,
-      key: key,
-      matchTextDirection: matchTextDirection,
-      bundle: bundle,
-      package: package,
-      width: width,
-      height: height,
-      fit: fit,
-      alignment: alignment,
-      allowDrawingOutsideViewBox: allowDrawingOutsideViewBox,
-      placeholderBuilder: placeholderBuilder,
-      semanticsLabel: semanticsLabel,
-      excludeFromSemantics: excludeFromSemantics,
-      theme: theme,
-      clipBehavior: clipBehavior,
-    );
-  }
-
-  Widget custom({
-    Key? key,
-    required Widget Function(BuildContext context, String assetPath) builder,
-  }) {
-    return Builder(
-      key: key,
-      builder: (context) => builder(context, _assetName),
-    );
-  }
-
-  String get path => _assetName;
-
-  String get keyName => _assetName;
-}
-
-class LottieGenImage {
-  const LottieGenImage(this._assetName);
-
-  final String _assetName;
 
   Widget custom({
     Key? key,

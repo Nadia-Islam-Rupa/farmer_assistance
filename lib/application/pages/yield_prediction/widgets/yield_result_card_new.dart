@@ -93,9 +93,6 @@ class _YieldResultCardState extends State<YieldResultCard>
     final predictedYield = widget.result.predictedYield ?? 0;
     // Determine yield class based on predicted yield value
     final yieldClass = _getYieldClass(predictedYield);
-    final confidencePercent = ((widget.result.confidence ?? 0) * 100)
-        .toStringAsFixed(1);
-
     final isHighYield = yieldClass.toLowerCase().contains('high');
     final cardColor = isHighYield
         ? AppTheme.primaryTeal
@@ -253,68 +250,6 @@ class _YieldResultCardState extends State<YieldResultCard>
                                 ),
                               ),
                             ],
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(height: 16),
-                    Container(
-                      padding: const EdgeInsets.all(14),
-                      decoration: BoxDecoration(
-                        color: const Color(0xffF8FCFB),
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: Row(
-                        children: [
-                          Icon(
-                            Icons.analytics_outlined,
-                            color: AppTheme.deepTeal,
-                            size: 22,
-                          ),
-                          const SizedBox(width: 10),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'Confidence Level',
-                                  style: widget.textTheme.bodySmall?.copyWith(
-                                    color: const Color(0xff5D7D78),
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                ),
-                                const SizedBox(height: 4),
-                                Row(
-                                  children: [
-                                    Expanded(
-                                      child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(8),
-                                        child: LinearProgressIndicator(
-                                          value: widget.result.confidence ?? 0,
-                                          backgroundColor: const Color(
-                                            0xffD3E6E2,
-                                          ),
-                                          valueColor:
-                                              AlwaysStoppedAnimation<Color>(
-                                                cardColor,
-                                              ),
-                                          minHeight: 8,
-                                        ),
-                                      ),
-                                    ),
-                                    const SizedBox(width: 10),
-                                    Text(
-                                      '$confidencePercent%',
-                                      style: widget.textTheme.bodyMedium
-                                          ?.copyWith(
-                                            fontWeight: FontWeight.w700,
-                                            color: cardColor,
-                                          ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
                           ),
                         ],
                       ),

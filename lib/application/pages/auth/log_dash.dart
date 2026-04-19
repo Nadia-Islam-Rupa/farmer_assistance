@@ -30,13 +30,25 @@ class LoginScreenPage extends StatelessWidget {
       body: BlocListener<LoginBloc, LoginState>(
         listener: (context, state) {
           if (state is LoadingLoginState) {
-            return Utils.showSnackBar(context, "Logging in...",AppTheme.primaryTeal);
+            return Utils.showSnackBar(
+              context,
+              "Logging in...",
+              AppTheme.primaryTeal,
+            );
           }
           if (state is ErrorLoginState) {
-            return Utils.showSnackBar(context, state.message,AppTheme.errorRed);
+            return Utils.showSnackBar(
+              context,
+              state.message,
+              AppTheme.errorRed,
+            );
           }
           if (state is SuccessLoginState) {
-            return Utils.showSnackBar(context, "Welcome To FarmAI",AppTheme.primaryTeal);
+            return Utils.showSnackBar(
+              context,
+              "Welcome To FarmAI",
+              AppTheme.primaryTeal,
+            );
           }
         },
         child: SingleChildScrollView(
@@ -111,34 +123,34 @@ class LoginScreenPage extends StatelessWidget {
                     ),
                     const SizedBox(height: 20),
 
-                    const Center(child: Text("OR")),
+                    // const Center(child: Text("OR")),
 
-                    const SizedBox(height: 16),
+                    // const SizedBox(height: 16),
 
-                    // 🔹 Social Icons
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        socialIcon("assets/facebook.png"),
-                        GestureDetector(
-                          onTap: () {
-                            context.read<LoginBloc>().add(
-                              const LoginEvent.loginWithGoogle(),
-                            );
-                          },
-                          child: socialIcon("assets/google.png"),
-                        ),
-                        socialIcon("assets/linkedin.png"),
-                      ],
-                    ),
+                    // // 🔹 Social Icons
+                    // Row(
+                    //   mainAxisAlignment: MainAxisAlignment.center,
+                    //   children: [
+                    //     socialIcon("assets/facebook.png"),
+                    //     GestureDetector(
+                    //       onTap: () {
+                    //         context.read<LoginBloc>().add(
+                    //           const LoginEvent.loginWithGoogle(),
+                    //         );
+                    //       },
+                    //       child: socialIcon("assets/google.png"),
+                    //     ),
+                    //     socialIcon("assets/linkedin.png"),
+                    //   ],
+                    // ),
 
-                    const SizedBox(height: 20),
-                    Center(
-                      child: Text(
-                        "Sign in with another account",
-                        style: TextStyle(color: Colors.grey[600], fontSize: 14),
-                      ),
-                    ),
+                    // const SizedBox(height: 20),
+                    // Center(
+                    //   child: Text(
+                    //     "Sign in with another account",
+                    //     style: TextStyle(color: Colors.grey[600], fontSize: 14),
+                    //   ),
+                    // ),
                   ],
                 ),
               ),
