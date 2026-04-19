@@ -39,4 +39,8 @@ class AuthUseCase {
   Future<Either<Failures, void>> forgotPassword(String email) async {
     return await _authRepository.forgotPassword(email);
   }
+
+  Future<Either<Failures, void>> resetPassword(String newPassword) async {
+    return await _authRepository.resetPassword(newPassword);
+  }
 }
