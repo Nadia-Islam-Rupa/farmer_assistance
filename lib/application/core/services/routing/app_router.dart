@@ -46,6 +46,12 @@ class AppRouter {
         DeepLinkService.consumePendingRecovery();
       }
 
+      // Once we've landed on the login page after email verification, clear the
+      // flag so normal auth guards take over from here.
+      if (state.fullPath == PAGES.loginPage.screenPath) {
+        DeepLinkService.consumePendingEmailVerification();
+      }
+
       // Recovery from either Supabase's built-in event (app was open) OR
       // our deep-link handler (cold/background start).
       final isRecovery =
@@ -54,6 +60,13 @@ class AppRouter {
 
       if (isRecovery && state.fullPath != PAGES.resetPasswordPage.screenPath) {
         return PAGES.resetPasswordPage.screenPath;
+      }
+
+      // Email verification: send the user directly to the login page (not the
+      // login-dash) so they can sign in immediately after confirming their email.
+      if (DeepLinkService.hasPendingEmailVerification &&
+          state.fullPath != PAGES.loginPage.screenPath) {
+        return PAGES.loginPage.screenPath;
       }
 
       final authRoutes = [
