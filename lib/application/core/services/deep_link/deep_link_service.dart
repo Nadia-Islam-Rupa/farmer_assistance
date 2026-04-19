@@ -1,35 +1,41 @@
 import 'dart:async';
 
 import 'package:app_links/app_links.dart';
+import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import '../routing/app_router.dart';
 
-/// Handles incoming deep links for the password-recovery flow.
+/// Handles incoming deep links for both the password-recovery and
+/// email-confirmation (signup verification) flows.
 ///
 /// Works for both:
 ///   • Cold start  – app was closed when the user tapped the email link.
 ///   • Hot start   – app was in the background / foreground.
-///
-/// Flow:
-///   1. Parse the deep-link URI fragment for `access_token` and `type=recovery`.
-///   2. Call `auth.setSession()` to establish an authenticated Supabase session.
-///   3. Set [hasPendingRecovery] so the GoRouter redirect sends the user to the
-///      reset-password page regardless of when the router was initialised.
 class DeepLinkService {
   // ---------------------------------------------------------------------------
-  // Static flag – readable by AppRouter.redirect before the router exists.
+  // Static flags – readable by AppRouter.redirect before the router exists.
   // ---------------------------------------------------------------------------
 
   static bool _pendingRecovery = false;
+  static bool _pendingEmailVerification = false;
 
   /// True when a valid recovery deep link has been processed and GoRouter has
   /// not yet navigated to the reset-password page.
   static bool get hasPendingRecovery => _pendingRecovery;
 
+  /// True when a signup-confirmation deep link has been processed and GoRouter
+  /// has not yet navigated to the login page.
+  static bool get hasPendingEmailVerification => _pendingEmailVerification;
+
   /// Called by AppRouter.redirect once the user has been sent to the
   /// reset-password page, so future redirects are not affected.
   static void consumePendingRecovery() => _pendingRecovery = false;
+
+  /// Called by AppRouter.redirect once the user has been sent to the
+  /// login page after email verification.
+  static void consumePendingEmailVerification() =>
+      _pendingEmailVerification = false;
 
   // ---------------------------------------------------------------------------
   // Instance – owns the app_links subscription.
@@ -56,9 +62,20 @@ class DeepLinkService {
 
     // Supabase appends session data as a URL fragment, e.g.:
     //   myapp://reset-password#access_token=…&refresh_token=…&type=recovery
+    //   myapp://reset-password#access_token=…&refresh_token=…&type=signup
     final params = Uri.splitQueryString(uri.fragment);
-    if (params['type'] != 'recovery') return;
+    final type = params['type'];
 
+    if (type == 'recovery') {
+      await _handleRecovery(params);
+    } else if (type == 'signup') {
+      await _handleEmailVerification(params);
+    }
+  }
+
+  // ── Password recovery ──────────────────────────────────────────────────────
+
+  Future<void> _handleRecovery(Map<String, String> params) async {
     final accessToken = params['access_token'];
     if (accessToken == null) return;
 
@@ -72,11 +89,47 @@ class DeepLinkService {
     }
 
     _pendingRecovery = true;
-
-    // Hot start: GoRouter is already running, so force an immediate redirect
-    // re-evaluation.  For cold start this is a no-op (no listeners yet) but
-    // the static flag above will be read by the redirect on its first run.
     AppRouter.refreshListenable.triggerRefresh();
+  }
+
+  // ── Email / signup confirmation ────────────────────────────────────────────
+
+  Future<void> _handleEmailVerification(Map<String, String> params) async {
+    final refreshToken = params['refresh_token'];
+    if (refreshToken == null) return;
+
+    try {
+      // Confirm the email by exchanging the refresh token Supabase issued.
+      await Supabase.instance.client.auth.setSession(refreshToken);
+      // Immediately sign out so the user lands on the login page unauthenticated.
+      await Supabase.instance.client.auth.signOut();
+    } catch (_) {
+      // Expired / already-used token – silently ignore.
+      return;
+    }
+
+    _pendingEmailVerification = true;
+
+    // Hot start: force an immediate router re-evaluation.
+    // Cold start: the static flag is read by the redirect on its first run.
+    AppRouter.refreshListenable.triggerRefresh();
+
+    // Show success snackbar after GoRouter has finished navigating to the
+    // login page (two post-frame callbacks give the router enough time).
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        final ctx = AppRouter.rootNavigatorKey.currentContext;
+        if (ctx != null) {
+          ScaffoldMessenger.of(ctx).showSnackBar(
+            const SnackBar(
+              content: Text('Email verified successfully. Please login.'),
+              backgroundColor: Color(0xFF008080),
+              duration: Duration(seconds: 4),
+            ),
+          );
+        }
+      });
+    });
   }
 
   void dispose() => _sub?.cancel();
