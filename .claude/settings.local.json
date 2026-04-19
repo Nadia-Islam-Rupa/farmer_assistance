@@ -6,7 +6,8 @@
       "Bash(grep -v \"^$\")",
       "Bash(perl -i -0pe 's/const Color\\\\\\(\\\\s*\\\\n\\\\s*0xff26A69A,\\\\s*\\\\n\\\\s*\\\\\\)\\\\.withValues\\\\\\(alpha: 0\\\\.15\\\\\\)/AppTheme.lightTeal.withValues\\(alpha: 0.15\\)/g' lib/application/pages/crop_disease_detection/disease_upload.dart lib/application/pages/crop_disease_detection/crop_disease_result_screen.dart)",
       "Bash(flutter pub:*)",
-      "Bash(grep -E \"\\\\.dart$\")"
+      "Bash(grep -E \"\\\\.dart$\")",
+      "Bash(flutter build *)"
     ]
   }
 }
