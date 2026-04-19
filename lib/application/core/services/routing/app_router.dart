@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:farmer_assistance/application/core/services/routing/routing_utils.dart';
 import 'package:farmer_assistance/application/pages/auth/log_dash.dart';
 import 'package:farmer_assistance/application/pages/auth/login_page/login_page.dart';
+import 'package:farmer_assistance/application/pages/auth/reset_password_page/reset_password_page.dart';
 import 'package:farmer_assistance/application/pages/bottom_nav_page/main_scaffold.dart';
 import 'package:farmer_assistance/domain/models/Crop_disease_model.dart';
 import 'package:flutter/material.dart';
@@ -23,17 +24,24 @@ import '../../../pages/yield_prediction/yield_page.dart';
 
 class AppRouter {
   static final rootNavigatorKey = GlobalKey<NavigatorState>();
+  static final _refreshListenable = GoRouterRefreshSupabase();
 
   static final GoRouter _router = GoRouter(
     debugLogDiagnostics: true,
     navigatorKey: rootNavigatorKey,
 
-    // 🔹 Supabase auth listener
-    refreshListenable: GoRouterRefreshSupabase(),
+    refreshListenable: _refreshListenable,
 
     redirect: (context, state) {
       final session = Supabase.instance.client.auth.currentSession;
       final user = session?.user;
+
+      // When Supabase fires passwordRecovery (user clicked reset email link),
+      // redirect to the reset password page if not already there.
+      if (_refreshListenable.lastEvent == AuthChangeEvent.passwordRecovery &&
+          state.fullPath != PAGES.resetPasswordPage.screenPath) {
+        return PAGES.resetPasswordPage.screenPath;
+      }
 
       final authRoutes = [
         PAGES.loginDash.screenPath,
@@ -42,15 +50,16 @@ class AppRouter {
         PAGES.forgetPage.screenPath,
       ];
 
-      final isLoggingIn = authRoutes.contains(state.fullPath);
+      final isAuthRoute = authRoutes.contains(state.fullPath);
 
       if (user == null) {
-        // Not logged in
-        return isLoggingIn ? null : PAGES.loginDash.screenPath;
+        // Unauthenticated: allow auth routes, redirect everything else (including
+        // resetPasswordPage when session is gone after sign-out) to login dash.
+        return isAuthRoute ? null : PAGES.loginDash.screenPath;
       }
 
-      // Logged in but accessing auth pages
-      if (isLoggingIn) return PAGES.homePage.screenPath;
+      // Authenticated but on an auth route → go to home.
+      if (isAuthRoute) return PAGES.homePage.screenPath;
 
       return null;
     },
@@ -75,6 +84,10 @@ class AppRouter {
       GoRoute(
         path: PAGES.forgetPage.screenPath,
         builder: (context, state) => ForgotPasswordPage(),
+      ),
+      GoRoute(
+        path: PAGES.resetPasswordPage.screenPath,
+        builder: (context, state) => const ResetPasswordPage(),
       ),
       GoRoute(
         path: PAGES.cropDiseasePrediction.screenPath,
@@ -133,13 +146,16 @@ class AppRouter {
 
 class GoRouterRefreshSupabase extends ChangeNotifier {
   late final StreamSubscription _subscription;
+  AuthChangeEvent? _lastEvent;
+
+  AuthChangeEvent? get lastEvent => _lastEvent;
 
   GoRouterRefreshSupabase() {
     _subscription = Supabase.instance.client.auth.onAuthStateChange.listen((
       data,
     ) {
+      _lastEvent = data.event;
       WidgetsBinding.instance.addPostFrameCallback((_) {
-        // AppRouter.router.refresh();
         notifyListeners();
       });
     });
