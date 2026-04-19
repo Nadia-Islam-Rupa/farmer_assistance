@@ -32,7 +32,7 @@ class UploadLeaf extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Disease Detection'),
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios_new_rounded),
+          icon: const Icon(Icons.arrow_back),
           onPressed: () => Navigator.pop(context),
         ),
       ),
