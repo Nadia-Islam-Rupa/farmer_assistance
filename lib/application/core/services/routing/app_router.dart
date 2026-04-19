@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:farmer_assistance/application/core/services/deep_link/deep_link_service.dart';
 import 'package:farmer_assistance/application/core/services/routing/routing_utils.dart';
 import 'package:farmer_assistance/application/pages/auth/log_dash.dart';
 import 'package:farmer_assistance/application/pages/auth/login_page/login_page.dart';
@@ -26,6 +27,9 @@ class AppRouter {
   static final rootNavigatorKey = GlobalKey<NavigatorState>();
   static final _refreshListenable = GoRouterRefreshSupabase();
 
+  /// Exposed so DeepLinkService can trigger a router re-evaluation.
+  static GoRouterRefreshSupabase get refreshListenable => _refreshListenable;
+
   static final GoRouter _router = GoRouter(
     debugLogDiagnostics: true,
     navigatorKey: rootNavigatorKey,
@@ -36,10 +40,19 @@ class AppRouter {
       final session = Supabase.instance.client.auth.currentSession;
       final user = session?.user;
 
-      // When Supabase fires passwordRecovery (user clicked reset email link),
-      // redirect to the reset password page if not already there.
-      if (_refreshListenable.lastEvent == AuthChangeEvent.passwordRecovery &&
-          state.fullPath != PAGES.resetPasswordPage.screenPath) {
+      // Once we've landed on the reset-password page, clear the deep-link flag
+      // so normal auth guards take over from here.
+      if (state.fullPath == PAGES.resetPasswordPage.screenPath) {
+        DeepLinkService.consumePendingRecovery();
+      }
+
+      // Recovery from either Supabase's built-in event (app was open) OR
+      // our deep-link handler (cold/background start).
+      final isRecovery =
+          _refreshListenable.lastEvent == AuthChangeEvent.passwordRecovery ||
+          DeepLinkService.hasPendingRecovery;
+
+      if (isRecovery && state.fullPath != PAGES.resetPasswordPage.screenPath) {
         return PAGES.resetPasswordPage.screenPath;
       }
 
@@ -160,6 +173,10 @@ class GoRouterRefreshSupabase extends ChangeNotifier {
       });
     });
   }
+
+  /// Called by DeepLinkService on hot start to force an immediate redirect
+  /// re-evaluation without waiting for an auth-state-change event.
+  void triggerRefresh() => notifyListeners();
 
   @override
   void dispose() {
