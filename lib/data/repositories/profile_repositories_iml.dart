@@ -76,10 +76,7 @@ class ProfileRepositoriesIml extends ProfileRepository {
             .getPublicUrl(filePath);
       }
       // 👉 Update database
-      await _supabaseClient
-          .from('users')
-          .update({if (name.isNotEmpty) 'name': name, 'avatar_url': ?imageUrl})
-          .eq('uuid', userId);
+      await _supabaseClient.from('users').update({if (name.isNotEmpty) 'name': name, 'avatar_url': ?imageUrl}).eq('uuid', userId);
 
       return Right(null);
     } catch (e) {
