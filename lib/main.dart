@@ -1,3 +1,4 @@
+import 'package:farmer_assistance/application/core/services/deep_link/deep_link_service.dart';
 import 'package:farmer_assistance/application/core/services/routing/app_router.dart';
 import 'package:farmer_assistance/application/core/theme/app_theme.dart';
 import 'package:flutter/material.dart';
@@ -5,6 +6,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'di/di.dart';
+
+// Kept alive for the full app lifetime so the uni_links subscription stays active.
+final _deepLinkService = DeepLinkService();
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -16,6 +20,16 @@ void main() async {
   );
 
   await configureDependencies();
+
+  // Force-initialise GoRouterRefreshSupabase so it subscribes to Supabase auth
+  // events BEFORE _deepLinkService calls setSession().  Without this touch,
+  // a cold-start recovery link fires its event before the listener exists
+  // and _lastEvent would never become passwordRecovery.
+  // ignore: unnecessary_statements
+  AppRouter.refreshListenable;
+
+  await _deepLinkService.init();
+
   runApp(ProviderScope(child: const MyApp()));
 }
 
