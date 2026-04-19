@@ -82,7 +82,7 @@ class HomePage extends StatelessWidget {
                         },
                         child: FeatureCard(
                           icon: Icons.science_outlined,
-                          title: "Fertilizer Tips",
+                          title: "Fertilizer Recommendation",
                           subtitle: "Best fertilizer advice",
                           color: AppTheme.warningOrange,
                         ),
