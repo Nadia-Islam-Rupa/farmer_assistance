@@ -64,9 +64,6 @@ class _FertilizerResultCardState extends State<FertilizerResultCard>
 
   @override
   Widget build(BuildContext context) {
-    final confidencePercent = ((widget.result.confidence ?? 0) * 100)
-        .toStringAsFixed(1);
-
     return FadeTransition(
       opacity: _fadeAnimation,
       child: SlideTransition(
@@ -182,18 +179,6 @@ class _FertilizerResultCardState extends State<FertilizerResultCard>
                       ),
                     ),
                     const SizedBox(height: 20),
-
-                    // Confidence metric - centered
-                    Center(
-                      child: _MetricBox(
-                        label: 'Prediction Confidence',
-                        value: '$confidencePercent%',
-                        icon: Icons.analytics_outlined,
-                        color: AppTheme.primaryTeal,
-                        textTheme: widget.textTheme,
-                      ),
-                    ),
-                    const SizedBox(height: 18),
 
                     // Feature importance with enhanced visualization
                     if (widget.result.featureImportance?.features != null &&
@@ -404,86 +389,6 @@ class _FertilizerResultCardState extends State<FertilizerResultCard>
               : word[0].toUpperCase() + word.substring(1).toLowerCase(),
         )
         .join(' ');
-  }
-}
-
-class _MetricBox extends StatelessWidget {
-  const _MetricBox({
-    required this.label,
-    required this.value,
-    required this.icon,
-    required this.color,
-    required this.textTheme,
-  });
-
-  final String label;
-  final String value;
-  final IconData icon;
-  final Color color;
-  final TextTheme textTheme;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: [
-            color.withValues(alpha: 0.12),
-            color.withValues(alpha: 0.06),
-          ],
-        ),
-        borderRadius: BorderRadius.circular(14),
-        border: Border.all(color: color.withValues(alpha: 0.3), width: 1.5),
-        boxShadow: [
-          BoxShadow(
-            color: color.withValues(alpha: 0.1),
-            blurRadius: 8,
-            offset: const Offset(0, 4),
-          ),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Container(
-            padding: const EdgeInsets.all(8),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(10),
-              boxShadow: [
-                BoxShadow(
-                  color: color.withValues(alpha: 0.2),
-                  blurRadius: 4,
-                  offset: const Offset(0, 2),
-                ),
-              ],
-            ),
-            child: Icon(icon, color: color, size: 22),
-          ),
-          const SizedBox(height: 12),
-          Text(
-            value,
-            style: textTheme.titleMedium?.copyWith(
-              fontWeight: FontWeight.w800,
-              color: color,
-              fontSize: 20,
-            ),
-          ),
-          const SizedBox(height: 2),
-          Text(
-            label,
-            style: textTheme.bodySmall?.copyWith(
-              color: Colors.grey.shade700,
-              fontSize: 12,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-        ],
-      ),
-    );
   }
 }
 
