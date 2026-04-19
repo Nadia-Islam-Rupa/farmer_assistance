@@ -9,7 +9,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../../utils/utils.dart';
 import '../../core/services/routing/routing_utils.dart';
 import '../bottom_nav_page/providers/bottom_nav_provider.dart';
 import 'bloc/profile_bloc.dart';
@@ -44,20 +43,40 @@ class Profile extends ConsumerWidget {
         body: BlocListener<LoginBloc, LoginState>(
           listener: (context, state) {
             if (state is LoadingLoginState) {
-              Utils.showSnackBar(
-                context,
-                "Logging Out...",
-                AppTheme.primaryTeal,
+              final messenger = ScaffoldMessenger.of(context);
+
+              messenger.clearSnackBars();
+
+              messenger.showSnackBar(
+                SnackBar(
+                  content: Text("Logging Out..."),
+                  backgroundColor: AppTheme.primaryTeal,
+                  duration: const Duration(days: 1),
+                ),
               );
             }
             if (state is ErrorLoginState) {
-              Utils.showSnackBar(context, state.message, AppTheme.errorRed);
+              final messenger = ScaffoldMessenger.of(context);
+
+              messenger.hideCurrentSnackBar();
+
+              messenger.showSnackBar(
+                SnackBar(
+                  content: Text(state.message),
+                  backgroundColor: AppTheme.errorRed,
+                ),
+              );
             }
             if (state is LogOutSuccessState) {
-              Utils.showSnackBar(
-                context,
-                "Successfully Logged Out...!",
-                AppTheme.primaryTeal,
+              final messenger = ScaffoldMessenger.of(context);
+
+              messenger.hideCurrentSnackBar();
+
+              messenger.showSnackBar(
+                SnackBar(
+                  content: Text("Successfully Logged Out...!"),
+                  backgroundColor: AppTheme.primaryTeal,
+                ),
               );
               ref.invalidate(bottomNavProvider);
               // Navigator.pop(context);
