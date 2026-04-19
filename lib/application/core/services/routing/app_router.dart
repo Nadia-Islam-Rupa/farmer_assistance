@@ -19,7 +19,10 @@ import '../../../pages/crop_recommendation/crop_recommendation_page.dart';
 import '../../../pages/fertilizer/fertilizer_page.dart';
 import '../../../pages/forcast/forecast_page.dart';
 import '../../../pages/market_trends/market_trends_page.dart';
+import '../../../pages/profile/about_page.dart';
+import '../../../pages/profile/help_support_page.dart';
 import '../../../pages/profile/personal_information_page.dart';
+import '../../../pages/profile/privacy_policy_page.dart';
 import '../../../pages/water_prediction/prediction_water.dart';
 import '../../../pages/yield_prediction/yield_page.dart';
 
@@ -163,6 +166,21 @@ class AppRouter {
         path: PAGES.updateProfilePage.screenPath,
         name: PAGES.updateProfilePage.screenName,
         builder: (context, state) => const PersonalInformationPage(),
+      ),
+      GoRoute(
+        path: PAGES.helpSupportPage.screenPath,
+        name: PAGES.helpSupportPage.screenName,
+        builder: (context, state) => const HelpSupportPage(),
+      ),
+      GoRoute(
+        path: PAGES.aboutPage.screenPath,
+        name: PAGES.aboutPage.screenName,
+        builder: (context, state) => const AboutPage(),
+      ),
+      GoRoute(
+        path: PAGES.privacyPolicyPage.screenPath,
+        name: PAGES.privacyPolicyPage.screenName,
+        builder: (context, state) => const PrivacyPolicyPage(),
       ),
     ],
   );
