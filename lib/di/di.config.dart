@@ -137,26 +137,38 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i217.ProfileRepositoriesIml(gh<_i454.SupabaseClient>()),
     );
     gh.factory<_i991.ApiService>(() => _i991.ApiService(gh<_i361.Dio>()));
-    gh.factory<_i773.PricePredictionRepository>(
-      () => _i670.PricePredictionRepositoryImpl(gh<_i991.ApiService>()),
-    );
-    gh.factory<_i421.FertilizerTipsRepository>(
-      () => _i674.FertilizerTipsRepositoriesIml(gh<_i991.ApiService>()),
+    gh.factory<_i835.SmartIrrigationRepository>(
+      () => _i537.SmartIrrigationRepositoriesIml(
+        gh<_i991.ApiService>(),
+        gh<_i454.SupabaseClient>(),
+      ),
     );
     gh.factory<_i434.CropRecommendationRepository>(
-      () => _i733.CropRecommendationRepositoriesIml(gh<_i991.ApiService>()),
-    );
-    gh.factory<_i612.YieldEstimationRepository>(
-      () => _i158.YieldEstimationRepositoriesIml(gh<_i991.ApiService>()),
-    );
-    gh.factory<_i574.YieldEstimationUseCase>(
-      () => _i574.YieldEstimationUseCase(gh<_i612.YieldEstimationRepository>()),
-    );
-    gh.factory<_i835.SmartIrrigationRepository>(
-      () => _i537.SmartIrrigationRepositoriesIml(gh<_i991.ApiService>()),
+      () => _i733.CropRecommendationRepositoriesIml(
+        gh<_i991.ApiService>(),
+        gh<_i454.SupabaseClient>(),
+      ),
     );
     gh.factory<_i350.ChatRepository>(
       () => _i830.ChatRepositoryImpl(gh<_i991.ApiService>()),
+    );
+    gh.factory<_i612.YieldEstimationRepository>(
+      () => _i158.YieldEstimationRepositoriesIml(
+        gh<_i991.ApiService>(),
+        gh<_i454.SupabaseClient>(),
+      ),
+    );
+    gh.factory<_i421.FertilizerTipsRepository>(
+      () => _i674.FertilizerTipsRepositoriesIml(
+        gh<_i991.ApiService>(),
+        gh<_i454.SupabaseClient>(),
+      ),
+    );
+    gh.factory<_i773.PricePredictionRepository>(
+      () => _i670.PricePredictionRepositoryImpl(
+        gh<_i991.ApiService>(),
+        gh<_i454.SupabaseClient>(),
+      ),
     );
     gh.factory<_i735.ChatUseCase>(
       () => _i735.ChatUseCase(gh<_i350.ChatRepository>()),
@@ -198,10 +210,8 @@ extension GetItInjectableX on _i174.GetIt {
         pricePredictionUseCase: gh<_i471.PricePredictionUseCase>(),
       ),
     );
-    gh.factory<_i333.YieldPredictionBloc>(
-      () => _i333.YieldPredictionBloc(
-        yieldEstimationUseCase: gh<_i574.YieldEstimationUseCase>(),
-      ),
+    gh.factory<_i574.YieldEstimationUseCase>(
+      () => _i574.YieldEstimationUseCase(gh<_i612.YieldEstimationRepository>()),
     );
     gh.factory<_i993.FertilizerBloc>(
       () => _i993.FertilizerBloc(
@@ -219,6 +229,11 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i376.CropDiseaseBloc>(
       () => _i376.CropDiseaseBloc(gh<_i347.CropDiseaseUseCase>()),
+    );
+    gh.factory<_i333.YieldPredictionBloc>(
+      () => _i333.YieldPredictionBloc(
+        yieldEstimationUseCase: gh<_i574.YieldEstimationUseCase>(),
+      ),
     );
     return this;
   }
