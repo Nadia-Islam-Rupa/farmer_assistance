@@ -452,7 +452,7 @@ class AboutPage extends StatelessWidget {
             const SizedBox(height: 10),
             _buildInfoRow(Icons.build_circle_outlined, "Framework", "Flutter"),
             const SizedBox(height: 10),
-            _buildInfoRow(Icons.calendar_today_outlined, "Released", "2024"),
+            _buildInfoRow(Icons.calendar_today_outlined, "Released", "2026"),
           ],
         ),
       ),
@@ -506,7 +506,7 @@ class AboutPage extends StatelessWidget {
         ),
         const SizedBox(height: 4),
         Text(
-          "© 2024 Farmer Assistance Team. All rights reserved.",
+          "© 2026 Farmer Assistance Team. All rights reserved.",
           style: TextStyle(fontSize: 11, color: Colors.grey.shade500),
         ),
       ],
