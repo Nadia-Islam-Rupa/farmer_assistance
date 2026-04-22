@@ -50,7 +50,7 @@ class ForecastHeroHeader extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Text(
-                    'Weather Forecast',
+                    'Weather Insights',
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
