@@ -17,6 +17,7 @@ enum PAGES {
   helpSupportPage,
   aboutPage,
   privacyPolicyPage,
+  historyPage,
 }
 
 extension AppPageExtention on PAGES {
@@ -58,6 +59,8 @@ extension AppPageExtention on PAGES {
         return '/aboutPage';
       case PAGES.privacyPolicyPage:
         return '/privacyPolicyPage';
+      case PAGES.historyPage:
+        return '/historyPage';
     }
   }
 
@@ -99,6 +102,8 @@ extension AppPageExtention on PAGES {
         return 'About';
       case PAGES.privacyPolicyPage:
         return 'Privacy Policy';
+      case PAGES.historyPage:
+        return 'History';
     }
   }
 }

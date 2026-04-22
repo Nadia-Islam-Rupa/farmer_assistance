@@ -21,6 +21,7 @@ import '../../../pages/forcast/forecast_page.dart';
 import '../../../pages/market_trends/market_trends_page.dart';
 import '../../../pages/profile/about_page.dart';
 import '../../../pages/profile/help_support_page.dart';
+import '../../../pages/profile/history_page.dart';
 import '../../../pages/profile/personal_information_page.dart';
 import '../../../pages/profile/privacy_policy_page.dart';
 import '../../../pages/water_prediction/prediction_water.dart';
@@ -181,6 +182,11 @@ class AppRouter {
         path: PAGES.privacyPolicyPage.screenPath,
         name: PAGES.privacyPolicyPage.screenName,
         builder: (context, state) => const PrivacyPolicyPage(),
+      ),
+      GoRoute(
+        path: PAGES.historyPage.screenPath,
+        name: PAGES.historyPage.screenName,
+        builder: (context, state) => const HistoryPage(),
       ),
     ],
   );

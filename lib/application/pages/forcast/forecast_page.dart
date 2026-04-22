@@ -60,7 +60,7 @@ class ForecastPage extends ConsumerWidget {
         elevation: 0,
         titleSpacing: 0,
         title: Text(
-          'Weather Forecast',
+          'Weather Insights',
           style: const TextStyle(fontWeight: FontWeight.w700),
         ),
       ),
