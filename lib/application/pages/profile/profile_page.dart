@@ -214,7 +214,7 @@ class Profile extends ConsumerWidget {
                                 });
                           },
                         ),
-                        const SizedBox(height: 12),
+                        // const SizedBox(height: 12),
                         // _buildProfileCard(
                         //   context,
                         //   icon: Icons.agriculture,
@@ -246,6 +246,18 @@ class Profile extends ConsumerWidget {
                         //   subtitle: "English",
                         //   onTap: () {},
                         // ),
+                        const SizedBox(height: 12),
+                        _buildProfileCard(
+                          context,
+                          icon: Icons.history,
+                          title: "Activity History",
+                          subtitle: "View your prediction history",
+                          onTap: () {
+                            AppRouter.router.push(
+                              PAGES.historyPage.screenPath,
+                            );
+                          },
+                        ),
                         const SizedBox(height: 12),
                         _buildProfileCard(
                           context,
