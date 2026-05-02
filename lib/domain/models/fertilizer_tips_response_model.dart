@@ -1,6 +1,4 @@
-/// fertilizer : "Urea"
-/// confidence : 0.95
-/// feature_importance : {"additionalProp1":{}}
+
 
 class FertilizerTipsResponseModel {
   FertilizerTipsResponseModel({

@@ -1,4 +1,4 @@
-import 'package:farmer_assistance/domain/models/Crop_recommendation_response_model.dart';
+import 'package:farmer_assistance/domain/models/crop_recommendation_response_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

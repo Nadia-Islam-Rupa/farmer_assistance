@@ -4,7 +4,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../../domain/failures/failures.dart';
-import '../../../../domain/models/Crop_recommendation_response_model.dart';
+import '../../../../domain/models/crop_recommendation_response_model.dart';
 import '../../../../domain/usecases/crop_recommendation_use_case.dart';
 
 part 'crop_recommendation_bloc.freezed.dart';

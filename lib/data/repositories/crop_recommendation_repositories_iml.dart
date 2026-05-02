@@ -2,7 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:farmer_assistance/domain/failures/failures.dart';
 import 'package:farmer_assistance/domain/models/Crop_recommendation_request_model.dart';
-import 'package:farmer_assistance/domain/models/Crop_recommendation_response_model.dart';
+import 'package:farmer_assistance/domain/models/crop_recommendation_response_model.dart';
 import 'package:farmer_assistance/domain/repositories/crop_recommendation_repository.dart';
 import 'package:injectable/injectable.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';

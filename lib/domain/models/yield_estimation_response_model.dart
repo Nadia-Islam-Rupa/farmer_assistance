@@ -1,9 +1,4 @@
-/// predicted_yield : 5.2
-/// yield_unit : "t/ha"
-/// item : "Maize"
-/// area : "Brazil"
-/// confidence : 0.95
-/// feature_importance : {"additionalProp1":{}}
+
 
 class YieldEstimationResponseModel {
   YieldEstimationResponseModel({

@@ -4,7 +4,7 @@ import 'package:injectable/injectable.dart';
 
 import '../failures/failures.dart';
 import '../models/Crop_recommendation_request_model.dart';
-import '../models/Crop_recommendation_response_model.dart';
+import '../models/crop_recommendation_response_model.dart';
 
 @injectable
 class CropRecommendationUseCase {

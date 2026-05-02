@@ -1,11 +1,4 @@
-/// crop : "Wheat"
-/// soil_color : "Red"
-/// temperature : 25.0
-/// nitrogen : 80
-/// potassium : 40
-/// phosphorus : 40
-/// rainfall : 100.0
-/// ph : 6.5
+
 
 class FertilizerTipsRequestModel {
   FertilizerTipsRequestModel({

@@ -8,7 +8,7 @@ import 'package:farmer_assistance/domain/models/smart_irrigation_response_model.
 import 'package:injectable/injectable.dart';
 
 import '../../../domain/models/Crop_recommendation_request_model.dart';
-import '../../../domain/models/Crop_recommendation_response_model.dart';
+import '../../../domain/models/crop_recommendation_response_model.dart';
 import '../../../domain/models/fertilizer_tips_request_model.dart';
 import '../../../domain/models/fertilizer_tips_response_model.dart';
 import '../../../domain/models/yield_estimation_request_model.dart';

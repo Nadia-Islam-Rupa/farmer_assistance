@@ -1,9 +1,4 @@
-/// crop_id : 1
-/// soil_type : 0
-/// seedling_stage : 2
-/// moi : 40
-/// temp : 30
-/// humidity : 60
+
 
 class SmartIrrigationRequestModel {
   SmartIrrigationRequestModel({

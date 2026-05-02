@@ -1,6 +1,6 @@
 import 'package:farmer_assistance/application/core/theme/app_theme.dart';
 import 'package:farmer_assistance/application/pages/crop_recommendation/constants/crop_constants.dart';
-import 'package:farmer_assistance/domain/models/Crop_recommendation_response_model.dart';
+import 'package:farmer_assistance/domain/models/crop_recommendation_response_model.dart';
 import 'package:flutter/material.dart';
 
 class CropResultCard extends StatelessWidget {
