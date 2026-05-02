@@ -1,10 +1,7 @@
-/// nitrogen : 20
-/// phosphorus : 42
-/// potassium : 43
-/// temperature : 20.87
-/// humidity : 82
-/// ph : 6.5
-/// rainfall : 202.93
+// ignore: file_names
+
+
+// ignore_for_file: duplicate_ignore, file_names
 
 class CropRecommendationRequestModel {
   CropRecommendationRequestModel({

@@ -1,8 +1,4 @@
-/// item : "Maize"
-/// area : "Brazil"
-/// rainfall : 1300
-/// temperature : 28.5
-/// pesticides : 1800
+
 
 class YieldEstimationRequestModel {
   YieldEstimationRequestModel({

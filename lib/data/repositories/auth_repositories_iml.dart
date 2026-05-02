@@ -140,7 +140,7 @@ class AuthRepositoriesIml extends AuthRepository {
       await _supabaseClient.from('users').upsert(user.toJson());
       return right(null);
     } catch (e) {
-      print("Kawser ${e.toString()}");
+    
       return left(GeneralFailure(mapSupabaseAuthError(e)));
     }
   }

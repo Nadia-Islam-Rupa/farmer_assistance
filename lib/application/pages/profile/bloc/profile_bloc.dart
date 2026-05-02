@@ -38,7 +38,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       emit(const ProfileState.loading());
       try {
         if (event.file == null && event.name.isEmpty) {
-          print("object");
+         
           emit(
             const ProfileState.error(message: 'Please fill at list one fields'),
           );

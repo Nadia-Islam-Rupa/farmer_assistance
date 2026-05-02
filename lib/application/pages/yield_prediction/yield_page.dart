@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:farmer_assistance/application/core/theme/app_theme.dart';
 import 'package:farmer_assistance/application/pages/forcast/provider/weather_service.dart';
 import 'package:farmer_assistance/application/pages/yield_prediction/bloc/yield_prediction_bloc.dart';
